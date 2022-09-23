@@ -10,8 +10,6 @@ function t(t,e,o,n){Object.defineProperty(t,e,{get:o,set:n,enumerable:!0,configu
 async fetchHits(){const t=`https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.per_page}`,o=await e(y).get(t),n=await o.data;//! with API_KEY
 console.log("newHits: ",n);const{totalHits:i,hits:a}=n,r=i-this.page*this.per_page;console.log("endOfCollection: ",r),this.incrementPage();return{totalHits:i,hits:a,endOfCollection:r}}
 //! NEW _____________________________________________________________________________________
-//! У Ж Е   НЕ   Н А Д О  !!!!
-//! Ф-ция делает fetch-запрос для получения TotalHit:
 incrementPage(){this.page+=1}resetPage(){this.page=1}get query(){return this.searchQuery}set query(t){this.searchQuery=t}constructor(){this.searchQuery="",//! это то, что приходит в input
 //! Пагинация:
 this.page=1,//! номер страницы (группы) в fetch-запросе
@@ -30,7 +28,7 @@ x.searchForm.addEventListener("submit",(//! NEW => через import LoadMoreBtn
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function(t){//!
-if(t.preventDefault(),console.log("Вешаю слушателя на поле ввода данных - input form"),//!
+if(t.preventDefault(),
 //! это то, что приходит в input и 
 //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
 b.query=t.currentTarget.elements.searchQuery.value.trim(),//! + убираем пробелы
@@ -53,4 +51,4 @@ w.refresh()}))}
 function(t){t<=0&&(e(l).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),v.hide())}(n),o))).then((t=>{k(t),v.enable(),//! Кнопка LOAD MORE => включаем
 w.refresh()}));//! Кнопка LOAD MORE => ВЫключаем
 }));
-//# sourceMappingURL=index.802ed2a2.js.map
+//# sourceMappingURL=index.8dc90934.js.map

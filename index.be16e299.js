@@ -14,8 +14,6 @@ this.per_page=40}return t(v)(e,[{key:"fetchHits",value://! NEW +++++++++++++++++
 function(){var e=this;return t(y)(t(w).mark((function n(){var o,i,r,a,s,l,c;return t(w).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return o="".concat("https://pixabay.com/api/","?key=").concat("28759369-3882e1068ac26fe18d14affeb","&q=").concat(e.searchQuery,"&image_type=photo&orientation=horizontal&safesearch=true&page=").concat(e.page,"&per_page=").concat(e.per_page),//! with API_KEY
 n.next=3,t(C).get(o);case 3:return i=n.sent,n.next=6,i.data;case 6:return r=n.sent,console.log("newHits: ",r),a=r.totalHits,s=r.hits,l=a-e.page*e.per_page,console.log("endOfCollection: ",l),e.incrementPage(),c={totalHits:a,hits:s,endOfCollection:l},n.abrupt("return",c);case 14:case"end":return n.stop()}}),n)})))()}},{
 //! NEW _____________________________________________________________________________________
-//! У Ж Е   НЕ   Н А Д О  !!!!
-//! Ф-ция делает fetch-запрос для получения TotalHit:
 key:"incrementPage",value:function(){this.page+=1}},{key:"resetPage",value:function(){this.page=1}},{key:"query",get:function(){return this.searchQuery},set:function(t){this.searchQuery=t}}]),e}();b=r("8MBJY"),v=r("a2hTj");var E=function(){"use strict";function e(n){var o=n.selector,i=n.hidden,r=void 0!==i&&i;t(b)(this,e),this.refs=this.getRefs(o),
 //! Вычисления по сокращенной схеме: 
 //!  если hidden = true, то вызови this.hide()
@@ -28,7 +26,7 @@ O.searchForm.addEventListener("submit",(//! NEW => через import LoadMoreBtn
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function(e){//!
-if(e.preventDefault(),console.log("Вешаю слушателя на поле ввода данных - input form"),//!
+if(e.preventDefault(),
 //! это то, что приходит в input и 
 //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
 S.query=e.currentTarget.elements.searchQuery.value.trim(),//! + убираем пробелы
@@ -52,4 +50,4 @@ L.refresh()}))}
 var n=e.hits;return function(e){e<=0&&(t(l).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),I.hide())}(e.endOfCollection),n})).then((function(t){A(t),I.enable(),//! Кнопка LOAD MORE => включаем
 L.refresh()}));//! Кнопка LOAD MORE => ВЫключаем
 }))}();
-//# sourceMappingURL=index.2edcd1ac.js.map
+//# sourceMappingURL=index.be16e299.js.map
