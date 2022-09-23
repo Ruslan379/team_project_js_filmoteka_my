@@ -63,9 +63,7 @@ loadMoreBtn.refs.button.addEventListener('click', onLoadMore); //! NEW => чер
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function onFormSearch(evt) {
     evt.preventDefault();
-    console.log("Вешаю слушателя на поле ввода данных - input form"); //!
-
-
+    // console.log("Вешаю слушателя на поле ввода данных - input form"); //!
 
     //! это то, что приходит в input и 
     //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
@@ -110,16 +108,6 @@ function onFormSearch(evt) {
             // });
         });
 
-    //! Использование библиотеки SimpleLightbox (НЕ ТУТ!!!)
-    // gallery.refresh();
-    // gallery.on('show.simplelightbox', function () {
-    // });
-
-
-    // У Ж Е   НЕ   Н А Д О  !!!!
-    // Делаем fetch-запрос для получения totalHits
-    // pixabayApiService.fetchTotalHits()
-    //     .then(showsTotalHits); // Консолим свойство totalHits
 }
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 
@@ -144,12 +132,6 @@ function onLoadMore(evt) {
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
             gallery.refresh();  //? Использование библиотеки SimpleLightbox:
         });
-
-    //! Использование библиотеки SimpleLightbox (НЕ ТУТ!!!)
-    // gallery.refresh();
-    // gallery.on('show.simplelightbox', function () {
-    // });
-
 }
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -182,8 +164,6 @@ function checkHitsForEnd(endOfCollection) {
 
 //todo  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
 function appendHitsMarkup(hits) {
-    // // ! ПРОВЕРКА hits на пустой массив: (НЕ ЗДЕСЬ)
-    // checkHitsForEmpty(hits)
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
     refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(hits));
     // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
