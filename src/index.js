@@ -12,10 +12,10 @@ import ThemoviedbApiService from './js/api-themoviedb.js'; //! Импорт кл
 import getRefs from './js/get-refs.js'; //! Импорт всех ссылок с ./js/get-refs.js
 import LoadMoreBtn from './js/load-more-btn.js'; //! Импорт класса LoadMoreBtn Кнопки LOAD MORE
 
+//? Импорт массива объектов всех жанров из файла genres.js
+import { genres } from './js/genres.js'; //? api-themoviedb
 
-
-
-
+//______________________________________________ конец всех import _______________________________________________________
 
 
 
@@ -30,12 +30,11 @@ const themoviedbApiService = new ThemoviedbApiService(); //! Экземпляр 
 const loadMoreBtn = new LoadMoreBtn({
     selector: '[data-action="load-more1"]',
     hidden: true,
-    // hidden: false, //? api-themoviedb
 });
 
 // console.log(loadMoreBtn);
 // loadMoreBtn.show()
-loadMoreBtn.disable() //? api-themoviedb
+// loadMoreBtn.disable() 
 
 
 //! Вызов библиотеки SimpleLightbox:
@@ -49,10 +48,8 @@ let gallery = new SimpleLightbox('.gallery a', {
 });
 
 
-
 // https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo //! Example URL
 // fetch('https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo'); //! Example fetch-URL
-
 
 //! Формируем строку URL-запроса:
 // const url = `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&image_type=photo&page=${page}&per_page=${per_page}`; //! with API_KEY
@@ -66,33 +63,76 @@ refs.searchForm.addEventListener('submit', onFormSearch);
 // refs.loadMoreBtn.addEventListener('click', onLoadMore); //! OLD => через import getRefs from './js/get-refs.js'
 loadMoreBtn.refs.button.addEventListener('click', onLoadMore); //! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 
-//?  +++ api-themoviedb +++ Создаем слушателя событий на кнопке HOME:
+
+
+
+//? +++++++++++++++++++++++++++++++ themoviedb +++++++++++++++++++++++++++++++++++++++++
+
+//? Создаем слушателя событий на кнопке HOME:
 refs.homeBtn.addEventListener('click', onHome);
 
+//? Тестируем-консолим тип жанра по его id
+console.log("genres:", genres); //!
+// const genreName = convertingIdToGenre(10770);
+// console.log("genreName:", genreName); //!
 
-
-//? +++++++++++++++++++++++++++++++ api-themoviedb +++++++++++++++
+//? -------------------------------------- api-themoviedb ----------------------------------
 //?  Ф-ция, к-рая прослушивает события на кнопке HOME:
-function onHome(evt) {
-    loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
-    //? Делаем fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
-    themoviedbApiService.getTrendingAllDay()
-        .then((results) => {
-            console.log(results);
-        })
+async function onHome() {
+    loadMoreBtn.disable(); //!!! Кнопка LOAD MORE => ВЫключаем
+    //? Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
+    const results = await themoviedbApiService.getTrendingAllDay();
+    //! ------- Получаем все данные для рендера разметки -------
+    console.log("results:", results); //!
+    results.map(result => {
+        console.log("id:", result.id);
 
-        // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
-        .then(results => {
-            appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
-            loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
-            gallery.refresh();  //? Использование библиотеки SimpleLightbox:
-        });
+        console.log("poster_path:", result.poster_path);
+
+        // console.log("title or name:", result.title || result.name); //* работает, можно так
+        titleOrName = result.title || result.name;
+        console.log("titleOrName:", titleOrName);
+
+        // console.log("genre_ids:", result.genre_ids); //!
+        //? Получаем массив жанров для каждого фильма и строку всех жанров:
+        const genresAllOneFilmArray = result.genre_ids.map(id => convertingIdToGenre(id));
+        // console.log("genresOneFilm:", genresAllOneFilmArray); //! массив жанров для каждого фильма
+        const genresAllOneFilm = genresAllOneFilmArray.join(", ");
+        console.log("genresAllOneFilm:", genresAllOneFilm); //! строка всех жанров
+
+        date = result.first_air_date || result.release_date;
+        // console.log("date:", date); //!
+        const yearDate = date.substr(0, 4);
+        console.log("yearDate:", yearDate);
+    });
+
+
+    // themoviedbApiService.getTrendingAllDay()
+    //     .then((results) => {
+    //         console.log(results);
+    //     })
+
+    // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
+    // .then(results => {
+    //     appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
+    //     loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+    //     gallery.refresh();  //? Использование библиотеки SimpleLightbox:
+    // });
 }
-//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+//? --------------------------- themoviedb-Функции ---------------------
+//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
+function convertingIdToGenre(id) {
+    const genre = genres.filter(genre => genre.id === id);
+    // console.log("genre:", genre); //! 
+    // console.log("genre[0].name:", genre[0].name); //!
+    return genre[0].name;
+}
 
 
 //?_______________________________________________________________
+
 
 
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
