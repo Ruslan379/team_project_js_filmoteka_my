@@ -59,8 +59,8 @@ async function(){w.disable();//!!! Кнопка LOAD MORE => ВЫключаем
 const t=await v.getTrendingAllDay();
 //! ------- Получаем все данные для рендера разметки -------
 console.log("results:",t),//!
-t.map((t=>{console.log("id:",t.id),console.log("poster_path:",t.poster_path),titleOrName=t.title||t.name,console.log("titleOrName:",titleOrName);const e=t.genre_ids.map((t=>
+t.map((t=>{console.log("id:",t.id),console.log("poster_path:",t.poster_path),console.log("title or name:",t.title||t.name);const e=t.genre_ids.map((t=>
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 function(t){return x.filter((e=>e.id===t))[0].name}(t))).join(", ");console.log("genresAllOneFilm:",e),//! строка всех жанров
 date=t.first_air_date||t.release_date;const o=date.substr(0,4);console.log("yearDate:",o)}))})),console.log("genres:",x);
-//# sourceMappingURL=index.5b9881b3.js.map
+//# sourceMappingURL=index.5dc35e63.js.map
