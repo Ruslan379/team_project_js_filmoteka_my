@@ -71,10 +71,16 @@ loadMoreBtn.refs.button.addEventListener('click', onLoadMore); //! NEW => чер
 //? Создаем слушателя событий на кнопке HOME:
 refs.homeBtn.addEventListener('click', onHome);
 
+//? Создаем слушателя событий на кнопке Filmoteka:
+refs.filmotekaBtn.addEventListener('click', onHome);
+
 //? Тестируем-консолим тип жанра по его id
 console.log("genres:", genres); //!
 // const genreName = convertingIdToGenre(10770);
 // console.log("genreName:", genreName); //!
+
+//! підвантаження популярних фільмів на головну (першу) сторінку (без нажатия на кнопки HOME или Filmoteka)
+onHome();
 
 //? -------------------------------------- api-themoviedb ----------------------------------
 //?  Ф-ция, к-рая прослушивает события на кнопке HOME:
@@ -85,44 +91,37 @@ async function onHome() {
     const results = await themoviedbApiService.getTrendingAllDay();
 
     //! ------- Получаем все данные для рендера разметки -------
-    console.log("results:", results); //!
-    results.map(result => {
-        console.log("id:", result.id);
+    // console.log("results:", results); //!
+    // results.map(result => {
+    //     console.log("id:", result.id);
 
-        console.log("poster_path:", result.poster_path);
+    //     console.log("poster_path:", result.poster_path);
 
-        // console.log("title or name:", result.title || result.name); //* работает, можно так
-        const titleOrName = result.title || result.name;
-        console.log("titleOrName:", titleOrName);
+    //     // console.log("title or name:", result.title || result.name); //* работает, можно так
+    //     const titleOrName = result.title || result.name;
+    //     console.log("titleOrName:", titleOrName);
 
-        // console.log("genre_ids:", result.genre_ids); //!
-        //? Получаем массив жанров для каждого фильма и строку всех жанров:
-        const genresAllOneFilmArray = result.genre_ids.map(id => convertingIdToGenre(id));
-        // console.log("genresOneFilm:", genresAllOneFilmArray); //! массив жанров для каждого фильма
-        const genresAllOneFilm = genresAllOneFilmArray.join(", ");
-        console.log("genresAllOneFilm:", genresAllOneFilm); //! строка всех жанров
+    //     // console.log("genre_ids:", result.genre_ids); //!
+    //     //? Получаем массив жанров для каждого фильма и строку всех жанров:
+    //     const genresAllOneFilmArray = result.genre_ids.map(id => convertingIdToGenre(id));
+    //     // console.log("genresOneFilm:", genresAllOneFilmArray); //! массив жанров для каждого фильма
+    //     const genresAllOneFilm = genresAllOneFilmArray.join(", ");
+    //     console.log("genresAllOneFilm:", genresAllOneFilm); //! строка всех жанров
 
-        const date = result.first_air_date || result.release_date;
-        // console.log("date:", date); //!
-        const yearDate = date.substr(0, 4);
-        console.log("yearDate:", yearDate);
-        //!__________________________________________________________ 
+    //     //? Получаем значение года из строки даты:
+    //     const date = result.first_air_date || result.release_date;
+    //     // console.log("date:", date); //!
+    //     const yearDate = date.substr(0, 4);
+    //     console.log("yearDate:", yearDate);
+    //     //!__________________________________________________________ 
+    // });
 
-        appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
-
-    });
-
-
-    // themoviedbApiService.getTrendingAllDay()
-    //     .then((results) => {
-    //         console.log(results);
-    //     })
-
+    appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
     // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
     // .then(results => {
     //     appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
     //     loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
-    //     gallery.refresh();  //? Использование библиотеки SimpleLightbox:
+    // gallery.refresh();  //? Использование библиотеки SimpleLightbox:
     // });
 }
 
@@ -268,13 +267,27 @@ function appendHitsMarkup(results) {
 //todo   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
 function createImageCardsMarkup(results) {
     return results
-        .map(({ id, poster_path, title, name, first_air_date, release_date }) => {
+        .map(({ id, poster_path, title, name, genre_ids, first_air_date, release_date }) => {
+
+            //? Получаем массив жанров для каждого фильма и строку всех жанров:
+            const genresAllOneFilmArray = genre_ids.map(id => convertingIdToGenre(id)); //! массив жанров для каждого фильма
+            // console.log("genresOneFilm:", genresAllOneFilmArray); //!
+            const genresAllOneFilm = genresAllOneFilmArray.join(", "); //! строка всех жанров
+            // console.log("genresAllOneFilm:", genresAllOneFilm); //!
+
+            //? Получаем значение года из строки даты:
+            const date = first_air_date || release_date;
+            // console.log("date:", date); //!
+            const yearDate = date.substr(0, 4); //! значение года из строки даты:
+            // console.log("yearDate:", yearDate); //!
+
             return `
             <div >
                 <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="" />
 
                 <div>
-                    <h2>${title || name} (${first_air_date || release_date})</h2>
+                    <h5>${title || name}</h5>
+                    <h5>${genresAllOneFilm} | ${yearDate}</h5>
                 </div>
             </div>
             `;

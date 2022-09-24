@@ -8,6 +8,9 @@ export default function getRefs() {
 
     //todo Получаем ссылку на кнопку HOME:
     homeBtn: document.querySelector('.button-home'),
+
+    //todo Получаем ссылку на кнопку Filmoteka:
+    filmotekaBtn: document.querySelector('.button-filmoteka'),
   };
 }
 
