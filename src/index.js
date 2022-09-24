@@ -106,8 +106,9 @@ async function onHome() {
         // console.log("date:", date); //!
         const yearDate = date.substr(0, 4);
         console.log("yearDate:", yearDate);
-        //!__________________________________________________________    
+        //!__________________________________________________________ 
 
+        appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
 
     });
 
@@ -257,55 +258,61 @@ function showsTotalHits(totalHits) {
 
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
 //todo  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
-function appendHitsMarkup(hits) {
+function appendHitsMarkup(results) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(hits));
+    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(results));
     // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
 }
 
 
 //todo   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
-function createImageCardsMarkup(hits) {
-    return hits
-        .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+function createImageCardsMarkup(results) {
+    return results
+        .map(({ id, poster_path, title, name, first_air_date, release_date }) => {
             return `
-                <div class="photo-card">
-                        <a class="gallery__link" href="${largeImageURL}">
-                            <img class="img-card"
-                                src="${webformatURL}"
-                                alt=${tags}
-                                loading="lazy" 
-                            /> 
-                        </a>
-                    <div class="info">
-                        <p class="info-item">
-                            <b>Likes</b>
-                            <b class="info-data">${likes}</b>
-                        </p>
-                        <p class="info-item">
-                            <b>Views</b>
-                            <b class="info-data">${views}</b>
-                        </p>
-                        <p class="info-item">
-                            <b>Comments</b>
-                            <b class="info-data">${comments}</b>
-                        </p>
-                        <p class="info-item">
-                            <b>Downloads</b>
-                            <b class="info-data">${downloads}</b>
-                        </p>
-                    </div>
+            <div >
+                <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="" />
+
+                <div>
+                    <h2>${title || name} (${first_air_date || release_date})</h2>
                 </div>
+            </div>
             `;
         })
         .join('');
-}
+};
 
 
 
 
 
-
+{/* <div class="photo-card">
+    <a class="gallery__link" href="${largeImageURL}">
+        <img class="img-card"
+            src="${webformatURL}"
+            alt=${tags}
+            loading="lazy"
+        />
+    </a>
+    <div class="info">
+        <p class="info-item">
+            <b>Likes</b>
+            <b class="info-data">${likes}</b>
+        </p>
+        <p class="info-item">
+            <b>Views</b>
+            <b class="info-data">${views}</b>
+        </p>
+        <p class="info-item">
+            <b>Comments</b>
+            <b class="info-data">${comments}</b>
+        </p>
+        <p class="info-item">
+            <b>Downloads</b>
+            <b class="info-data">${downloads}</b>
+        </p>
+    </div>
+</div> */}
 
 
 
