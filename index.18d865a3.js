@@ -25,7 +25,7 @@ let k=new(e(c))(".gallery a",{captionPosition:"bottom",captionDelay:250,captions
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
 function C(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-b.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:o,likes:n,views:i,comments:a,downloads:r})=>`\n                <div class="photo-card">\n                        <a class="gallery__link" href="${e}">\n                            <img class="img-card"\n                                src="${t}"\n                                alt=${o}\n                                loading="lazy" \n                            /> \n                        </a>\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">${n}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">${r}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(t))}b.searchForm.addEventListener("submit",(
+b.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({id:t,poster_path:e,title:o,name:n,first_air_date:i,release_date:a})=>`\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300${e}" alt="" />\n\n                <div>\n                    <h2>${o||n} (${i||a})</h2>\n                </div>\n            </div>\n            `)).join("")}(t))}b.searchForm.addEventListener("submit",(
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function(t){//!
@@ -59,8 +59,10 @@ async function(){w.disable();//!!! Кнопка LOAD MORE => ВЫключаем
 const t=await v.getTrendingAllDay();
 //! ------- Получаем все данные для рендера разметки -------
 console.log("results:",t),//!
-t.map((t=>{console.log("id:",t.id),console.log("poster_path:",t.poster_path);const e=t.title||t.name;console.log("titleOrName:",e);const o=t.genre_ids.map((t=>
+t.map((e=>{console.log("id:",e.id),console.log("poster_path:",e.poster_path);const o=e.title||e.name;console.log("titleOrName:",o);const n=e.genre_ids.map((t=>
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
-function(t){return x.filter((e=>e.id===t))[0].name}(t))).join(", ");console.log("genresAllOneFilm:",o),//! строка всех жанров
-date=t.first_air_date||t.release_date;const n=date.substr(0,4);console.log("yearDate:",n)}))})),console.log("genres:",x);
-//# sourceMappingURL=index.15708359.js.map
+function(t){return x.filter((e=>e.id===t))[0].name}(t))).join(", ");console.log("genresAllOneFilm:",n);//! строка всех жанров
+const i=(e.first_air_date||e.release_date).substr(0,4);console.log("yearDate:",i),
+//!__________________________________________________________ 
+C(t)}))})),console.log("genres:",x);
+//# sourceMappingURL=index.18d865a3.js.map
