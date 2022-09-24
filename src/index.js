@@ -89,9 +89,9 @@ async function onHome() {
 
         console.log("poster_path:", result.poster_path);
 
-        // console.log("title or name:", result.title || result.name); //* работает, можно так
-        titleOrName = result.title || result.name;
-        console.log("titleOrName:", titleOrName);
+        console.log("title or name:", result.title || result.name); //* работает, можно так
+        // titleOrName = result.title || result.name;
+        // console.log("titleOrName:", titleOrName);
 
         // console.log("genre_ids:", result.genre_ids); //!
         //? Получаем массив жанров для каждого фильма и строку всех жанров:
