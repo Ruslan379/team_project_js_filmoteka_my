@@ -6,8 +6,8 @@ export default function getRefs() {
     //todo Получаем ссылку на div-контейнер для разметки карточек изображений:
     imageCards: document.querySelector('.gallery'),
 
-    //todo Получаем ссылку на кнопку LOAD MORE:
-    // loadMoreBtn: document.querySelector('.load-more'), //! OLD
+    //todo Получаем ссылку на кнопку HOME:
+    homeBtn: document.querySelector('.button-home'),
   };
 }
 
