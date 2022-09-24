@@ -26,8 +26,8 @@ r&&this.hide()}return t(C)(e,[{key:"getRefs",value:function(t){var e={};return e
 t.next=3,M.getTrendingAllDay();case 3:n=t.sent,
 //! ------- Получаем все данные для рендера разметки -------
 console.log("results:",n),//!
-n.map((function(t){console.log("id:",t.id),console.log("poster_path:",t.poster_path),console.log("title or name:",t.title||t.name);var e=t.genre_ids.map((function(t){return P(t)})).join(", ");console.log("genresAllOneFilm:",e),//! строка всех жанров
-date=t.first_air_date||t.release_date;var n=date.substr(0,4);console.log("yearDate:",n)}));case 6:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
+n.map((function(t){console.log("id:",t.id),console.log("poster_path:",t.poster_path);var e=t.title||t.name;console.log("titleOrName:",e);var n=t.genre_ids.map((function(t){return P(t)})).join(", ");console.log("genresAllOneFilm:",n),//! строка всех жанров
+date=t.first_air_date||t.release_date;var o=date.substr(0,4);console.log("yearDate:",o)}));case 6:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 function P(t){return B.filter((function(e){return e.id===t}))[0].name}
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
@@ -66,4 +66,4 @@ W.refresh()}));//! Кнопка LOAD MORE => ВЫключаем
 })),//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 z.homeBtn.addEventListener("click",(//!
 function(){return X.apply(this,arguments)})),console.log("genres:",B)}();
-//# sourceMappingURL=index.9b712cf1.js.map
+//# sourceMappingURL=index.437d3106.js.map
