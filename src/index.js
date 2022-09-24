@@ -8,25 +8,34 @@ import SimpleLightbox from "simplelightbox";
 //? Библиотека SimpleLightbox - дополнительный импорт стилей
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-import PixabayApiService from './js/api-pixabay-service.js'; //! Импорт класса PixabayApiService с ./js/get-refs.js
+import ThemoviedbApiService from './js/api-themoviedb.js'; //! Импорт класса ThemoviedbApiService с ./js/get-refs.js
 import getRefs from './js/get-refs.js'; //! Импорт всех ссылок с ./js/get-refs.js
 import LoadMoreBtn from './js/load-more-btn.js'; //! Импорт класса LoadMoreBtn Кнопки LOAD MORE
 
-// import API from './js/api-service.js';
+
+
+
+
+
+
+
+
+
 
 const refs = getRefs(); //! Создаем объект всех ссылок refs.*
 
-const pixabayApiService = new PixabayApiService(); //! Экземпляр класса PixabayApiService
+const themoviedbApiService = new ThemoviedbApiService(); //! Экземпляр класса ThemoviedbApiService
 
 //! Экземпляр класса LoadMoreBtn = Кнопка LOAD MORE
 const loadMoreBtn = new LoadMoreBtn({
     selector: '[data-action="load-more1"]',
     hidden: true,
+    // hidden: false, //? api-themoviedb
 });
 
 // console.log(loadMoreBtn);
 // loadMoreBtn.show()
-// loadMoreBtn.disable()
+loadMoreBtn.disable() //? api-themoviedb
 
 
 //! Вызов библиотеки SimpleLightbox:
@@ -57,6 +66,34 @@ refs.searchForm.addEventListener('submit', onFormSearch);
 // refs.loadMoreBtn.addEventListener('click', onLoadMore); //! OLD => через import getRefs from './js/get-refs.js'
 loadMoreBtn.refs.button.addEventListener('click', onLoadMore); //! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 
+//?  +++ api-themoviedb +++ Создаем слушателя событий на кнопке HOME:
+refs.homeBtn.addEventListener('click', onHome);
+
+
+
+//? +++++++++++++++++++++++++++++++ api-themoviedb +++++++++++++++
+//?  Ф-ция, к-рая прослушивает события на кнопке HOME:
+function onHome(evt) {
+    loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
+    //? Делаем fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
+    themoviedbApiService.getTrendingAllDay()
+        .then((results) => {
+            console.log(results);
+        })
+
+        // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
+        .then(results => {
+            appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
+            loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+            gallery.refresh();  //? Использование библиотеки SimpleLightbox:
+        });
+}
+//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+//?_______________________________________________________________
+
 
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -66,11 +103,11 @@ function onFormSearch(evt) {
     // console.log("Вешаю слушателя на поле ввода данных - input form"); //!
 
     //! это то, что приходит в input и 
-    //! записывается с помощью сетера класса PixabayApiService в переменную searchQuery
-    pixabayApiService.query = evt.currentTarget.elements.searchQuery.value.trim(); //! + убираем пробелы
-    console.log("searchQuery: ", pixabayApiService.query); //!
+    //! записывается с помощью сетера класса ThemoviedbApiService в переменную searchQuery
+    themoviedbApiService.query = evt.currentTarget.elements.searchQuery.value.trim(); //! + убираем пробелы
+    console.log("searchQuery: ", themoviedbApiService.query); //!
 
-    if (pixabayApiService.query === "") {
+    if (themoviedbApiService.query === "") {
         return alert("Поле ввода не долно быть пустым!");
     }
 
@@ -79,15 +116,15 @@ function onFormSearch(evt) {
     loadMoreBtn.disable()
 
     //! Делаем сброс значения page = 1 после submit form 
-    //! с помощью метода resetPage из класса PixabayApiService
-    pixabayApiService.resetPage()
+    //! с помощью метода resetPage из класса ThemoviedbApiService
+    themoviedbApiService.resetPage()
 
     //! Очищаем контейнер при новом вводе данных в input form:
     clearHitsContainer()
 
     loadMoreBtn.disable()
-    //? Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
-    pixabayApiService.fetchHits()
+    //? Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
+    themoviedbApiService.fetchHits()
         .then(({ totalHits, hits, endOfCollection }) => {
             // console.log("totalHits: ", totalHits); //!
             // console.log("hits: ", hits); //!
@@ -109,15 +146,14 @@ function onFormSearch(evt) {
         });
 
 }
-//! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 
+
+//! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 function onLoadMore(evt) {
     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
-
-
-    //? Делаем fetch-запрос с помощью метода .fetchHits из класса PixabayApiService
-    pixabayApiService.fetchHits()
+    //? Делаем fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
+    themoviedbApiService.fetchHits()
         .then(({ totalHits, hits, endOfCollection }) => {
             // console.log("totalHits: ", totalHits); //!
             // console.log("hits: ", hits); //!
@@ -160,24 +196,10 @@ function checkHitsForEnd(endOfCollection) {
 
 
 
-
-
-//todo  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
-function appendHitsMarkup(hits) {
-    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(hits));
-    // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
-
-}
-
-
-
-
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
 function clearHitsContainer() {
     refs.imageCards.innerHTML = "";
 }
-
 
 
 
@@ -187,6 +209,14 @@ function showsTotalHits(totalHits) {
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`, { timeout: 3000, },);;
 }
 
+
+//! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
+//todo  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
+function appendHitsMarkup(hits) {
+    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(hits));
+    // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
+}
 
 
 //todo   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
