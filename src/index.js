@@ -80,8 +80,10 @@ console.log("genres:", genres); //!
 //?  Ф-ция, к-рая прослушивает события на кнопке HOME:
 async function onHome() {
     loadMoreBtn.disable(); //!!! Кнопка LOAD MORE => ВЫключаем
+
     //? Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
+
     //! ------- Получаем все данные для рендера разметки -------
     console.log("results:", results); //!
     results.map(result => {
@@ -100,10 +102,13 @@ async function onHome() {
         const genresAllOneFilm = genresAllOneFilmArray.join(", ");
         console.log("genresAllOneFilm:", genresAllOneFilm); //! строка всех жанров
 
-        date = result.first_air_date || result.release_date;
+        const date = result.first_air_date || result.release_date;
         // console.log("date:", date); //!
         const yearDate = date.substr(0, 4);
         console.log("yearDate:", yearDate);
+        //!__________________________________________________________    
+
+
     });
 
 
