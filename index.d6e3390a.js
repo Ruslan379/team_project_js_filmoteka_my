@@ -30,17 +30,19 @@ w.show(),w.disable(),
 N();const t=await v.getTrendingAllDay();
 //! ------- Получаем и консолим все данные для рендера разметки главной страницы -------
 console.log("results:",t),//!
-E(t),w.enable()}
-//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
-//!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-function N(){b.imageCards.innerHTML=""}
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
-function E(t){
+function(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-b.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({id:t,poster_path:e,title:n,name:o,genre_ids:i,first_air_date:a,release_date:r})=>`\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300${e}" alt="" />\n\n                <div>\n                    <h5>${n||o}</h5>\n                    <h5>${i.map((t=>function(t){return x.filter((e=>e.id===t))[0].name}
+b.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({id:t,poster_path:e,title:n,name:o,genre_ids:i,first_air_date:a,release_date:r})=>`\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300${e}" alt="" />\n\n                <div>\n                    <h5>${n||o}</h5>\n                    <h5>${i.map((t=>
+//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
+function(t){return x.filter((e=>e.id===t))[0].name}
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
-(t))).join(", ")} | ${(a||r).substr(0,4)}</h5>\n                </div>\n            </div>\n            `)).join("")}(t))}b.searchForm.addEventListener("submit",(function(t){//!
+(t))).join(", ")} | ${(a||r).substr(0,4)}</h5>\n                </div>\n            </div>\n            `)).join("")}(t))}(t),w.enable()}
+//!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
+function N(){b.imageCards.innerHTML=""}function E(t){
+//!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+b.imageCards.insertAdjacentHTML("beforeend",t.map((({webformatURL:t,largeImageURL:e,tags:n,likes:o,views:i,comments:a,downloads:r})=>`\n                <div class="photo-card">\n                        <a class="gallery__link" href="${e}">\n                            <img class="img-card"\n                                src="${t}"\n                                alt=${n}\n                                loading="lazy" \n                            /> \n                        </a>\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">${o}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">${r}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join(""))}b.searchForm.addEventListener("submit",(function(t){//!
 if(t.preventDefault(),
 //! это то, что приходит в input и 
 //! записывается с помощью сетера класса ThemoviedbApiService в переменную searchQuery
@@ -57,9 +59,7 @@ N(),w.disable(),v.fetchHits().then((({totalHits:t,hits:n,endOfCollection:o})=>(
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function(t){void 0===t[0]&&(e(l).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),w.hide())}
 //! Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
-(n),function(t){t>0&&e(l).Notify.success(`Hooray! We found ${t} images.`,{timeout:3e3})}(t),n))).then((t=>{var e;e=t,
-//!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-b.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({webformatURL:t,largeImageURL:e,tags:n,likes:o,views:i,comments:a,downloads:r})=>`\n                <div class="photo-card">\n                        <a class="gallery__link" href="${e}">\n                            <img class="img-card"\n                                src="${t}"\n                                alt=${n}\n                                loading="lazy" \n                            /> \n                        </a>\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">${o}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">${i}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">${a}</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">${r}</b>\n                        </p>\n                    </div>\n                </div>\n            `)).join("")}(e)),w.enable(),//! Кнопка LOAD MORE => включаем
+(n),function(t){t>0&&e(l).Notify.success(`Hooray! We found ${t} images.`,{timeout:3e3})}(t),n))).then((t=>{E(t),w.enable(),//! Кнопка LOAD MORE => включаем
 k.refresh()}))}
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
@@ -69,4 +69,4 @@ function(t){t<=0&&(e(l).Notify.warning("We're sorry, but you've reached the end 
 k.refresh()}));//! Кнопка LOAD MORE => ВЫключаем
 })),//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 b.homeBtn.addEventListener("click",C),b.filmotekaBtn.addEventListener("click",C),console.log("genres:",x);
-//# sourceMappingURL=index.21bd359a.js.map
+//# sourceMappingURL=index.d6e3390a.js.map

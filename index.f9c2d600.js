@@ -48,7 +48,9 @@ z.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 (t)})).join(", "),l=(r||a).substr(0,4);//! значение года из строки даты:
-return'\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||o,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}(t))}z.searchForm.addEventListener("submit",(function(e){//!
+return'\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||o,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}(t))}function U(t){
+//!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+z.imageCards.insertAdjacentHTML("beforeend",t.map((function(t){var e=t.webformatURL,n=t.largeImageURL,o=t.tags,i=t.likes,r=t.views,a=t.comments,s=t.downloads;return'\n                <div class="photo-card">\n                        <a class="gallery__link" href="'.concat(n,'">\n                            <img class="img-card"\n                                src="').concat(e,'"\n                                alt=').concat(o,'\n                                loading="lazy" \n                            /> \n                        </a>\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">').concat(i,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">').concat(r,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">').concat(a,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">').concat(s,"</b>\n                        </p>\n                    </div>\n                </div>\n            ")})).join(""))}z.searchForm.addEventListener("submit",(function(e){//!
 if(e.preventDefault(),
 //! это то, что приходит в input и 
 //! записывается с помощью сетера класса ThemoviedbApiService в переменную searchQuery
@@ -66,16 +68,14 @@ e.endOfCollection;
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 return function(e){void 0===e[0]&&(t(u).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),D.hide())}
 //! Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
-(o),function(e){e>0&&t(u).Notify.success("Hooray! We found ".concat(e," images."),{timeout:3e3})}(n),o})).then((function(t){var e;e=t,
-//!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-z.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t){var e=t.webformatURL,n=t.largeImageURL,o=t.tags,i=t.likes,r=t.views,a=t.comments,s=t.downloads;return'\n                <div class="photo-card">\n                        <a class="gallery__link" href="'.concat(n,'">\n                            <img class="img-card"\n                                src="').concat(e,'"\n                                alt=').concat(o,'\n                                loading="lazy" \n                            /> \n                        </a>\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">').concat(i,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">').concat(r,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">').concat(a,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">').concat(s,"</b>\n                        </p>\n                    </div>\n                </div>\n            ")})).join("")}(e)),D.enable(),//! Кнопка LOAD MORE => включаем
+(o),function(e){e>0&&t(u).Notify.success("Hooray! We found ".concat(e," images."),{timeout:3e3})}(n),o})).then((function(t){U(t),D.enable(),//! Кнопка LOAD MORE => включаем
 W.refresh()}))}
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 )),D.refs.button.addEventListener("click",(function(e){D.disable(),M.fetchHits().then((function(e){e.totalHits;
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-var n=e.hits;return function(e){e<=0&&(t(u).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),D.hide())}(e.endOfCollection),n})).then((function(t){_(t),D.enable(),//! Кнопка LOAD MORE => включаем
+var n=e.hits;return function(e){e<=0&&(t(u).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),D.hide())}(e.endOfCollection),n})).then((function(t){U(t),D.enable(),//! Кнопка LOAD MORE => включаем
 W.refresh()}));//! Кнопка LOAD MORE => ВЫключаем
 })),//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
 z.homeBtn.addEventListener("click",X),z.filmotekaBtn.addEventListener("click",X),console.log("genres:",B)}();
-//# sourceMappingURL=index.bde43a64.js.map
+//# sourceMappingURL=index.f9c2d600.js.map
