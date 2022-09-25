@@ -50,7 +50,8 @@ let gallery = new SimpleLightbox('.gallery a', {
 
 //todo +++++++++++++++++++++++++++++++ Создаем ВСЕХ слушателей +++++++++++++++++++++++++++++++++++++++++
 //!  Создаем слушателя событий на поле ввода данных - input form:
-refs.searchForm.addEventListener('submit', onFormSearch);
+// refs.searchForm.addEventListener('submit', onFormSearch); //todo OLD
+refs.searchForm.addEventListener('submit', onFormMoviesSearch);
 
 //!  Создаем слушателя событий на кнопке LOAD MORE:
 // refs.loadMoreBtn.addEventListener('click', onLoadMore); // OLD => через import getRefs from './js/get-refs.js'
@@ -86,7 +87,8 @@ console.log("genres:", genres); //!
 
 
 
-//! -------------------------- Ф-ция-запос, к-рая прослушивает события на кнопке HOME: ----------------------
+//* -------------------------- Ф-ция-запос, к-рая прослушивает события на кнопке HOME: ----------------------
+//! +++ Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka) +++
 async function onHome() {
     //! Кнопка LOAD MORE => показываем и отключаем
     loadMoreBtn.show()
@@ -98,7 +100,7 @@ async function onHome() {
     //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
 
-    //! ------- Получаем и консолим все данные для рендера разметки главной страницы -------
+    //? ------- Получаем и консолим все данные для рендера разметки главной страницы -------
     // console.log("results:", results); //!
     // results.map(result => {
     //     console.log("id:", result.id);
@@ -117,14 +119,14 @@ async function onHome() {
     //     console.log("genresAllOneFilm:", genresAllOneFilm); //! строка всех жанров
 
     //     //? Получаем значение года из строки даты:
-    //     const date = result.first_air_date || result.release_date;
+    //     const date = result.first_air_date || result.release_date || "???? - ?? - ??";;
     //     // console.log("date:", date); //!
     //     const yearDate = date.substr(0, 4);
     //     console.log("yearDate:", yearDate);
     // });
-    //!_________________КОНЕЦ Получения и консоли всех данных _____________________
+    //?_________________КОНЕЦ Получения и консоли всех данных _____________________
 
-    //! Рисование интерфейса
+    //! Рисование интерфейса 
     appendHitsMarkup(results);
 
     //! Кнопка LOAD MORE => включаем
@@ -135,30 +137,18 @@ async function onHome() {
 }
 
 
-//? --------------------------- themoviedb-Функции ---------------------
-//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
-function convertingIdToGenre(id) {
-    const genre = genres.filter(genre => genre.id === id);
-    // console.log("genre:", genre); //! 
-    // console.log("genre[0].name:", genre[0].name); //!
-    return genre[0].name;
-}
 
-
-//?_______________________________________________________________
-
-
-
-//! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
-//!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
-function onFormSearch(evt) {
+//* ---------- Ф-ция, к-рая прослушивает события на поле ввода данных - input form::-------
+//! ++++++++++ Пошук та відображення фільмів за ключовим словом из input form +++++++++++
+async function onFormMoviesSearch(evt) {
     evt.preventDefault();
-    // console.log("Вешаю слушателя на поле ввода данных - input form"); //!
-
     //! это то, что приходит в input и 
     //! записывается с помощью сетера класса ThemoviedbApiService в переменную searchQuery
     themoviedbApiService.query = evt.currentTarget.elements.searchQuery.value.trim(); //! + убираем пробелы
     console.log("searchQuery: ", themoviedbApiService.query); //!
+    // console.log("evt.currentTarget.elements.searchQuery.value: ", evt.currentTarget.elements.searchQuery.value); //!
+    evt.currentTarget.elements.searchQuery.value = "";
+    // console.log("evt.currentTarget.elements.searchQuery.value: ", evt.currentTarget.elements.searchQuery.value); //!
 
     if (themoviedbApiService.query === "") {
         return alert("Поле ввода не долно быть пустым!");
@@ -175,55 +165,65 @@ function onFormSearch(evt) {
     //! Очищаем контейнер при новом вводе данных в input form:
     clearHitsContainer()
 
-    loadMoreBtn.disable()
-    //? Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
-    themoviedbApiService.fetchHits()
-        .then(({ totalHits, hits, endOfCollection }) => {
-            // console.log("totalHits: ", totalHits); //!
-            // console.log("hits: ", hits); //!
-            // console.log("endOfCollection: ", endOfCollection); //!
+    //! Кнопка LOAD MORE =>  отключаем
+    // loadMoreBtn.disable()
 
-            //! ПРОВЕРКА hits на пустой массив 
-            checkHitsForEmpty(hits)
+    //! Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
+    const results = await themoviedbApiService.getSearchMovies();
+    console.log("results:", results); //!
 
-            showsTotalHits(totalHits) //* Консолим свойство totalHits
-            return hits
-        })
-        .then(hits => {
-            appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
-            loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
-            gallery.refresh();  //? Использование библиотеки SimpleLightbox:
-        });
+    //! ПРОВЕРКА hits на пустой массив
+    checkHitsForEmpty(results);
+
+    //! Рисование интерфейса
+    appendHitsMarkup(results);
+
+    //! Кнопка LOAD MORE => включаем
+    loadMoreBtn.enable();
+
+    //? Использование библиотеки SimpleLightbox:
+    // gallery.refresh();
 };
 //! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
 
-//! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
+//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE  ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-function onLoadMore(evt) {
+async function onLoadMore(evt) {
     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
-    //? Делаем fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
-    themoviedbApiService.fetchHits()
-        .then(({ totalHits, hits, endOfCollection }) => {
-            // console.log("totalHits: ", totalHits); //!
-            // console.log("hits: ", hits); //!
 
-            //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-            checkHitsForEnd(endOfCollection)
-            return hits
-        })
-        // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
-        .then(hits => {
-            appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
-            loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
-            gallery.refresh();  //? Использование библиотеки SimpleLightbox:
-        });
+    //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
+    const results = await themoviedbApiService.getTrendingAllDay();
+
+    //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
+    // checkHitsForEnd(endOfCollection);
+
+    //! Рисование интерфейса
+    appendHitsMarkup(results);
+
+    //! Кнопка LOAD MORE => включаем
+    loadMoreBtn.enable();
 }
-//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
+//? --------------------------- themoviedb-Функции ---------------------
+//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
+function convertingIdToGenre(id) {
+    const genre = genres.filter(genre => genre.id === id);
+    // console.log("genre:", genre); //! 
+    // console.log("genre[0].name:", genre[0].name); //!
+    return genre[0].name;
+}
+
+//!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
+function clearHitsContainer() {
+    refs.imageCards.innerHTML = "";
+}
+
+//?_____________________________________________________________________
 
 
 //?  Ф-ция, к-рая  прверяет hits на пустой массив:
@@ -236,9 +236,7 @@ function checkHitsForEmpty(hits) {
 }
 
 
-
-
-//! Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
+//? Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
 function checkHitsForEnd(endOfCollection) {
     if (endOfCollection <= 0) {
         Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`, { timeout: 3000, },);
@@ -247,15 +245,7 @@ function checkHitsForEnd(endOfCollection) {
 }
 
 
-
-//!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-function clearHitsContainer() {
-    refs.imageCards.innerHTML = "";
-}
-
-
-
-//*   Ф-ция, к-рая консолит свойство totalHits:
+//?   Ф-ция, к-рая консолит свойство totalHits:
 function showsTotalHits(totalHits) {
     if (totalHits > 0)
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`, { timeout: 3000, },);;
@@ -263,7 +253,7 @@ function showsTotalHits(totalHits) {
 
 
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
-//todo  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
+//*  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
 function appendHitsMarkup(results) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
     refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(results));
@@ -271,7 +261,7 @@ function appendHitsMarkup(results) {
 }
 
 
-//todo   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
+//*   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
 function createImageCardsMarkup(results) {
     return results
         .map(({ id, poster_path, title, name, genre_ids, first_air_date, release_date }) => {
@@ -283,7 +273,7 @@ function createImageCardsMarkup(results) {
             // console.log("genresAllOneFilm:", genresAllOneFilm); //!
 
             //? Получаем значение года из строки даты:
-            const date = first_air_date || release_date;
+            const date = first_air_date || release_date || "???? - ?? - ??";
             // console.log("date:", date); //!
             const yearDate = date.substr(0, 4); //! значение года из строки даты:
             // console.log("yearDate:", yearDate); //!
@@ -304,50 +294,123 @@ function createImageCardsMarkup(results) {
 
 
 
+//todo ---------------------------  OLD  уже не надо---------------------------------------------
+// +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
+//  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
+// function onFormSearch(evt) {
+//     evt.preventDefault();
+//     // console.log("Вешаю слушателя на поле ввода данных - input form"); //!
+
+//     //! это то, что приходит в input и
+//     //! записывается с помощью сетера класса ThemoviedbApiService в переменную searchQuery
+//     themoviedbApiService.query = evt.currentTarget.elements.searchQuery.value.trim(); //! + убираем пробелы
+//     console.log("searchQuery: ", themoviedbApiService.query); //!
+
+//     if (themoviedbApiService.query === "") {
+//         return alert("Поле ввода не долно быть пустым!");
+//     }
+
+//     //! Кнопка LOAD MORE => показываем и отключаем
+//     loadMoreBtn.show()
+//     loadMoreBtn.disable()
+
+//     //! Делаем сброс значения page = 1 после submit form
+//     //! с помощью метода resetPage из класса ThemoviedbApiService
+//     themoviedbApiService.resetPage()
+
+//     //! Очищаем контейнер при новом вводе данных в input form:
+//     clearHitsContainer()
+
+//     loadMoreBtn.disable()
+//     //? Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
+//     themoviedbApiService.fetchHits()
+//         .then(({ totalHits, hits, endOfCollection }) => {
+//             // console.log("totalHits: ", totalHits); //!
+//             // console.log("hits: ", hits); //!
+//             // console.log("endOfCollection: ", endOfCollection); //!
+
+//             //! ПРОВЕРКА hits на пустой массив
+//             checkHitsForEmpty(hits)
+
+//             showsTotalHits(totalHits) //* Консолим свойство totalHits
+//             return hits
+//         })
+//         .then(hits => {
+//             appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
+//             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+//             gallery.refresh();  //? Использование библиотеки SimpleLightbox:
+//         });
+// };
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-//todo  +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
-//todo  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
-function appendHitsMarkup_OLD(results) {
-    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup_OLD(results));
-    // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
-}
+// ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE _OLD ++++++++++++++++++++++++++++++++++++++++++++
+//  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
+// function onLoadMore(evt) {
+//     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
+//     //? Делаем fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
+//     themoviedbApiService.fetchHits()
+//         .then(({ totalHits, hits, endOfCollection }) => {
+//             // console.log("totalHits: ", totalHits); //!
+//             // console.log("hits: ", hits); //!
+
+//             //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
+//             checkHitsForEnd(endOfCollection)
+//             return hits
+//         })
+//         // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
+//         .then(hits => {
+//             appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
+//             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+//             gallery.refresh();  //? Использование библиотеки SimpleLightbox:
+//         });
+// }
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-//todo   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
-function createImageCardsMarkup_OLD(hits) {
-    return hits
-        .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
-            return `
-                <div class="photo-card">
-                        <a class="gallery__link" href="${largeImageURL}">
-                            <img class="img-card"
-                                src="${webformatURL}"
-                                alt=${tags}
-                                loading="lazy" 
-                            /> 
-                        </a>
-                    <div class="info">
-                        <p class="info-item">
-                            <b>Likes</b>
-                            <b class="info-data">${likes}</b>
-                        </p>
-                        <p class="info-item">
-                            <b>Views</b>
-                            <b class="info-data">${views}</b>
-                        </p>
-                        <p class="info-item">
-                            <b>Comments</b>
-                            <b class="info-data">${comments}</b>
-                        </p>
-                        <p class="info-item">
-                            <b>Downloads</b>
-                            <b class="info-data">${downloads}</b>
-                        </p>
-                    </div>
-                </div>
-            `;
-        })
-        .join('');
-}
+
+//  +++++++++++++++++++++++++++++ Markup _OLD ++++++++++++++++++++++++++++++++++++++++++++++++++++
+// _OLD Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
+// function appendHitsMarkup_OLD(results) {
+//     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+//     refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup_OLD(results));
+//     // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
+// }
+
+
+// _OLD  Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
+// function createImageCardsMarkup_OLD(hits) {
+//     return hits
+//         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+//             return `
+//                 <div class="photo-card">
+//                         <a class="gallery__link" href="${largeImageURL}">
+//                             <img class="img-card"
+//                                 src="${webformatURL}"
+//                                 alt=${tags}
+//                                 loading="lazy"
+//                             />
+//                         </a>
+//                     <div class="info">
+//                         <p class="info-item">
+//                             <b>Likes</b>
+//                             <b class="info-data">${likes}</b>
+//                         </p>
+//                         <p class="info-item">
+//                             <b>Views</b>
+//                             <b class="info-data">${views}</b>
+//                         </p>
+//                         <p class="info-item">
+//                             <b>Comments</b>
+//                             <b class="info-data">${comments}</b>
+//                         </p>
+//                         <p class="info-item">
+//                             <b>Downloads</b>
+//                             <b class="info-data">${downloads}</b>
+//                         </p>
+//                     </div>
+//                 </div>
+//             `;
+//         })
+//         .join('');
+// }

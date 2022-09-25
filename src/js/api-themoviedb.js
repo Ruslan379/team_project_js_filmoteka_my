@@ -26,8 +26,8 @@ const REVIEWS = "reviews"
 // const url_1 = `${BASE_URL}/${END_POINTS_1}?api_key=${API_KEY}`;
 // console.log("url_1: ", url_1); //!
 
-const url_2 = `${BASE_URL}/${END_POINTS_2}?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
-console.log("url_2: ", url_2); //!
+// const url_2 = `${BASE_URL}/${END_POINTS_2}?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
+// console.log("url_2: ", url_2); //!
 
 const url_3 = `${BASE_URL}/${END_POINTS_3}/${movie_id}?api_key=${API_KEY}&language=en-US`;
 console.log("url_3: ", url_3); //!
@@ -60,23 +60,34 @@ export default class ThemoviedbApiService {
         this.per_page = 40; // по ТЗ надо 40
     }
 
-    //? ++++++++++++++++++++++++++++++++++++++++++++++ Формируем URL-запросы: ++++++++++++++++++++++++++++++++++++++++++++++
-    //? 1 - Загрузка популярных фильмов на главную (первую) страницу 
+    //! ++++++++++++++++++++++++++++++++++++++++++++++ Формируем URL-запросы: ++++++++++++++++++++++++++++++++++++++++++++++
+    //! 1 - Загрузка популярных фильмов на главную (первую) страницу 
     async getTrendingAllDay() {
-        const url_1 = `${BASE_URL}/${END_POINTS_1}?api_key=${API_KEY}`;
+        const url_1 = `${BASE_URL}/${END_POINTS_1}?api_key=${API_KEY}&page=${this.page}`;
         // console.log("url_1: ", url_1); //!
         const response = await axios.get(url_1) //! 1 
-        const { results } = response.data
+        const { results } = response.data;
+        this.incrementPage();
+        console.log("this.page: ", this.page); //!
+        return results;
+    }
+
+    //! 2 
+    async getSearchMovies() {
+        const url_2 = `${BASE_URL}/${END_POINTS_2}?api_key=${API_KEY}&language=en-US&query=${this.searchQuery}&page=${this.page}&include_adult=false`;
+        console.log("url_2: ", url_2); //!
+        const response = await axios.get(url_2) //!
+        const { results } = response.data //*  /search/search-movies ==> поиск кинофильма по ключевому слову на странице фильмов.
+        // this.incrementPage();
+        // console.log("this.page: ", this.page); //!
         return results;
     }
 
 
 
 
-
-
     //?_______________________________________________________________
-
+    //todo -------------------  OLD  уже не надо------------------------------
     async fetchHits() {
 
         const url_old = `${BASE_URL_OLD}?key=${API_KEY_OLD}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.per_page}`; //! with API_KEY
@@ -97,7 +108,7 @@ export default class ThemoviedbApiService {
         const all = { totalHits, hits, endOfCollection }
         return all
     }
-    //! NEW _____________________________________________________________________________________
+    //!  _____________________________________________________________________________________
 
 
     incrementPage() {
