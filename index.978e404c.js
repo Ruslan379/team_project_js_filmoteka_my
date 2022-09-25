@@ -16,9 +16,7 @@ var A="".concat(N,"/").concat("movie","/").concat(O,"/").concat("reviews","?api_
 var T=function(){"use strict";function e(){t(k)(this,e),this.searchQuery="",//! это то, что приходит в input
 //! Пагинация:
 this.page=1,//! номер страницы (группы) в fetch-запросе
-this.per_page=40}return t(C)(e,[{key:"getTrendingAllDay",value://! NEW ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function(){return t(a)(t(l).mark((function e(){var n,o,i;return t(l).wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return n="".concat(N,"/").concat("trending/all/day","?api_key=").concat(E),console.log("url_1: ",n),//!
-e.next=4,t(w).get(n);case 4:return o=e.sent,i=o.data.results,e.abrupt("return",i);case 7:case"end":return e.stop()}}),e)})))()}},{key:"fetchHits",value:function(){var e=this;return t(a)(t(l).mark((function n(){var o,i,r,a,s,c,f;return t(l).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return o="".concat("https://pixabay.com/api/","?key=").concat("28759369-3882e1068ac26fe18d14affeb","&q=").concat(e.searchQuery,"&image_type=photo&orientation=horizontal&safesearch=true&page=").concat(e.page,"&per_page=").concat(e.per_page),//! with API_KEY
+this.per_page=40}return t(C)(e,[{key:"getTrendingAllDay",value:function(){return t(a)(t(l).mark((function e(){var n,o,i;return t(l).wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return n="".concat(N,"/").concat("trending/all/day","?api_key=").concat(E),e.next=3,t(w).get(n);case 3:return o=e.sent,i=o.data.results,e.abrupt("return",i);case 6:case"end":return e.stop()}}),e)})))()}},{key:"fetchHits",value:function(){var e=this;return t(a)(t(l).mark((function n(){var o,i,r,a,s,c,f;return t(l).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return o="".concat("https://pixabay.com/api/","?key=").concat("28759369-3882e1068ac26fe18d14affeb","&q=").concat(e.searchQuery,"&image_type=photo&orientation=horizontal&safesearch=true&page=").concat(e.page,"&per_page=").concat(e.per_page),//! with API_KEY
 n.next=3,t(w).get(o);case 3:return i=n.sent,n.next=6,i.data;case 6:return r=n.sent,console.log("url_old: ",o),//!
 console.log("newHits: ",r),//! 
 a=r.totalHits,s=r.hits,c=a-e.page*e.per_page,console.log("endOfCollection: ",c),e.incrementPage(),f={totalHits:a,hits:s,endOfCollection:c},n.abrupt("return",f);case 15:case"end":return n.stop()}}),n)})))()}},{
@@ -29,15 +27,18 @@ key:"incrementPage",value:function(){this.page+=1}},{key:"resetPage",value:funct
 r&&this.hide()}return t(C)(e,[{key:"getRefs",value:function(t){var e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}},{key:"enable",value:function(){this.refs.button.disabled=!1,this.refs.label.textContent="LOAD MORE",this.refs.spinner.classList.add("is-hidden")}},{key:"disable",value:function(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}},{key:"show",value:function(){this.refs.button.classList.remove("is-hidden")}},{key:"hide",value:function(){this.refs.button.classList.add("is-hidden")}}]),e}(),B=[{id:28,name:"Action"},{id:12,name:"Adventure"},{id:16,name:"Animation"},{id:80,name:"Crime"},{id:18,name:"Drama"},{id:14,name:"Fantasy"},{id:36,name:"History"},{id:27,name:"Horror"},{id:10402,name:"Music"},{id:9648,name:"Mystery"},{id:10749,name:"Romance"},{id:878,name:"Science Fiction"},{id:10770,name:"TV Movie"},{id:53,name:"Thriller"},{id:10752,name:"War"},{id:37,name:"Western"},{id:10759,name:"Action & Adventure"},{id:35,name:"Comedy"},{id:99,name:"Documentary"},{id:10751,name:"Family"},{id:10762,name:"Kids"},{id:10763,name:"News"},{id:10764,name:"Reality"},{id:10765,name:"Sci-Fi & Fantasy"},{id:10766,name:"Soap"},{id:10767,name:"Talk"},{id:10768,name:"War & Politics"}],z={searchForm:document.querySelector("#search-form"),imageCards:document.querySelector(".gallery"),homeBtn:document.querySelector(".button-home"),filmotekaBtn:document.querySelector(".button-filmoteka")},M=new T,D=new R({selector:'[data-action="load-more1"]',hidden:!0}),W=new(t(p))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});//!
 function X(){return P.apply(this,arguments)}function P(){return(P=
 //! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
-t(a)(t(l).mark((function e(){var n;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:
+//! -------------------------- Ф-ция-запос, к-рая прослушивает события на кнопке HOME: ----------------------
+t(a)(t(l).mark((function e(){return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:
 //! Кнопка LOAD MORE => показываем и отключаем
 return D.show(),D.disable(),
 //! Очищаем контейнер:
-j(),t.next=5,M.getTrendingAllDay();case 5:n=t.sent,
+j(),t.next=5,M.getTrendingAllDay();case 5:
 //! ------- Получаем и консолим все данные для рендера разметки главной страницы -------
-console.log("results:",n),//!
-_(n),D.enable();//! Кнопка LOAD MORE => включаем
-case 9:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
+//!_________________КОНЕЦ Получения и консоли всех данных _____________________
+//! Рисование интерфейса
+_(t.sent),
+//! Кнопка LOAD MORE => включаем
+D.enable();case 8:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
 function j(){z.imageCards.innerHTML=""}
@@ -50,7 +51,9 @@ z.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t
 (t)})).join(", "),l=(r||a).substr(0,4);//! значение года из строки даты:
 return'\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||o,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}(t))}function U(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-z.imageCards.insertAdjacentHTML("beforeend",t.map((function(t){var e=t.webformatURL,n=t.largeImageURL,o=t.tags,i=t.likes,r=t.views,a=t.comments,s=t.downloads;return'\n                <div class="photo-card">\n                        <a class="gallery__link" href="'.concat(n,'">\n                            <img class="img-card"\n                                src="').concat(e,'"\n                                alt=').concat(o,'\n                                loading="lazy" \n                            /> \n                        </a>\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">').concat(i,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">').concat(r,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">').concat(a,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">').concat(s,"</b>\n                        </p>\n                    </div>\n                </div>\n            ")})).join(""))}z.searchForm.addEventListener("submit",(function(e){//!
+z.imageCards.insertAdjacentHTML("beforeend",t.map((function(t){var e=t.webformatURL,n=t.largeImageURL,o=t.tags,i=t.likes,r=t.views,a=t.comments,s=t.downloads;return'\n                <div class="photo-card">\n                        <a class="gallery__link" href="'.concat(n,'">\n                            <img class="img-card"\n                                src="').concat(e,'"\n                                alt=').concat(o,'\n                                loading="lazy" \n                            /> \n                        </a>\n                    <div class="info">\n                        <p class="info-item">\n                            <b>Likes</b>\n                            <b class="info-data">').concat(i,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Views</b>\n                            <b class="info-data">').concat(r,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Comments</b>\n                            <b class="info-data">').concat(a,'</b>\n                        </p>\n                        <p class="info-item">\n                            <b>Downloads</b>\n                            <b class="info-data">').concat(s,"</b>\n                        </p>\n                    </div>\n                </div>\n            ")})).join(""))}
+//!  Создаем слушателя событий на поле ввода данных - input form:
+z.searchForm.addEventListener("submit",(function(e){//!
 if(e.preventDefault(),
 //! это то, что приходит в input и 
 //! записывается с помощью сетера класса ThemoviedbApiService в переменную searchQuery
@@ -70,12 +73,18 @@ return function(e){void 0===e[0]&&(t(u).Notify.failure("Sorry, there are no imag
 //! Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
 (o),function(e){e>0&&t(u).Notify.success("Hooray! We found ".concat(e," images."),{timeout:3e3})}(n),o})).then((function(t){U(t),D.enable(),//! Кнопка LOAD MORE => включаем
 W.refresh()}))}
+//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-)),D.refs.button.addEventListener("click",(function(e){D.disable(),M.fetchHits().then((function(e){e.totalHits;
+)),
+//!  Создаем слушателя событий на кнопке LOAD MORE:
+D.refs.button.addEventListener("click",(function(e){D.disable(),M.fetchHits().then((function(e){e.totalHits;
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
 var n=e.hits;return function(e){e<=0&&(t(u).Notify.warning("We're sorry, but you've reached the end of search results.",{timeout:3e3}),D.hide())}(e.endOfCollection),n})).then((function(t){U(t),D.enable(),//! Кнопка LOAD MORE => включаем
 W.refresh()}));//! Кнопка LOAD MORE => ВЫключаем
-})),//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
-z.homeBtn.addEventListener("click",X),z.filmotekaBtn.addEventListener("click",X),console.log("genres:",B)}();
-//# sourceMappingURL=index.f9c2d600.js.map
+})),
+//! Создаем слушателя событий на кнопке HOME:
+z.homeBtn.addEventListener("click",X),
+//! Создаем слушателя событий на кнопке Filmoteka:
+z.filmotekaBtn.addEventListener("click",X),console.log("genres:",B)}();
+//# sourceMappingURL=index.978e404c.js.map
