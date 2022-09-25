@@ -20,27 +20,29 @@ this.per_page=40}return t(C)(e,[{key:"getTrendingAllDay",value://! +++++++++++++
 function(){var e=this;return t(a)(t(l).mark((function n(){var o,i,r;return t(l).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return o="".concat(N,"/").concat("trending/all/day","?api_key=").concat(E,"&page=").concat(e.page),n.next=3,t(w).get(o);case 3://!
 return i=n.sent,r=i.data.results,e.incrementPage(),console.log("this.page: ",e.page),n.abrupt("return",r);case 8:case"end":return n.stop()}}),n)})))()}},{key:"getSearchMovies",value://! 2 
 function(){var e=this;return t(a)(t(l).mark((function n(){var o,i,r;return t(l).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return o="".concat(N,"/").concat("search/movie","?api_key=").concat(E,"&language=en-US&query=").concat(e.searchQuery,"&page=").concat(e.page,"&include_adult=false"),console.log("url_2: ",o),//!
-n.next=4,t(w).get(o);case 4:return i=n.sent,r=i.data.results,n.abrupt("return",r);case 7:case"end":return n.stop()}}),n)})))()}},{key:"fetchHits",value:function(){var e=this;return t(a)(t(l).mark((function n(){var o,i,r,a,s,c,f;return t(l).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return o="".concat("https://pixabay.com/api/","?key=").concat("28759369-3882e1068ac26fe18d14affeb","&q=").concat(e.searchQuery,"&image_type=photo&orientation=horizontal&safesearch=true&page=").concat(e.page,"&per_page=").concat(e.per_page),//! with API_KEY
-n.next=3,t(w).get(o);case 3:return i=n.sent,n.next=6,i.data;case 6:return r=n.sent,console.log("url_old: ",o),//!
-console.log("newHits: ",r),//! 
-a=r.totalHits,s=r.hits,c=a-e.page*e.per_page,console.log("endOfCollection: ",c),e.incrementPage(),f={totalHits:a,hits:s,endOfCollection:c},n.abrupt("return",f);case 15:case"end":return n.stop()}}),n)})))()}},{
+n.next=4,t(w).get(o);case 4:return i=n.sent,r=i.data.results,n.abrupt("return",r);case 7:case"end":return n.stop()}}),n)})))()}},{
 //!  _____________________________________________________________________________________
 key:"incrementPage",value:function(){this.page+=1}},{key:"resetPage",value:function(){this.page=1}},{key:"query",get:function(){return this.searchQuery},set:function(t){this.searchQuery=t}}]),e}();k=r("8MBJY"),C=r("a2hTj");var T=function(){"use strict";function e(n){var o=n.selector,i=n.hidden,r=void 0!==i&&i;t(k)(this,e),this.refs=this.getRefs(o),
 //! Вычисления по сокращенной схеме: 
 //!  если hidden = true, то вызови this.hide()
-r&&this.hide()}return t(C)(e,[{key:"getRefs",value:function(t){var e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}},{key:"enable",value:function(){this.refs.button.disabled=!1,this.refs.label.textContent="LOAD MORE",this.refs.spinner.classList.add("is-hidden")}},{key:"disable",value:function(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}},{key:"show",value:function(){this.refs.button.classList.remove("is-hidden")}},{key:"hide",value:function(){this.refs.button.classList.add("is-hidden")}}]),e}(),R=[{id:28,name:"Action"},{id:12,name:"Adventure"},{id:16,name:"Animation"},{id:80,name:"Crime"},{id:18,name:"Drama"},{id:14,name:"Fantasy"},{id:36,name:"History"},{id:27,name:"Horror"},{id:10402,name:"Music"},{id:9648,name:"Mystery"},{id:10749,name:"Romance"},{id:878,name:"Science Fiction"},{id:10770,name:"TV Movie"},{id:53,name:"Thriller"},{id:10752,name:"War"},{id:37,name:"Western"},{id:10759,name:"Action & Adventure"},{id:35,name:"Comedy"},{id:99,name:"Documentary"},{id:10751,name:"Family"},{id:10762,name:"Kids"},{id:10763,name:"News"},{id:10764,name:"Reality"},{id:10765,name:"Sci-Fi & Fantasy"},{id:10766,name:"Soap"},{id:10767,name:"Talk"},{id:10768,name:"War & Politics"}],B={searchForm:document.querySelector("#search-form"),imageCards:document.querySelector(".gallery"),homeBtn:document.querySelector(".button-home"),filmotekaBtn:document.querySelector(".button-filmoteka")},z=new A,M=new T({selector:'[data-action="load-more1"]',hidden:!0});new(t(p))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});//!
+r&&this.hide()}return t(C)(e,[{key:"getRefs",value:function(t){var e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}},{key:"enable",value:function(){this.refs.button.disabled=!1,this.refs.label.textContent="LOAD MORE",this.refs.spinner.classList.add("is-hidden")}},{key:"disable",value:function(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}},{key:"show",value:function(){this.refs.button.classList.remove("is-hidden")}},{key:"hide",value:function(){this.refs.button.classList.add("is-hidden")}}]),e}(),R=[{id:28,name:"Action"},{id:12,name:"Adventure"},{id:16,name:"Animation"},{id:80,name:"Crime"},{id:18,name:"Drama"},{id:14,name:"Fantasy"},{id:36,name:"History"},{id:27,name:"Horror"},{id:10402,name:"Music"},{id:9648,name:"Mystery"},{id:10749,name:"Romance"},{id:878,name:"Science Fiction"},{id:10770,name:"TV Movie"},{id:53,name:"Thriller"},{id:10752,name:"War"},{id:37,name:"Western"},{id:10759,name:"Action & Adventure"},{id:35,name:"Comedy"},{id:99,name:"Documentary"},{id:10751,name:"Family"},{id:10762,name:"Kids"},{id:10763,name:"News"},{id:10764,name:"Reality"},{id:10765,name:"Sci-Fi & Fantasy"},{id:10766,name:"Soap"},{id:10767,name:"Talk"},{id:10768,name:"War & Politics"}],B={searchForm:document.querySelector("#search-form"),imageCards:document.querySelector(".gallery"),homeBtn:document.querySelector(".button-home"),filmotekaBtn:document.querySelector(".button-filmoteka"),resultNotSuccessful:document.querySelector(".search-form-alert")},z=new A,M=new T({selector:'[data-action="load-more1"]',hidden:!0});new(t(p))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});//!
 function D(){return W.apply(this,arguments)}function W(){return(W=
 //! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 //! +++ Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka) +++
 t(a)(t(l).mark((function e(){return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:
+//! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+return B.resultNotSuccessful.hidden=!0,
+//! Делаем сброс значения page = 1 после submit form 
+//! с помощью метода resetPage из класса ThemoviedbApiService
+z.resetPage(),
 //! Кнопка LOAD MORE => показываем и отключаем
-return M.show(),M.disable(),
+M.show(),M.disable(),
 //! Очищаем контейнер:
-j(),t.next=5,z.getTrendingAllDay();case 5:
+j(),t.next=7,z.getTrendingAllDay();case 7:
 //! Рисование интерфейса 
 U(t.sent),
 //! Кнопка LOAD MORE => включаем
-M.enable();case 8:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function X(){return(X=
+M.enable();case 10:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function X(){return(X=
 //! ++++++++++ Пошук та відображення фільмів за ключовим словом из input form +++++++++++
 t(a)(t(l).mark((function e(n){var o;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if(n.preventDefault(),
 //! это то, что приходит в input и 
@@ -48,29 +50,37 @@ t(a)(t(l).mark((function e(n){var o;return t(l).wrap((function(t){for(;;)switch(
 z.query=n.currentTarget.elements.searchQuery.value.trim(),//! + убираем пробелы
 console.log("searchQuery: ",z.query),//!
 n.currentTarget.elements.searchQuery.value="",""!==z.query){t.next=6;break}return t.abrupt("return",alert("Поле ввода не долно быть пустым!"));case 6:
+//! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+return B.resultNotSuccessful.hidden=!0,
 //! Кнопка LOAD MORE => показываем и отключаем
-return M.show(),M.disable(),
+M.show(),M.disable(),
 //! Делаем сброс значения page = 1 после submit form 
 //! с помощью метода resetPage из класса ThemoviedbApiService
 z.resetPage(),
 //! Очищаем контейнер при новом вводе данных в input form:
-j(),t.next=12,z.getSearchMovies();case 12:o=t.sent,console.log("results:",o),//!
+j(),t.next=13,z.getSearchMovies();case 13:o=t.sent,console.log("results:",o),//!
 //! ПРОВЕРКА hits на пустой массив
 _(o),
 //! Рисование интерфейса
 U(o),
 //! Кнопка LOAD MORE => включаем
-M.enable();case 17:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function P(){return(P=//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+M.enable();case 18:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function P(){return(P=//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-t(a)(t(l).mark((function e(n){return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return M.disable(),t.next=3,z.getTrendingAllDay();case 3:
+t(a)(t(l).mark((function e(n){var o;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return M.disable(),t.next=3,z.getTrendingAllDay();case 3:o=t.sent,
+//! Очищаем контейнер:
+j(),
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
 //! Рисование интерфейса
-U(t.sent),
+U(o),
 //! Кнопка LOAD MORE => включаем
-M.enable();case 6:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
+M.enable();case 7:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-function j(){B.imageCards.innerHTML=""}function _(e){void 0===e[0]&&(t(u).Notify.failure("Sorry, there are no images matching your search query. Please try again.",{timeout:3e3}),M.hide())}
+function j(){B.imageCards.innerHTML=""}
+//!  Ф-ция, к-рая  прверяет results на пустой массив:
+function _(e){e.length||(
+//! ПОКАЗЫВАЕМ строку предупреждения об отсутствии фильмов:
+B.resultNotSuccessful.hidden=!1,t(u).Notify.failure("Search result not successful. Enter the correct movie name and",{timeout:3e3}),M.hide())}
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
 function U(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
@@ -83,5 +93,7 @@ M.refs.button.addEventListener("click",(function(t){return P.apply(this,argument
 //! Создаем слушателя событий на кнопке HOME:
 B.homeBtn.addEventListener("click",D),
 //! Создаем слушателя событий на кнопке Filmoteka:
-B.filmotekaBtn.addEventListener("click",D),console.log("genres:",R)}();
-//# sourceMappingURL=index.2e86760f.js.map
+B.filmotekaBtn.addEventListener("click",D),
+//! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+B.resultNotSuccessful.hidden=!0,console.log("genres:",R)}();
+//# sourceMappingURL=index.ab34e2ac.js.map
