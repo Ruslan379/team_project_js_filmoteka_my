@@ -68,7 +68,7 @@ export default class ThemoviedbApiService {
         const response = await axios.get(url_1) //! 1 
         const { results } = response.data;
         this.incrementPage();
-        console.log("this.page: ", this.page); //!
+        console.log("getTrendingAllDay ==> this.page: ", this.page); //!
         return results;
     }
 
@@ -78,8 +78,8 @@ export default class ThemoviedbApiService {
         console.log("url_2: ", url_2); //!
         const response = await axios.get(url_2) //!
         const { results } = response.data //*  /search/search-movies ==> поиск кинофильма по ключевому слову на странице фильмов.
-        // this.incrementPage();
-        // console.log("this.page: ", this.page); //!
+        this.incrementPage();
+        console.log("getSearchMovies ==> this.page: ", this.page); //!
         return results;
     }
 
