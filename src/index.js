@@ -159,7 +159,7 @@ async function onHome() {
     //? ------- Получаем и консолим все данные для рендера разметки главной страницы -------
     // console.log("results:", results); //!
     // results.map(result => {
-    //     console.log("id:", result.id);
+    //     console.log("id:", result.id); //!
 
     //     console.log("poster_path:", result.poster_path);
 
@@ -286,8 +286,18 @@ async function onMovieDetails(event) {
     }
     //? ------- Получаем и консолим все данные для рендера разметки главной страницы -------
     console.log("getMovieDetails ==> infoFilms:", infoFilms); //!
-
-
+    const titleOrName = infoFilms.title || infoFilms.name;
+    console.log("titleOrName:", titleOrName);
+    console.log("id:", infoFilms.id); //!
+    console.log("poster_path:", infoFilms.poster_path);
+    console.log("Vote:", infoFilms.vote_average);
+    console.log("Votes:", infoFilms.vote_count);
+    console.log("Popularity:", infoFilms.popularity);
+    const originalTitleOrName = infoFilms.original_title || infoFilms.original_name;
+    console.log("Original Title:", originalTitleOrName);
+    const genresAllOneFilm = infoFilms.genres.map(item => item.name).join(", ");
+    console.log("Genre:", genresAllOneFilm); //! строка всех жанров
+    console.log("About:", infoFilms.overview);
     //?_________________КОНЕЦ Получения и консоли всех данных _____________________
 
     //! ==> Открываем модалку
