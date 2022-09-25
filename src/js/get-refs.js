@@ -11,6 +11,9 @@ export default function getRefs() {
 
     //todo Получаем ссылку на кнопку Filmoteka:
     filmotekaBtn: document.querySelector('.button-filmoteka'),
+
+    //todo Получаем ссылку на строку предупреждения об отсутствии фильмов:
+    resultNotSuccessful: document.querySelector('.search-form-alert'),
   };
 }
 

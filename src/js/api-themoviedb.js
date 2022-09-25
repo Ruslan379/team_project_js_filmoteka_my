@@ -88,26 +88,27 @@ export default class ThemoviedbApiService {
 
     //?_______________________________________________________________
     //todo -------------------  OLD  уже не надо------------------------------
-    async fetchHits() {
+    // async fetchHits() {
 
-        const url_old = `${BASE_URL_OLD}?key=${API_KEY_OLD}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.per_page}`; //! with API_KEY
-        // console.log("url_old: ", url_old); //!
+    //     const url_old = `${BASE_URL_OLD}?key=${API_KEY_OLD}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.per_page}`; //! with API_KEY
+    //     // console.log("url_old: ", url_old); //!
 
-        const response = await axios.get(url_old);
-        const newHits = await response.data;
-        console.log("url_old: ", url_old); //!
-        console.log("newHits: ", newHits); //! 
+    //     const response = await axios.get(url_old);
+    //     const newHits = await response.data;
+    //     console.log("url_old: ", url_old); //!
+    //     console.log("newHits: ", newHits); //! 
 
-        const { totalHits, hits } = newHits;
+    //     const { totalHits, hits } = newHits;
 
-        const endOfCollection = totalHits - this.page * this.per_page //! 
-        console.log("endOfCollection: ", endOfCollection);
+    //     const endOfCollection = totalHits - this.page * this.per_page //! 
+    //     console.log("endOfCollection: ", endOfCollection);
 
-        this.incrementPage();
+    //     this.incrementPage();
 
-        const all = { totalHits, hits, endOfCollection }
-        return all
-    }
+    //     const all = { totalHits, hits, endOfCollection }
+    //     return all
+    // }
+    //todo _____________________________________________________________________
     //!  _____________________________________________________________________________________
 
 
