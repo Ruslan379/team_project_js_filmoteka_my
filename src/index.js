@@ -48,13 +48,6 @@ let gallery = new SimpleLightbox('.gallery a', {
 });
 
 
-// https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo //! Example URL
-// fetch('https://pixabay.com/api/?key=28759369-3882e1068ac26fe18d14affeb&q=yellow+flowers&image_type=photo'); //! Example fetch-URL
-
-//! Формируем строку URL-запроса:
-// const url = `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&image_type=photo&page=${page}&per_page=${per_page}`; //! with API_KEY
-// console.log(url);
-
 
 //todo  Создаем слушателя событий на поле ввода данных - input form:
 refs.searchForm.addEventListener('submit', onFormSearch);
@@ -79,19 +72,24 @@ console.log("genres:", genres); //!
 // const genreName = convertingIdToGenre(10770);
 // console.log("genreName:", genreName); //!
 
-//! підвантаження популярних фільмів на головну (першу) сторінку (без нажатия на кнопки HOME или Filmoteka)
-onHome();
+//! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
+// onHome();
 
 //? -------------------------------------- api-themoviedb ----------------------------------
 //?  Ф-ция, к-рая прослушивает события на кнопке HOME:
 async function onHome() {
-    loadMoreBtn.disable(); //!!! Кнопка LOAD MORE => ВЫключаем
+    //! Кнопка LOAD MORE => показываем и отключаем
+    // loadMoreBtn.show()
+    // loadMoreBtn.disable();
+
+    //! Очищаем контейнер:
+    // clearHitsContainer();
 
     //? Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
 
-    //! ------- Получаем все данные для рендера разметки -------
-    // console.log("results:", results); //!
+    //! ------- Получаем и консолим все данные для рендера разметки главной страницы -------
+    console.log("results:", results); //!
     // results.map(result => {
     //     console.log("id:", result.id);
 
@@ -117,10 +115,8 @@ async function onHome() {
     // });
 
     appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
-    // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
-    // .then(results => {
-    //     appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
-    //     loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+
+    // loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
     // gallery.refresh();  //? Использование библиотеки SimpleLightbox:
     // });
 }
