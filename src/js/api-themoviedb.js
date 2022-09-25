@@ -10,7 +10,7 @@ const END_POINTS_1 = "trending/all/day" //!  /trending/all/day ==> список 
 
 const END_POINTS_2 = "search/movie" //!  /search/search-movies ==> поиск кинофильма по ключевому слову на странице фильмов.
 const query = "avatar" //?
-const page = 1; //? можно добавить в строку запроса
+// const page = 1; //? можно добавить в строку запроса
 
 const END_POINTS_3 = "movie" //!  /movies/get-movie-details ==> запрос полной информации о фильме для страницы кинофильма.
 const movie_id = 616037 //?
@@ -39,25 +39,14 @@ const url_5 = `${BASE_URL}/${END_POINTS_5}/${movie_id}/${REVIEWS}?api_key=${API_
 console.log("url_5: ", url_5); //!
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //?_______________________________________________________________
+
+
+
+
 //! Переменные для URL-запроса:
-// const API_KEY = '28759369-3882e1068ac26fe18d14affeb';
-// const BASE_URL = 'https://pixabay.com/api/';
+const API_KEY_OLD = '28759369-3882e1068ac26fe18d14affeb';
+const BASE_URL_OLD = 'https://pixabay.com/api/';
 
 export default class ThemoviedbApiService {
     constructor() {
@@ -90,15 +79,17 @@ export default class ThemoviedbApiService {
 
     async fetchHits() {
 
-        const url = `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.per_page}`; //! with API_KEY
+        const url_old = `${BASE_URL_OLD}?key=${API_KEY_OLD}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.per_page}`; //! with API_KEY
+        // console.log("url_old: ", url_old); //!
 
-        const response = await axios.get(url);
+        const response = await axios.get(url_old);
         const newHits = await response.data;
-        console.log("newHits: ", newHits);
+        console.log("url_old: ", url_old); //!
+        console.log("newHits: ", newHits); //! 
 
         const { totalHits, hits } = newHits;
 
-        const endOfCollection = totalHits - this.page * this.per_page
+        const endOfCollection = totalHits - this.page * this.per_page //! 
         console.log("endOfCollection: ", endOfCollection);
 
         this.incrementPage();

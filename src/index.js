@@ -79,11 +79,11 @@ console.log("genres:", genres); //!
 //?  Ф-ция, к-рая прослушивает события на кнопке HOME:
 async function onHome() {
     //! Кнопка LOAD MORE => показываем и отключаем
-    // loadMoreBtn.show()
-    // loadMoreBtn.disable();
+    loadMoreBtn.show()
+    loadMoreBtn.disable();
 
     //! Очищаем контейнер:
-    // clearHitsContainer();
+    clearHitsContainer();
 
     //? Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
@@ -116,7 +116,7 @@ async function onHome() {
 
     appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
 
-    // loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+    loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
     // gallery.refresh();  //? Использование библиотеки SimpleLightbox:
     // });
 }
@@ -179,7 +179,7 @@ function onFormSearch(evt) {
         })
         // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
         .then(hits => {
-            appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию
+            appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
             gallery.refresh();  //? Использование библиотеки SimpleLightbox:
             // gallery.on('show.simplelightbox', function () {
@@ -295,36 +295,48 @@ function createImageCardsMarkup(results) {
 
 
 
-{/* <div class="photo-card">
-    <a class="gallery__link" href="${largeImageURL}">
-        <img class="img-card"
-            src="${webformatURL}"
-            alt=${tags}
-            loading="lazy"
-        />
-    </a>
-    <div class="info">
-        <p class="info-item">
-            <b>Likes</b>
-            <b class="info-data">${likes}</b>
-        </p>
-        <p class="info-item">
-            <b>Views</b>
-            <b class="info-data">${views}</b>
-        </p>
-        <p class="info-item">
-            <b>Comments</b>
-            <b class="info-data">${comments}</b>
-        </p>
-        <p class="info-item">
-            <b>Downloads</b>
-            <b class="info-data">${downloads}</b>
-        </p>
-    </div>
-</div> */}
+//todo  +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
+//todo  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
+function appendHitsMarkup_OLD(results) {
+    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup_OLD(results));
+    // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
+}
 
 
-
-
-
-
+//todo   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
+function createImageCardsMarkup_OLD(hits) {
+    return hits
+        .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+            return `
+                <div class="photo-card">
+                        <a class="gallery__link" href="${largeImageURL}">
+                            <img class="img-card"
+                                src="${webformatURL}"
+                                alt=${tags}
+                                loading="lazy" 
+                            /> 
+                        </a>
+                    <div class="info">
+                        <p class="info-item">
+                            <b>Likes</b>
+                            <b class="info-data">${likes}</b>
+                        </p>
+                        <p class="info-item">
+                            <b>Views</b>
+                            <b class="info-data">${views}</b>
+                        </p>
+                        <p class="info-item">
+                            <b>Comments</b>
+                            <b class="info-data">${comments}</b>
+                        </p>
+                        <p class="info-item">
+                            <b>Downloads</b>
+                            <b class="info-data">${downloads}</b>
+                        </p>
+                    </div>
+                </div>
+            `;
+        })
+        .join('');
+}
