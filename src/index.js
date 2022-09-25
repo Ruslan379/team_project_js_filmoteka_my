@@ -69,9 +69,21 @@ refs.filmotekaBtn.addEventListener('click', onHome);
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 // console.log(refs.inputAlert); //!
 refs.resultNotSuccessful.hidden = true;
+
+//! Создаем слушателя событий на <section class="section-hero">:
+refs.movieDetails.addEventListener('click', onMovieDetails);
+
+
 //todo __________________________________ КОНЕЦ создаения ВСЕХ слушателей __________________________________
 
-//! Переменная для определения типа запроса в кнопке LOAD MORE
+//! Создаем глобальную переменную (films) для хранения значение всей (results)
+let films = [];
+
+//! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
+let idFilms = 0;
+
+
+//! Переменная для определения типа запроса в кнопке LOAD MORE - пока не пригодилась
 let currentPage = "";
 
 
@@ -115,6 +127,9 @@ async function onHome() {
 
     //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
+
+    //! Перезаписываем в глобальную переменную (films) значение всей (results)
+    films = results;
 
     //? ------- Получаем и консолим все данные для рендера разметки главной страницы -------
     // console.log("results:", results); //!
@@ -190,7 +205,10 @@ async function onFormMoviesSearch(evt) {
 
     //! Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
     const results = await themoviedbApiService.getSearchMovies();
-    console.log("results:", results); //!
+    // console.log("results:", results); //!
+
+    //! Перезаписываем в глобальную переменную (films) значение всей (results)
+    films = results;
 
     //! ПРОВЕРКА hits на пустой массив
     checkHitsForEmpty(results);
@@ -208,6 +226,32 @@ async function onFormMoviesSearch(evt) {
 
 
 
+//* -------------------------- Ф-ция-запрос_3, к-рая запрашивает полную информацию о фильме: ----------------------
+//! +++ _____ +++
+async function onMovieDetails(event) {
+    // console.log("Вешаю слушателя на onMovieDetails"); //!
+    if (event.target.src) {
+        //! Получаем (id) фильма для отрисовки карточки с полной информацией об єтом фильме
+        // console.log("event.target.src: ", event.target.src); //!
+        // const allPosterPath = event.target.substr(33);
+        const allPosterPath = String(event.target.src);
+        // alert(typeof allPosterPath); // string //!
+        // console.log("allPosterPath:", allPosterPath); //!
+        const posterPath = allPosterPath.substring(31);
+        // console.log("posterPath:", posterPath); //!
+
+        console.log("films:", films); //!
+
+        const i = films.findIndex(film => film.poster_path === posterPath)
+        // console.log("i:", i); //!
+        idFilms = films[i].id; //! id фильма
+    } else return;
+
+    console.log("idFilms:", idFilms); //! id фильма
+}
+
+
+
 
 //* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ция-запрос_1) ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
@@ -217,6 +261,9 @@ async function onLoadMore(evt) {
 
     //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
+
+    //! Перезаписываем в глобальную переменную (films) значение всей (results)
+    films = results;
 
     //! Очищаем контейнер:
     clearHitsContainer();

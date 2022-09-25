@@ -14,6 +14,9 @@ export default function getRefs() {
 
     //todo Получаем ссылку на строку предупреждения об отсутствии фильмов:
     resultNotSuccessful: document.querySelector('.search-form-alert'),
+
+    //todo Получаем ссылку на <section class="section-hero">:
+    movieDetails: document.querySelector('.section-hero'),
   };
 }
 

@@ -44,9 +44,9 @@ console.log("url_5: ", url_5); //!
 
 
 
-//! Переменные для URL-запроса:
-const API_KEY_OLD = '28759369-3882e1068ac26fe18d14affeb';
-const BASE_URL_OLD = 'https://pixabay.com/api/';
+//! Переменные для URL-запроса_OLD:
+// const API_KEY_OLD = '28759369-3882e1068ac26fe18d14affeb';
+// const BASE_URL_OLD = 'https://pixabay.com/api/';
 
 
 
