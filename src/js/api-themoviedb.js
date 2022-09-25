@@ -48,6 +48,10 @@ console.log("url_5: ", url_5); //!
 const API_KEY_OLD = '28759369-3882e1068ac26fe18d14affeb';
 const BASE_URL_OLD = 'https://pixabay.com/api/';
 
+
+
+
+
 export default class ThemoviedbApiService {
     constructor() {
         this.searchQuery = ""; //! это то, что приходит в input
@@ -56,15 +60,11 @@ export default class ThemoviedbApiService {
         this.per_page = 40; // по ТЗ надо 40
     }
 
-
-    //! NEW ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //? Формируем URL-запросы:
-    //? 1 
+    //? ++++++++++++++++++++++++++++++++++++++++++++++ Формируем URL-запросы: ++++++++++++++++++++++++++++++++++++++++++++++
+    //? 1 - Загрузка популярных фильмов на главную (первую) страницу 
     async getTrendingAllDay() {
-
         const url_1 = `${BASE_URL}/${END_POINTS_1}?api_key=${API_KEY}`;
-        console.log("url_1: ", url_1); //!
-
+        // console.log("url_1: ", url_1); //!
         const response = await axios.get(url_1) //! 1 
         const { results } = response.data
         return results;

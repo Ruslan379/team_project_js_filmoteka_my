@@ -5,14 +5,14 @@ import Notiflix from 'notiflix';
 
 //! Библиотека SimpleLightbox
 import SimpleLightbox from "simplelightbox";
-//? Библиотека SimpleLightbox - дополнительный импорт стилей
+// Библиотека SimpleLightbox - дополнительный импорт стилей
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-import ThemoviedbApiService from './js/api-themoviedb.js'; //! Импорт класса ThemoviedbApiService с ./js/get-refs.js
-import getRefs from './js/get-refs.js'; //! Импорт всех ссылок с ./js/get-refs.js
-import LoadMoreBtn from './js/load-more-btn.js'; //! Импорт класса LoadMoreBtn Кнопки LOAD MORE
+import ThemoviedbApiService from './js/api-themoviedb.js'; // Импорт класса ThemoviedbApiService с ./js/get-refs.js
+import getRefs from './js/get-refs.js'; // Импорт всех ссылок с ./js/get-refs.js
+import LoadMoreBtn from './js/load-more-btn.js'; // Импорт класса LoadMoreBtn Кнопки LOAD MORE
 
-//? Импорт массива объектов всех жанров из файла genres.js
+//! Импорт массива объектов всех жанров из файла genres.js
 import { genres } from './js/genres.js'; //? api-themoviedb
 
 //______________________________________________ конец всех import _______________________________________________________
@@ -48,35 +48,45 @@ let gallery = new SimpleLightbox('.gallery a', {
 });
 
 
-
-//todo  Создаем слушателя событий на поле ввода данных - input form:
+//todo +++++++++++++++++++++++++++++++ Создаем ВСЕХ слушателей +++++++++++++++++++++++++++++++++++++++++
+//!  Создаем слушателя событий на поле ввода данных - input form:
 refs.searchForm.addEventListener('submit', onFormSearch);
 
-//todo  Создаем слушателя событий на кнопке LOAD MORE:
-// refs.loadMoreBtn.addEventListener('click', onLoadMore); //! OLD => через import getRefs from './js/get-refs.js'
-loadMoreBtn.refs.button.addEventListener('click', onLoadMore); //! NEW => через import LoadMoreBtn from './js/load-more-btn.js
+//!  Создаем слушателя событий на кнопке LOAD MORE:
+// refs.loadMoreBtn.addEventListener('click', onLoadMore); // OLD => через import getRefs from './js/get-refs.js'
+loadMoreBtn.refs.button.addEventListener('click', onLoadMore); // NEW => через import LoadMoreBtn from './js/load-more-btn.js
 
 
+//? +++++++++++++++++++++++++++++++ refs - themoviedb +++++++++++++++++++++++++++++++++++++++++
 
-
-//? +++++++++++++++++++++++++++++++ themoviedb +++++++++++++++++++++++++++++++++++++++++
-
-//? Создаем слушателя событий на кнопке HOME:
+//! Создаем слушателя событий на кнопке HOME:
 refs.homeBtn.addEventListener('click', onHome);
 
-//? Создаем слушателя событий на кнопке Filmoteka:
+//! Создаем слушателя событий на кнопке Filmoteka:
 refs.filmotekaBtn.addEventListener('click', onHome);
+//todo __________________________________ КОНЕЦ создаения ВСЕХ слушателей __________________________________
 
-//? Тестируем-консолим тип жанра по его id
+
+
+
+
+
+
+//? +++++++++++++++++++++++++++++++ Функцмии - themoviedb +++++++++++++++++++++++++++++++++++++++++
+
+//? Тестируем - консолим тип жанра по его id
 console.log("genres:", genres); //!
 // const genreName = convertingIdToGenre(10770);
 // console.log("genreName:", genreName); //!
 
+
+
 //! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 // onHome();
 
-//? -------------------------------------- api-themoviedb ----------------------------------
-//?  Ф-ция, к-рая прослушивает события на кнопке HOME:
+
+
+//! -------------------------- Ф-ция-запос, к-рая прослушивает события на кнопке HOME: ----------------------
 async function onHome() {
     //! Кнопка LOAD MORE => показываем и отключаем
     loadMoreBtn.show()
@@ -85,11 +95,11 @@ async function onHome() {
     //! Очищаем контейнер:
     clearHitsContainer();
 
-    //? Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
+    //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
 
     //! ------- Получаем и консолим все данные для рендера разметки главной страницы -------
-    console.log("results:", results); //!
+    // console.log("results:", results); //!
     // results.map(result => {
     //     console.log("id:", result.id);
 
@@ -111,14 +121,17 @@ async function onHome() {
     //     // console.log("date:", date); //!
     //     const yearDate = date.substr(0, 4);
     //     console.log("yearDate:", yearDate);
-    //     //!__________________________________________________________ 
     // });
+    //!_________________КОНЕЦ Получения и консоли всех данных _____________________
 
-    appendHitsMarkup(results); //* Рисование интерфейса выносим в отдельную ф-цию
+    //! Рисование интерфейса
+    appendHitsMarkup(results);
 
-    loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
-    // gallery.refresh();  //? Использование библиотеки SimpleLightbox:
-    // });
+    //! Кнопка LOAD MORE => включаем
+    loadMoreBtn.enable();
+
+    //? Использование библиотеки SimpleLightbox:
+    // gallery.refresh();  
 }
 
 
@@ -137,7 +150,6 @@ function convertingIdToGenre(id) {
 
 
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
-
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 function onFormSearch(evt) {
     evt.preventDefault();
@@ -177,16 +189,15 @@ function onFormSearch(evt) {
             showsTotalHits(totalHits) //* Консолим свойство totalHits
             return hits
         })
-        // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
         .then(hits => {
             appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
             gallery.refresh();  //? Использование библиотеки SimpleLightbox:
-            // gallery.on('show.simplelightbox', function () {
-            // });
         });
+};
+//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-}
+
 
 
 //! ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE ++++++++++++++++++++++++++++++++++++++++++++
