@@ -1,18 +1,27 @@
 import './css/styles.css';
 
 import Notiflix from 'notiflix';
+
 // import axios from 'axios';
 
-//! Библиотека SimpleLightbox
-import SimpleLightbox from "simplelightbox";
-// Библиотека SimpleLightbox - дополнительный импорт стилей
-import "simplelightbox/dist/simple-lightbox.min.css";
+//todo -------------------  OLD  уже не надо-----------------------
+// // Библиотека SimpleLightbox
+// import SimpleLightbox from "simplelightbox";
+// // Библиотека SimpleLightbox - дополнительный импорт стилей
+// import "simplelightbox/dist/simple-lightbox.min.css";
+//todo ________________________________________________________________
 
-import ThemoviedbApiService from './js/api-themoviedb.js'; // Импорт класса ThemoviedbApiService с ./js/get-refs.js
-import getRefs from './js/get-refs.js'; // Импорт всех ссылок с ./js/get-refs.js
-import LoadMoreBtn from './js/load-more-btn.js'; // Импорт класса LoadMoreBtn Кнопки LOAD MORE
 
-//! Импорт массива объектов всех жанров из файла genres.js
+//! Импорт класса ThemoviedbApiService с ./js/get-refs.js
+import ThemoviedbApiService from './js/api-themoviedb.js';
+
+//! Импорт всех ссылок с ./js/get-refs.js
+import getRefs from './js/get-refs.js';
+
+//! Импорт класса LoadMoreBtn Кнопки LOAD MORE
+import LoadMoreBtn from './js/load-more-btn.js';
+
+//! Импорт массива объектов всех жанров из файла genres.js (ВРЕМЕННО. Надо сделать два запроса)
 import { genres } from './js/genres.js'; //? api-themoviedb
 
 //______________________________________________ конец всех import _______________________________________________________
@@ -21,12 +30,14 @@ import { genres } from './js/genres.js'; //? api-themoviedb
 
 
 
+//! Создаем объект всех ссылок refs.*
+const refs = getRefs();
 
-const refs = getRefs(); //! Создаем объект всех ссылок refs.*
 
-const themoviedbApiService = new ThemoviedbApiService(); //! Экземпляр класса ThemoviedbApiService
+//! Создаем экземпляр класса ThemoviedbApiService
+const themoviedbApiService = new ThemoviedbApiService();
 
-//! Экземпляр класса LoadMoreBtn = Кнопка LOAD MORE
+//! Создаем экземпляр класса LoadMoreBtn = Кнопка LOAD MORE
 const loadMoreBtn = new LoadMoreBtn({
     selector: '[data-action="load-more1"]',
     hidden: true,
@@ -34,21 +45,26 @@ const loadMoreBtn = new LoadMoreBtn({
 
 // console.log(loadMoreBtn);
 // loadMoreBtn.show()
-// loadMoreBtn.disable() 
+// loadMoreBtn.disable()
+
+//todo -------------------  OLD  уже не надо-------------------------
+// Вызов библиотеки SimpleLightbox:
+// // let gallery = new SimpleLightbox('.gallery a');
+
+// let gallery = new SimpleLightbox('.gallery a', {
+//     // caption: true,
+//     captionPosition: 'bottom',
+//     captionDelay: 250,
+//     captionsData: "alt",
+// });
+//todo ________________________________________________________________
 
 
-//! Вызов библиотеки SimpleLightbox:
-// let gallery = new SimpleLightbox('.gallery a');
-
-let gallery = new SimpleLightbox('.gallery a', {
-    // caption: true,
-    captionPosition: 'bottom',
-    captionDelay: 250,
-    captionsData: "alt",
-});
 
 
-//todo +++++++++++++++++++++++++++++++ Создаем ВСЕХ слушателей +++++++++++++++++++++++++++++++++++++++++
+
+
+//* +++++++++++++++++++++++++++++++ Создаем ВСЕХ слушателей +++++++++++++++++++++++++++++++++++++++++
 //!  Создаем слушателя событий на поле ввода данных - input form:
 // refs.searchForm.addEventListener('submit', onFormSearch); //todo OLD
 refs.searchForm.addEventListener('submit', onFormMoviesSearch);
@@ -74,7 +90,10 @@ refs.resultNotSuccessful.hidden = true;
 refs.movieDetails.addEventListener('click', onMovieDetails);
 
 
-//todo __________________________________ КОНЕЦ создаения ВСЕХ слушателей __________________________________
+//* __________________________________ КОНЕЦ создаения ВСЕХ слушателей __________________________________
+
+
+
 
 //! Создаем глобальную переменную (films) для хранения значение всей (results)
 let films = [];
@@ -83,7 +102,7 @@ let films = [];
 let idFilms = 0;
 
 
-//! Переменная для определения типа запроса в кнопке LOAD MORE - пока не пригодилась
+// Переменная для определения типа запроса в кнопке LOAD MORE - пока не пригодилась
 let currentPage = "";
 
 
@@ -91,7 +110,7 @@ let currentPage = "";
 
 
 
-//? +++++++++++++++++++++++++++++++ Функцмии - themoviedb +++++++++++++++++++++++++++++++++++++++++
+//? +++++++++++++++++++++++++++++++ Функции - themoviedb +++++++++++++++++++++++++++++++++++++++++
 
 //? Тестируем - консолим тип жанра по его id
 console.log("genres:", genres); //!
@@ -226,12 +245,12 @@ async function onFormMoviesSearch(evt) {
 
 
 
-//* -------------------------- Ф-ция-запрос_3, к-рая запрашивает полную информацию о фильме: ----------------------
+//* -------------------------- Ф-ция-запрос_3, к-рая запрашивает полную информацию об одном фильме: ----------------------
 //! +++ _____ +++
 async function onMovieDetails(event) {
     // console.log("Вешаю слушателя на onMovieDetails"); //!
     if (event.target.src) {
-        //! Получаем (id) фильма для отрисовки карточки с полной информацией об єтом фильме
+        //! Получаем (id) фильма для отрисовки карточки с полной информацией об этом фильме
         // console.log("event.target.src: ", event.target.src); //!
         // const allPosterPath = event.target.substr(33);
         const allPosterPath = String(event.target.src);
@@ -248,12 +267,17 @@ async function onMovieDetails(event) {
     } else return;
 
     console.log("idFilms:", idFilms); //! id фильма
+
+    //! ==> Делаем запрос
+
+    //! ==> Рисуем модалку
+
 }
 
 
 
 
-//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ция-запрос_1) ++++++++++++++++++++++++++++++++++++++++++++
+//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ции-запрос_1) ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 async function onLoadMore(evt) {
     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
@@ -295,7 +319,7 @@ async function onLoadMore(evt) {
 //         }
 //     };
 
-//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ция-запрос_2) ++++++++++++++++++++++++++++++++++++++++++++
+//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ции-запрос_2) ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 // async function onLoadMore(evt) {
 
