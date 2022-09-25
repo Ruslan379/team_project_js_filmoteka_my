@@ -16,6 +16,7 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
+  <!-- <body class="show-modal"> -->
     <!--! ❗️❗️❗️ Add partials like so for every page -->
     <!-- <include src="./partials/example.html"></include> -->
 
@@ -61,6 +62,35 @@
 
 
 
+
+    <!--* ++++++++++++++ modal.html ++++++++++++++ -->
+    <!-- ----- для тестирования ----- -->
+    <!-- <button class="button" data-action="open-modal">Открыть модалку</button> -->
+    
+      <div class="backdrop js-backdrop">
+        <div class="modal-film">
+          <button type="button" class="button2" data-action="close-modal">
+            X
+          </button>
+            <div class="modal-markup">
+              <h2>Modal window</h2>
+              <p>
+                In user interface design for computer applications, a modal window is
+                a graphical control element subordinate to an application's main
+                window. It creates a mode that disables the main window but keeps it
+                visible, with the modal window as a child window in front of it. Users
+                must interact with the modal window before they can return to the
+                parent application. This avoids interrupting the workflow on the main
+                window. Modal windows are sometimes called heavy windows or modal
+                dialogs because they often display a dialog box.
+              </p>
+            </div>
+        </div>
+      </div>
+
+
+
+
     <!--* ++++++++++++++ hero.html ++++++++++++++ -->
     <section class="section-hero">
       <!--! Загрузка популярных фильмов на главную страницу -->
@@ -80,6 +110,10 @@
     
     
     
+
+
+
+
     
 
     <!--* ++++++++++++++ footer.html ++++++++++++++ -->
