@@ -72,7 +72,7 @@ refs.resultNotSuccessful.hidden = true;
 //todo __________________________________ КОНЕЦ создаения ВСЕХ слушателей __________________________________
 
 //! Переменная для определения типа запроса в кнопке LOAD MORE
-let currentPage = "";
+// let currentPage = ""
 
 
 
@@ -97,21 +97,21 @@ console.log("genres:", genres); //!
 //! +++ Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka) +++
 async function onHome() {
     //! Задаем значение переменной (currentPage = "home-Filmoteka") для определения типа запроса в кнопке LOAD MORE
-    currentPage = "home-Filmoteka";
+    // currentPage = "home-Filmoteka";
 
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
     refs.resultNotSuccessful.hidden = true;
-
-    //! Делаем сброс значения page = 1 после submit form 
-    //! с помощью метода resetPage из класса ThemoviedbApiService
-    themoviedbApiService.resetPage();
 
     //! Кнопка LOAD MORE => показываем и отключаем
     loadMoreBtn.show()
     loadMoreBtn.disable();
 
+    //! Делаем сброс значения page = 1 после submit form 
+    //! с помощью метода resetPage из класса ThemoviedbApiService
+    themoviedbApiService.resetPage();
+
     //! Очищаем контейнер:
-    clearHitsContainer();
+    // clearHitsContainer();
 
     //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
@@ -154,7 +154,7 @@ async function onHome() {
 
 
 
-//* ---------- Ф-ция-запрос_2, к-рая прослушивает события на поле ввода данных - input form:-------
+//* ---------- Ф-ция-запрос_2, к-рая прослушивает события на поле ввода данных - input form::-------
 //! ++++++++++ Пошук та відображення фільмів за ключовим словом из input form +++++++++++
 async function onFormMoviesSearch(evt) {
     evt.preventDefault();
@@ -171,22 +171,21 @@ async function onFormMoviesSearch(evt) {
     };
 
     //! Задаем значение переменной (currentPage = "Movie search") для определения типа запроса в кнопке LOAD MORE
-    currentPage = "Movie search";
+    // currentPage = "Movie search";
 
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
     refs.resultNotSuccessful.hidden = true;
+
+    //! Кнопка LOAD MORE => показываем и отключаем
+    loadMoreBtn.show()
+    loadMoreBtn.disable()
 
     //! Делаем сброс значения page = 1 после submit form 
     //! с помощью метода resetPage из класса ThemoviedbApiService
     themoviedbApiService.resetPage();
 
-    //! Кнопка LOAD MORE => показываем и отключаем
-    loadMoreBtn.show();
-    loadMoreBtn.disable();
-
-
     //! Очищаем контейнер при новом вводе данных в input form:
-    clearHitsContainer();
+    clearHitsContainer()
 
     //! Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
     const results = await themoviedbApiService.getSearchMovies();
@@ -232,61 +231,42 @@ async function onLoadMore(evt) {
 }
 //* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
-//! НЕ РАБОТАЕТ, ==>  ЗАВИСАЕТ!!! 
-//?   Ф-ция, к-рая проверяет значения переменной (currentPage) для определения типа запроса в кнопке LOAD MORE
-// async function checkResults() {
-//     if (currentPage === "home-Filmoteka") {
-//         const results = await themoviedbApiService.getTrendingAllDay();
-//         return results;
-//     } else {
-//         if (currentPage === "Movie search") {
-//             const results = await themoviedbApiService.getSearchMovies();
-//             return results;
-//         } else {
-//             return;
-//         }
-//     };
-
 //* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ция-запрос_2) ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-// async function onLoadMore(evt) {
-
+// async function onLoadMore1(evt) {
 //     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
 
 
 //     //? Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
-//     const results = await themoviedbApiService.getSearchMovies();
+//     // const results = await themoviedbApiService.getSearchMovies();
 
 //     //! Делаем fetch-запрос исходя из проверки значения переменной (currentPage):
 //     //! Проверка значения переменной (currentPage) для определения типа запроса в кнопке LOAD MORE
-//     // checkResults();
+//     if (currentPage === "home-Filmoteka") {
+//         const results = await themoviedbApiService.getTrendingAllDay();
+//         // return results;
+//     } else {
+//         if (currentPage === "Movie search") {
+//             const results = await themoviedbApiService.getSearchMovies();
+//             // return results;
+//         } else {
+//             // return;
+//         }
 
-//     // if (currentPage === "home-Filmoteka") {
-//     //     const results = await themoviedbApiService.getTrendingAllDay();
-//     //     // return results;
-//     // } else {
-//     //     if (currentPage === "Movie search") {
-//     //         const results = await themoviedbApiService.getSearchMovies();
-//     //         // return results;
-//     //     } else {
-//     //         // return;
-//     //     }
+//         console.log("onLoadMore ==> results:", results); //!
 
-//     // console.log("onLoadMore ==> results:", results); //!
+//         //! Очищаем контейнер:
+//         clearHitsContainer();
 
-//     //! Очищаем контейнер:
-//     clearHitsContainer();
+//         //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
+//         // checkHitsForEnd(endOfCollection);
 
-//     //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-//     // checkHitsForEnd(endOfCollection);
+//         //! Рисование интерфейса
+//         appendHitsMarkup(results);
 
-//     //! Рисование интерфейса
-//     appendHitsMarkup(results);
-
-//     //! Кнопка LOAD MORE => включаем
-//     loadMoreBtn.enable();
-// }
+//         //! Кнопка LOAD MORE => включаем
+//         loadMoreBtn.enable();
+//     }
 //* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -332,7 +312,7 @@ function checkHitsForEnd(endOfCollection) {
 //?   Ф-ция, к-рая консолит свойство totalHits:
 function showsTotalHits(totalHits) {
     if (totalHits > 0)
-        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`, { timeout: 3000, },);
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`, { timeout: 3000, },);;
 }
 //todo __________________________________________________________________________
 
