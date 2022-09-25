@@ -10,7 +10,7 @@ const END_POINTS_1 = "trending/all/day" //!  /trending/all/day ==> список 
 
 const END_POINTS_2 = "search/movie" //!  /search/search-movies ==> поиск кинофильма по ключевому слову на странице фильмов.
 const query = "avatar" //?
-// const page = 1; //? можно добавить в строку запроса
+const page = 1; //? можно добавить в строку запроса
 
 const END_POINTS_3 = "movie" //!  /movies/get-movie-details ==> запрос полной информации о фильме для страницы кинофильма.
 const movie_id = 616037 //?
