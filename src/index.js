@@ -475,7 +475,7 @@ function createImageCardsMarkup(results) {
 
             return `
             <div >
-                <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="" />
+                <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="" />
 
                 <div>
                     <h5>${title || name}</h5>
