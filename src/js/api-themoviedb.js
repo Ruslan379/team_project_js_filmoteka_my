@@ -13,13 +13,13 @@ const query = "avatar" //?
 const page = 1; //? можно добавить в строку запроса
 
 const END_POINTS_3 = "movie" //!  /movies/get-movie-details ==> запрос полной информации о фильме для страницы кинофильма.
-const movie_id = 616037 //?
+// const movie_id = 616037 //?
 
-const END_POINTS_4 = "movie" //!  /movies/get-movie-credits  ==> запрос информации об актёрском составе для страницы кинофильма.
-const CREDITS = "credits"
+// const END_POINTS_4 = "movie" //!  /movies/get-movie-credits  ==> запрос информации об актёрском составе для страницы кинофильма.
+// const CREDITS = "credits"
 
-const END_POINTS_5 = "movie" //!  /movies/get-movie-reviews ==> запрос обзоров для страницы кинофильма.
-const REVIEWS = "reviews"
+// const END_POINTS_5 = "movie" //!  /movies/get-movie-reviews ==> запрос обзоров для страницы кинофильма.
+// const REVIEWS = "reviews"
 
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------
 //! Формируем строки URL-запросов:
@@ -29,14 +29,14 @@ const REVIEWS = "reviews"
 // const url_2 = `${BASE_URL}/${END_POINTS_2}?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
 // console.log("url_2: ", url_2); //!
 
-const url_3 = `${BASE_URL}/${END_POINTS_3}/${movie_id}?api_key=${API_KEY}&language=en-US`;
-console.log("url_3: ", url_3); //!
+// const url_3 = `${BASE_URL}/${END_POINTS_3}/${movie_id}?api_key=${API_KEY}&language=en-US`;
+// console.log("url_3: ", url_3); //!
 
-const url_4 = `${BASE_URL}/${END_POINTS_4}/${movie_id}/${CREDITS}?api_key=${API_KEY}&language=en-US`;
-console.log("url_4: ", url_4); //!
+// const url_4 = `${BASE_URL}/${END_POINTS_4}/${movie_id}/${CREDITS}?api_key=${API_KEY}&language=en-US`;
+// console.log("url_4: ", url_4); //!
 
-const url_5 = `${BASE_URL}/${END_POINTS_5}/${movie_id}/${REVIEWS}?api_key=${API_KEY}&language=en-US&page=${page}`;
-console.log("url_5: ", url_5); //!
+// const url_5 = `${BASE_URL}/${END_POINTS_5}/${movie_id}/${REVIEWS}?api_key=${API_KEY}&language=en-US&page=${page}`;
+// console.log("url_5: ", url_5); //!
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //?_______________________________________________________________
@@ -72,17 +72,25 @@ export default class ThemoviedbApiService {
         return results;
     }
 
-    //! 2 
+    //! 2 - Поиск кинофильма по ключевому слову
     async getSearchMovies() {
         const url_2 = `${BASE_URL}/${END_POINTS_2}?api_key=${API_KEY}&language=en-US&query=${this.searchQuery}&page=${this.page}&include_adult=false`;
         console.log("url_2: ", url_2); //!
         const response = await axios.get(url_2) //!
-        const { results } = response.data //*  /search/search-movies ==> поиск кинофильма по ключевому слову на странице фильмов.
+        const { results } = response.data
         this.incrementPage();
         console.log("getSearchMovies ==> this.page: ", this.page); //!
         return results;
     }
 
+    //! 3 - Запрос полной информации о фильме для страницы кинофильма.
+    async getMovieDetails(idFilms) {
+        const url_3 = `${BASE_URL}/${END_POINTS_3}/${idFilms}?api_key=${API_KEY}&language=en-US`;
+        console.log("url_3: ", url_3); //!
+        const response = await axios.get(url_3) //!
+        const results = response.data
+        return results;
+    }
 
 
 
@@ -109,6 +117,7 @@ export default class ThemoviedbApiService {
     //     return all
     // }
     //todo _____________________________________________________________________
+
     //!  _____________________________________________________________________________________
 
 

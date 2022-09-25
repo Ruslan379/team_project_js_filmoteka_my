@@ -104,6 +104,9 @@ let films = [];
 //! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
 let idFilms = 0;
 
+//! Создаем глобальную переменную (infoFilms) для хранения полной информации об одном фильме
+let infoFilms = null;
+
 
 // Переменная для определения типа запроса в кнопке LOAD MORE - пока не пригодилась
 let currentPage = "";
@@ -273,6 +276,19 @@ async function onMovieDetails(event) {
     console.log("idFilms:", idFilms); //! id фильма
 
     //! ==> Делаем запрос
+    try {
+        const results = await themoviedbApiService.getMovieDetails(idFilms);
+        //! Перезаписываем в глобальную переменную (films) значение всей (results)
+        infoFilms = results;
+    } catch (error) {
+        console.log(error); //!
+        Notiflix.Notify.failure(`Ошибка запроса: ${error.message}`, { timeout: 3500, },);
+    }
+    //? ------- Получаем и консолим все данные для рендера разметки главной страницы -------
+    console.log("getMovieDetails ==> infoFilms:", infoFilms); //!
+
+
+    //?_________________КОНЕЦ Получения и консоли всех данных _____________________
 
     //! ==> Открываем модалку
     window.addEventListener('keydown', onEscKeyPress);
