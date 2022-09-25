@@ -20,11 +20,15 @@ this.per_page=40}},w=new class{getRefs(t){const e={};return e.button=document.qu
 //!  если hidden = true, то вызови this.hide()
 e&&this.hide()}}({selector:'[data-action="load-more1"]',hidden:!0});
 //! Вызов библиотеки SimpleLightbox:
-let k=new(e(c))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});
-//! Формируем строку URL-запроса:
-async function C(){w.disable();
-//! ------- Получаем все данные для рендера разметки -------
-N(await v.getTrendingAllDay())}
+let k=new(e(c))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});//!
+//! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
+async function C(){
+//! Кнопка LOAD MORE => показываем и отключаем
+//! Очищаем контейнер:
+const t=await v.getTrendingAllDay();
+//! ------- Получаем и консолим все данные для рендера разметки главной страницы -------
+console.log("results:",t),//!
+N(t)}
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
 function N(t){
@@ -58,7 +62,5 @@ function(t){t<=0&&(e(l).Notify.warning("We're sorry, but you've reached the end 
 (n),o))).then((t=>{N(t),w.enable(),//! Кнопка LOAD MORE => включаем
 k.refresh()}));//! Кнопка LOAD MORE => ВЫключаем
 })),//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
-b.homeBtn.addEventListener("click",C),b.filmotekaBtn.addEventListener("click",C),console.log("genres:",x),//!
-//! підвантаження популярних фільмів на головну (першу) сторінку (без нажатия на кнопки HOME или Filmoteka)
-C();
-//# sourceMappingURL=index.8009e546.js.map
+b.homeBtn.addEventListener("click",C),b.filmotekaBtn.addEventListener("click",C),console.log("genres:",x);
+//# sourceMappingURL=index.a651b352.js.map

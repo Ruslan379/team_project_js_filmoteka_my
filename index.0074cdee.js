@@ -22,10 +22,13 @@ n.next=3,t(w).get(o);case 3:return i=n.sent,n.next=6,i.data;case 6:return r=n.se
 key:"incrementPage",value:function(){this.page+=1}},{key:"resetPage",value:function(){this.page=1}},{key:"query",get:function(){return this.searchQuery},set:function(t){this.searchQuery=t}}]),e}();k=r("8MBJY"),C=r("a2hTj");var R=function(){"use strict";function e(n){var o=n.selector,i=n.hidden,r=void 0!==i&&i;t(k)(this,e),this.refs=this.getRefs(o),
 //! Вычисления по сокращенной схеме: 
 //!  если hidden = true, то вызови this.hide()
-r&&this.hide()}return t(C)(e,[{key:"getRefs",value:function(t){var e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}},{key:"enable",value:function(){this.refs.button.disabled=!1,this.refs.label.textContent="LOAD MORE",this.refs.spinner.classList.add("is-hidden")}},{key:"disable",value:function(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}},{key:"show",value:function(){this.refs.button.classList.remove("is-hidden")}},{key:"hide",value:function(){this.refs.button.classList.add("is-hidden")}}]),e}(),B=[{id:28,name:"Action"},{id:12,name:"Adventure"},{id:16,name:"Animation"},{id:80,name:"Crime"},{id:18,name:"Drama"},{id:14,name:"Fantasy"},{id:36,name:"History"},{id:27,name:"Horror"},{id:10402,name:"Music"},{id:9648,name:"Mystery"},{id:10749,name:"Romance"},{id:878,name:"Science Fiction"},{id:10770,name:"TV Movie"},{id:53,name:"Thriller"},{id:10752,name:"War"},{id:37,name:"Western"},{id:10759,name:"Action & Adventure"},{id:35,name:"Comedy"},{id:99,name:"Documentary"},{id:10751,name:"Family"},{id:10762,name:"Kids"},{id:10763,name:"News"},{id:10764,name:"Reality"},{id:10765,name:"Sci-Fi & Fantasy"},{id:10766,name:"Soap"},{id:10767,name:"Talk"},{id:10768,name:"War & Politics"}],z={searchForm:document.querySelector("#search-form"),imageCards:document.querySelector(".gallery"),homeBtn:document.querySelector(".button-home"),filmotekaBtn:document.querySelector(".button-filmoteka")},M=new T,D=new R({selector:'[data-action="load-more1"]',hidden:!0}),W=new(t(p))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});function X(){return P.apply(this,arguments)}function P(){return(P=t(a)(t(l).mark((function e(){return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return D.disable(),//!!! Кнопка LOAD MORE => ВЫключаем
-t.next=3,M.getTrendingAllDay();case 3:
-//! ------- Получаем все данные для рендера разметки -------
-j(t.sent);case 5:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
+r&&this.hide()}return t(C)(e,[{key:"getRefs",value:function(t){var e={};return e.button=document.querySelector(t),e.label=e.button.querySelector(".label"),e.spinner=e.button.querySelector(".spinner"),e}},{key:"enable",value:function(){this.refs.button.disabled=!1,this.refs.label.textContent="LOAD MORE",this.refs.spinner.classList.add("is-hidden")}},{key:"disable",value:function(){this.refs.button.disabled=!0,this.refs.label.textContent="Loading...",this.refs.spinner.classList.remove("is-hidden")}},{key:"show",value:function(){this.refs.button.classList.remove("is-hidden")}},{key:"hide",value:function(){this.refs.button.classList.add("is-hidden")}}]),e}(),B=[{id:28,name:"Action"},{id:12,name:"Adventure"},{id:16,name:"Animation"},{id:80,name:"Crime"},{id:18,name:"Drama"},{id:14,name:"Fantasy"},{id:36,name:"History"},{id:27,name:"Horror"},{id:10402,name:"Music"},{id:9648,name:"Mystery"},{id:10749,name:"Romance"},{id:878,name:"Science Fiction"},{id:10770,name:"TV Movie"},{id:53,name:"Thriller"},{id:10752,name:"War"},{id:37,name:"Western"},{id:10759,name:"Action & Adventure"},{id:35,name:"Comedy"},{id:99,name:"Documentary"},{id:10751,name:"Family"},{id:10762,name:"Kids"},{id:10763,name:"News"},{id:10764,name:"Reality"},{id:10765,name:"Sci-Fi & Fantasy"},{id:10766,name:"Soap"},{id:10767,name:"Talk"},{id:10768,name:"War & Politics"}],z={searchForm:document.querySelector("#search-form"),imageCards:document.querySelector(".gallery"),homeBtn:document.querySelector(".button-home"),filmotekaBtn:document.querySelector(".button-filmoteka")},M=new T,D=new R({selector:'[data-action="load-more1"]',hidden:!0}),W=new(t(p))(".gallery a",{captionPosition:"bottom",captionDelay:250,captionsData:"alt"});//!
+function X(){return P.apply(this,arguments)}function P(){return(P=
+//! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
+t(a)(t(l).mark((function e(){var n;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,M.getTrendingAllDay();case 2:n=t.sent,
+//! ------- Получаем и консолим все данные для рендера разметки главной страницы -------
+console.log("results:",n),//!
+j(n);case 5:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
 function j(t){
@@ -34,9 +37,7 @@ z.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t
 //! +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
 (t)})).join(", "),l=(r||a).substr(0,4);//! значение года из строки даты:
-return'\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||o,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}(t))}
-//! Формируем строку URL-запроса:
-z.searchForm.addEventListener("submit",(function(e){//!
+return'\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||o,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}(t))}z.searchForm.addEventListener("submit",(function(e){//!
 if(e.preventDefault(),
 //! это то, что приходит в input и 
 //! записывается с помощью сетера класса ThemoviedbApiService в переменную searchQuery
@@ -63,7 +64,5 @@ var n=e.hits;return function(e){e<=0&&(t(u).Notify.warning("We're sorry, but you
 (e.endOfCollection),n})).then((function(t){j(t),D.enable(),//! Кнопка LOAD MORE => включаем
 W.refresh()}));//! Кнопка LOAD MORE => ВЫключаем
 })),//! NEW => через import LoadMoreBtn from './js/load-more-btn.js
-z.homeBtn.addEventListener("click",X),z.filmotekaBtn.addEventListener("click",X),console.log("genres:",B),//!
-//! підвантаження популярних фільмів на головну (першу) сторінку (без нажатия на кнопки HOME или Filmoteka)
-X()}();
-//# sourceMappingURL=index.1cb8842d.js.map
+z.homeBtn.addEventListener("click",X),z.filmotekaBtn.addEventListener("click",X),console.log("genres:",B)}();
+//# sourceMappingURL=index.0074cdee.js.map
