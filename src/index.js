@@ -65,6 +65,10 @@ refs.homeBtn.addEventListener('click', onHome);
 
 //! Создаем слушателя событий на кнопке Filmoteka:
 refs.filmotekaBtn.addEventListener('click', onHome);
+
+//! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+// console.log(refs.inputAlert); //!
+refs.resultNotSuccessful.hidden = true;
 //todo __________________________________ КОНЕЦ создаения ВСЕХ слушателей __________________________________
 
 
@@ -87,9 +91,16 @@ console.log("genres:", genres); //!
 
 
 
-//* -------------------------- Ф-ция-запос, к-рая прослушивает события на кнопке HOME: ----------------------
+//* -------------------------- Ф-ция-запрос_1, к-рая прослушивает события на кнопке HOME: ----------------------
 //! +++ Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka) +++
 async function onHome() {
+    //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+    refs.resultNotSuccessful.hidden = true;
+
+    //! Делаем сброс значения page = 1 после submit form 
+    //! с помощью метода resetPage из класса ThemoviedbApiService
+    themoviedbApiService.resetPage();
+
     //! Кнопка LOAD MORE => показываем и отключаем
     loadMoreBtn.show()
     loadMoreBtn.disable();
@@ -138,7 +149,7 @@ async function onHome() {
 
 
 
-//* ---------- Ф-ция, к-рая прослушивает события на поле ввода данных - input form::-------
+//* ---------- Ф-ция-запрос_2, к-рая прослушивает события на поле ввода данных - input form::-------
 //! ++++++++++ Пошук та відображення фільмів за ключовим словом из input form +++++++++++
 async function onFormMoviesSearch(evt) {
     evt.preventDefault();
@@ -152,7 +163,10 @@ async function onFormMoviesSearch(evt) {
 
     if (themoviedbApiService.query === "") {
         return alert("Поле ввода не долно быть пустым!");
-    }
+    };
+
+    //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+    refs.resultNotSuccessful.hidden = true;
 
     //! Кнопка LOAD MORE => показываем и отключаем
     loadMoreBtn.show()
@@ -160,7 +174,7 @@ async function onFormMoviesSearch(evt) {
 
     //! Делаем сброс значения page = 1 после submit form 
     //! с помощью метода resetPage из класса ThemoviedbApiService
-    themoviedbApiService.resetPage()
+    themoviedbApiService.resetPage();
 
     //! Очищаем контейнер при новом вводе данных в input form:
     clearHitsContainer()
@@ -189,13 +203,17 @@ async function onFormMoviesSearch(evt) {
 
 
 
-//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE  ++++++++++++++++++++++++++++++++++++++++++++
+//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ция-запрос_1) ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 async function onLoadMore(evt) {
     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
 
+
     //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
+
+    //! Очищаем контейнер:
+    clearHitsContainer();
 
     //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
     // checkHitsForEnd(endOfCollection);
@@ -218,24 +236,27 @@ function convertingIdToGenre(id) {
     return genre[0].name;
 }
 
+
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
 function clearHitsContainer() {
     refs.imageCards.innerHTML = "";
 }
 
-//?_____________________________________________________________________
 
-
-//?  Ф-ция, к-рая  прверяет hits на пустой массив:
-function checkHitsForEmpty(hits) {
-    // console.log(hits[0]); //!
-    if (hits[0] === undefined) {
-        Notiflix.Notify.failure(`Sorry, there are no images matching your search query. Please try again.`, { timeout: 3000, },);
+//!  Ф-ция, к-рая  прверяет results на пустой массив:
+function checkHitsForEmpty(results) {
+    if (!results.length) {
+        //! ПОКАЗЫВАЕМ строку предупреждения об отсутствии фильмов:
+        refs.resultNotSuccessful.hidden = false;
+        Notiflix.Notify.failure(`Search result not successful. Enter the correct movie name and`, { timeout: 3000, },);
         loadMoreBtn.hide(); //! Кнопка LOAD MORE => ПРЯЧЕМ
     }
 }
+//?_____________________________________________________________________
 
 
+
+//todo ------------------------- OLD-Функции ------------------------------------
 //? Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
 function checkHitsForEnd(endOfCollection) {
     if (endOfCollection <= 0) {
@@ -250,6 +271,8 @@ function showsTotalHits(totalHits) {
     if (totalHits > 0)
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`, { timeout: 3000, },);;
 }
+//todo __________________________________________________________________________
+
 
 
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
