@@ -29,63 +29,61 @@
 
     
     <!--* ++++++++++++++ header.html ++++++++++++++ -->
-    <!--! input form -->
-    <form class="search-form" id="search-form">
-      <input 
-        type="text" 
-        name="searchQuery" 
-        autocomplete="off" 
-        placeholder="Movie search" 
-      />
-      <button type="submit">Search</button>
-    </form>
-    
-    <div class="all-buttons">
-      <!--! кнопка Filmoteka -->
-      <button type="button" class="button-filmoteka">
-        <span class="button-filmoteka-label">Filmoteka</span>
-      </button>
+    <header class="section-header">
+      
 
-      <div class="nav-buttons">
-        <!--! кнопка HOME -->
-        <button type="button" class="button-home">
-          <span class="button-home-label">HOME</span>
+      <div class="all-buttons">
+        <!--! кнопка Filmoteka -->
+        <button type="button" class="button-filmoteka">
+          <span class="button-filmoteka-label">Filmoteka</span>
         </button>
 
-        <!--! кнопка MY LIBRARY -->
-        <button type="button" class="button-mylibrary">
-          <span class="button-mylibrary-label">MY LIBRARY</span>
-        </button>
+        <div class="nav-buttons">
+          <!--! кнопка HOME -->
+          <button type="button" class="button-home">
+            <span class="button-home-label">HOME</span>
+          </button>
+
+          <!--! кнопка MY LIBRARY -->
+          <button type="button" class="button-mylibrary">
+            <span class="button-mylibrary-label">MY LIBRARY</span>
+          </button>
+        </div>
       </div>
-    </div>
-    <br />
-    <br />
+
+      <!--! input form -->
+      <form class="search-form" id="search-form">
+        <input type="text" name="searchQuery" autocomplete="off" placeholder="Movie search" />
+        <button type="submit">Search</button>
+      </form>
+    </header>
 
 
 
     <!--* ++++++++++++++ hero.html ++++++++++++++ -->
-    <!--! Загрузка популярных фильмов на главную страницу -->
-    <div class="gallery">
-      <!--? Карточки изображений -->
-    </div>
+    <section class="section-hero">
+      <!--! Загрузка популярных фильмов на главную страницу -->
+      <div class="gallery">
+        <!--? Карточки изображений -->
+      </div>
+
+      <!--! кнопка LOAD MORE: -->
+      <!-- <button type="button" class="load-more button">LOAD MORE</button> -->
+      
+      <button type="button" class="load-more btn1 btn-primary button" data-action="load-more1">
+        <span class="spinner-border spinner-border-sm spinner is-hidden" role="status" aria-hidden="true">
+        </span>
+        <span class="label">LOAD MORE</span>
+      </button>
+    </section>
     
     
-    <!--! кнопка LOAD MORE: -->
-    <!-- <button type="button" class="load-more button">LOAD MORE</button> -->
     
-    <button type="button" class="load-more btn1 btn-primary button" data-action="load-more1">
-    
-      <span class="spinner-border spinner-border-sm spinner is-hidden" role="status" aria-hidden="true">
-      </span>
-    
-      <span class="label">LOAD MORE</span>
-    </button>
     
 
     <!--* ++++++++++++++ footer.html ++++++++++++++ -->
-    <div class="footer">
+    <div class="section-footer">
       <h3>© 2020 | All Rights Reserved | Developed with | by GoIT Students</h3>
-      
     </div>
     
     <!--* ++++++++++++++ script index.js ++++++++++++++ -->
