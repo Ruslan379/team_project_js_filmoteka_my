@@ -205,7 +205,7 @@ function onLoadMore(evt) {
         })
         // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
         .then(hits => {
-            appendHitsMarkup(hits); //* Рисование интерфейса выносим в отдельную ф-цию
+            appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
             gallery.refresh();  //? Использование библиотеки SimpleLightbox:
         });
