@@ -136,5 +136,5 @@ function y(){p.imageCards.innerHTML=""}function b(){window.removeEventListener("
 //! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
 function v(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-p.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>`\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300${e}" alt="" />\n\n                <div>\n                    <h5>${n||i}</h5>\n                    <h5>${o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", ")} | ${(r||a||"???? - ?? - ??").substr(0,4)}</h5>\n                </div>\n            </div>\n            `)).join("")}(t))}console.log("genres:",f);
-//# sourceMappingURL=index.11c68094.js.map
+p.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>`\n            <div >\n                <img src="https://image.tmdb.org/t/p/w780${e}" alt="" />\n\n                <div>\n                    <h5>${n||i}</h5>\n                    <h5>${o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", ")} | ${(r||a||"???? - ?? - ??").substr(0,4)}</h5>\n                </div>\n            </div>\n            `)).join("")}(t))}console.log("genres:",f);
+//# sourceMappingURL=index.4dfdb654.js.map

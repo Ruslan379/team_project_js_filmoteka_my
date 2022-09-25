@@ -130,5 +130,5 @@ function j(){window.removeEventListener("keydown",_),document.body.classList.rem
 function U(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 E.imageCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.genre_ids,r=t.first_air_date,a=t.release_date,s=o.map((function(t){return function(t){return C.filter((function(e){return e.id===t}))[0].name}(t)})).join(", "),l=(r||a||"???? - ?? - ??").substr(0,4);//! значение года из строки даты:
-return'\n            <div >\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||i,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}(t))}console.log("genres:",C)}();
-//# sourceMappingURL=index.91e51e95.js.map
+return'\n            <div >\n                <img src="https://image.tmdb.org/t/p/w780'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||i,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}(t))}console.log("genres:",C)}();
+//# sourceMappingURL=index.6274120f.js.map
