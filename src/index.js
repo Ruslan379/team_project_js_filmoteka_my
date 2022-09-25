@@ -63,6 +63,7 @@ const loadMoreBtn = new LoadMoreBtn({
 
 
 
+//? _________________________________________________________________________________
 
 //* +++++++++++++++++++++++++++++++ Создаем ВСЕХ слушателей +++++++++++++++++++++++++++++++++++++++++
 //!  Создаем слушателя событий на поле ввода данных - input form:
@@ -73,24 +74,26 @@ refs.searchForm.addEventListener('submit', onFormMoviesSearch);
 // refs.loadMoreBtn.addEventListener('click', onLoadMore); // OLD => через import getRefs from './js/get-refs.js'
 loadMoreBtn.refs.button.addEventListener('click', onLoadMore); // NEW => через import LoadMoreBtn from './js/load-more-btn.js
 
-
-//? +++++++++++++++++++++++++++++++ refs - themoviedb +++++++++++++++++++++++++++++++++++++++++
-
 //! Создаем слушателя событий на кнопке HOME:
 refs.homeBtn.addEventListener('click', onHome);
 
 //! Создаем слушателя событий на кнопке Filmoteka:
 refs.filmotekaBtn.addEventListener('click', onHome);
 
+
+//! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
+refs.movieDetails.addEventListener('click', onMovieDetails);
+
+//! +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
+// refs.openModalBtn.addEventListener('click', onOpenModal); //? ----- для тестирования
+refs.closeModalBtn.addEventListener('click', onCloseModal);
+refs.backdrop.addEventListener('click', onBackdropClick);
+
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 // console.log(refs.inputAlert); //!
 refs.resultNotSuccessful.hidden = true;
 
-//! Создаем слушателя событий на <section class="section-hero">:
-refs.movieDetails.addEventListener('click', onMovieDetails);
-
-
-//* __________________________________ КОНЕЦ создаения ВСЕХ слушателей __________________________________
+//* __________________________________ КОНЕЦ создания ВСЕХ слушателей __________________________________
 
 
 
@@ -119,7 +122,7 @@ console.log("genres:", genres); //!
 
 
 
-//! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
+//!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 // onHome();
 
 
@@ -184,7 +187,7 @@ async function onHome() {
 
     //? Использование библиотеки SimpleLightbox:
     // gallery.refresh();  
-}
+};
 
 
 
@@ -250,6 +253,7 @@ async function onFormMoviesSearch(evt) {
 async function onMovieDetails(event) {
     // console.log("Вешаю слушателя на onMovieDetails"); //!
     if (event.target.src) {
+
         //! Получаем (id) фильма для отрисовки карточки с полной информацией об этом фильме
         // console.log("event.target.src: ", event.target.src); //!
         // const allPosterPath = event.target.substr(33);
@@ -270,7 +274,9 @@ async function onMovieDetails(event) {
 
     //! ==> Делаем запрос
 
-    //! ==> Рисуем модалку
+    //! ==> Открываем модалку
+    window.addEventListener('keydown', onEscKeyPress);
+    document.body.classList.add('show-modal');
 
 }
 
@@ -384,6 +390,38 @@ function checkHitsForEmpty(results) {
         refs.resultNotSuccessful.hidden = false;
         Notiflix.Notify.failure(`Search result not successful. Enter the correct movie name and`, { timeout: 3000, },);
         loadMoreBtn.hide(); //! Кнопка LOAD MORE => ПРЯЧЕМ
+    }
+};
+
+
+//! +++++++++++++++++++++++ Функции для МОДАЛКИ +++++++++++++++++++++++++++
+//? ----- для тестирования
+// function onOpenModal() {
+//     window.addEventListener('keydown', onEscKeyPress);
+//     document.body.classList.add('show-modal');
+// }
+
+function onCloseModal() {
+    window.removeEventListener('keydown', onEscKeyPress);
+    document.body.classList.remove('show-modal');
+}
+
+function onBackdropClick(event) {
+    // console.log(event.currentTarget); //!
+    // console.log(event.target); //!
+    if (event.currentTarget === event.target) {
+        // console.log('Кликнули именно в бекдроп!!!!'); //!
+        onCloseModal();
+    }
+};
+
+function onEscKeyPress(event) {
+    // console.log(event.code); //!
+    // const ESC_KEY_CODE = 'Escape';
+    // const isEscKey = event.code === ESC_KEY_CODE;
+    // if (isEscKey) {
+    if (event.code === 'Escape') {
+        onCloseModal();
     }
 }
 //?_____________________________________________________________________
