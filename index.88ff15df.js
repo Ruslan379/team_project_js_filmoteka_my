@@ -113,7 +113,7 @@ t(p).Notify.failure("Ошибка запроса: ".concat(e.t0.message),{timeou
 //! ==> Открываем модалку
 window.addEventListener("keydown",W),document.body.classList.add("show-modal"),
 //! Рисование интерфейса 
-_([L]);case 24:case"end":return e.stop()}}),e,null,[[6,14]])})))).apply(this,arguments)}function z(){return(z=
+_(L);case 23:case"end":return e.stop()}}),e,null,[[6,14]])})))).apply(this,arguments)}function z(){return(z=
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 t(a)(t(l).mark((function e(n){var i;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return N.disable(),t.next=3,k.getTrendingAllDay();case 3:i=t.sent,
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
@@ -145,9 +145,8 @@ function j(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 w.moviesCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.genre_ids,r=t.first_air_date,a=t.release_date,s=o.map((function(t){return function(t){return v.filter((function(e){return e.id===t}))[0].name}(t)})).join(", "),l=(r||a||"???? - ?? - ??").substr(0,4);//! значение года из строки даты:
 return'\n            <div>\n                <img src="https://image.tmdb.org/t/p/w780'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||i,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}
-//! ------------------------------ infoFilms -----------------------------------------
+//! ------------------------------ infoFilm -----------------------------------------
 (t))}function _(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-w.InfoMovie.insertAdjacentHTML("afterbegin",function(t){//!
-return console.log("createInfoMovieMarkup ==> infoFilm:",t),t.map((function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", ");return'\n            <div class="modal-markup-card">\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div class="modal-markup-card-сontent">\n                    <h2>').concat(n||i,"</h2>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n            </div>\n            ")})).join("")}(t))}console.log("genres:",v)}();
-//# sourceMappingURL=index.f2eeafc5.js.map
+w.InfoMovie.insertAdjacentHTML("afterbegin",function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", ");return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div class="modal-сontent">\n                    <h3>').concat(n||i,"</h3>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n            ")}(t))}console.log("genres:",v)}();
+//# sourceMappingURL=index.88ff15df.js.map
