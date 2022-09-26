@@ -1,3 +1,4 @@
+/* * common */
 *,
 *::before,
 *::after {
@@ -38,14 +39,14 @@ img {
 }
 
 /* ! кнопки Filmoteka,  HOME, MY LIBRARY */
-.all-buttons {
+.nav-all-buttons {
   display: flex;
   justify-content: space-around;
   /* margin-left: auto; */
   /* margin-right: auto; */
 }
 
-.nav-buttons {
+.nav-main-buttons {
   display: flex;
   justify-content: space-around;
   /* margin-left: auto; */
@@ -68,10 +69,29 @@ img {
 }
 
 .search-form-alert {
-  
   color: #ffdddd;
-  /* text-align: center; */
 }
+
+/* ! кнопки WATCHED и QUEUE  */
+.nav-library-buttons {
+  display: flex;
+  justify-content: center;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+}
+
+.nav-library-watched {
+  margin-right: 200px;
+}
+
+.nav-library-watched {
+  padding: 15px 40px;
+}
+
+.nav-library-queue {
+  padding: 15px 40px;
+}
+
 
 
 
@@ -121,9 +141,6 @@ body.show-modal .modal {
 
 /* ! кнопка X (close-modal) */
 .modal-close {
-  /* display: flex; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
   margin-left: 736px;
 }
 
@@ -174,6 +191,8 @@ body.show-modal .modal {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 19px -5px rgba(0, 0, 0, 0.75);
 }
 
 
@@ -184,6 +203,8 @@ body.show-modal .modal {
   height: 90%;
   /* height: 200px; */
   object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 10px 10px 19px -5px rgba(0, 0, 0, 0.75);
 }
 
 /* ! кнопка LOAD MORE */

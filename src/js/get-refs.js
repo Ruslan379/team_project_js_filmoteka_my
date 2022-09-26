@@ -15,6 +15,9 @@ export default function getRefs() {
     //! Получаем ссылку на кнопку Filmoteka:
     filmotekaBtn: document.querySelector('.button-filmoteka'),
 
+    //! Получаем ссылку на кнопку MY LIBRARY:
+    myLibraryBtn: document.querySelector('.button-mylibrary'),
+
     //! Получаем ссылку на <section class="section-hero"> ==> на poster_path:
     movieDetails: document.querySelector('.section-hero'),
 
@@ -24,7 +27,14 @@ export default function getRefs() {
     backdrop: document.querySelector('.js-backdrop'),
 
     //! Получаем ссылку на строку предупреждения об отсутствии фильмов:
-    resultNotSuccessful: document.querySelector('.search-form-alert'),
+    resultNotSuccessful: document.querySelector('.search-alert'),
+
+    //! Получаем ссылку на форму со строкой инпута:
+    searchFormAlert: document.querySelector('.search'),
+
+    //! Получаем ссылку на блок кнопок WATCHED и QUEUE в header:
+    watchedQueueHeader: document.querySelector('.nav-library-buttons'),
+
   };
 };
 
