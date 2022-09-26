@@ -104,8 +104,8 @@ let films = [];
 //! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
 let idFilms = 0;
 
-//! Создаем глобальную переменную (infoFilms) для хранения полной информации об одном фильме
-let infoFilms = null;
+//! Создаем глобальную переменную (infoFilm) для хранения полной информации об одном фильме
+let infoFilm = null;
 
 
 // Переменная для определения типа запроса в кнопке LOAD MORE - пока не пригодилась
@@ -283,36 +283,33 @@ async function onMovieDetails(event) {
         //! Очищаем контейнер МОДАЛКИ:
         clearModalContainer();
         //! Перезаписываем в глобальную переменную (films) значение всей (results)
-        infoFilms = results;
+        infoFilm = results;
     } catch (error) {
         //! Очищаем контейнер МОДАЛКИ:
         clearModalContainer();
-        infoFilms = null;
+        infoFilm = null;
         console.log(error); //!
         Notiflix.Notify.failure(`Ошибка запроса: ${error.message}`, { timeout: 3500, },);
     }
     //? ------- Получаем и консолим все данные для рендера разметки главной страницы -------
-    // console.log("getMovieDetails ==> infoFilms:", infoFilms); //!
-    // const titleOrName = infoFilms.title || infoFilms.name;
+    // console.log("getMovieDetails ==> infoFilm:", infoFilm); //!
+    // const titleOrName = infoFilm.title || infoFilm.name;
     // console.log("titleOrName:", titleOrName);
-    // console.log("id:", infoFilms.id); //!
-    // console.log("poster_path:", infoFilms.poster_path);
-    // console.log("Vote:", infoFilms.vote_average);
-    // console.log("Votes:", infoFilms.vote_count);
-    // console.log("Popularity:", infoFilms.popularity);
-    // const originalTitleOrName = infoFilms.original_title || infoFilms.original_name;
+    // console.log("id:", infoFilm.id); //!
+    // console.log("poster_path:", infoFilm.poster_path);
+    // console.log("Vote:", infoFilm.vote_average);
+    // console.log("Votes:", infoFilm.vote_count);
+    // console.log("Popularity:", infoFilm.popularity);
+    // const originalTitleOrName = infoFilm.original_title || infoFilm.original_name;
     // console.log("Original Title:", originalTitleOrName);
-    // const genresAllOneFilm = infoFilms.genres.map(item => item.name).join(", ");
+    // const genresAllOneFilm = infoFilm.genres.map(item => item.name).join(", ");
     // console.log("Genre:", genresAllOneFilm); //! строка всех жанров
-    // console.log("About:", infoFilms.overview);
+    // console.log("About:", infoFilm.overview);
     //?_________________КОНЕЦ Получения и консоли всех данных _____________________
 
     //! ==> Открываем модалку
     window.addEventListener('keydown', onEscKeyPress);
     document.body.classList.add('show-modal');
-
-    const infoFilm = [infoFilms];
-    // console.log("getMovieDetails ==> infoFilm:", infoFilm); //!
 
     //! Рисование интерфейса 
     appendInfoMovieMarkup(infoFilm);
@@ -531,7 +528,7 @@ function createMoviesCardsMarkup(results) {
 };
 
 
-//! ------------------------------ infoFilms -----------------------------------------
+//! ------------------------------ infoFilm -----------------------------------------
 //*  Ф-ция-then, к-рая отрисовывает интерфейс ОДНОГО фильма в МОДАЛКЕ:
 function appendInfoMovieMarkup(infoFilm) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
@@ -540,29 +537,27 @@ function appendInfoMovieMarkup(infoFilm) {
 
 //*   Ф-ция, к-рая создает новую разметку ОДНОГО фильма в МОДАЛКЕ:
 function createInfoMovieMarkup(infoFilm) {
-    console.log("createInfoMovieMarkup ==> infoFilm:", infoFilm); //!
-    return infoFilm
-        .map(({
-            id,
-            poster_path,
-            title, name,
-            vote_average,
-            vote_count,
-            popularity,
-            original_title,
-            original_name,
-            genres,
-            overview
-        }) => {
+    // console.log("createInfoMovieMarkup ==> infoFilm:", infoFilm); //!
+    const {
+        id,
+        poster_path,
+        title, name,
+        vote_average,
+        vote_count,
+        popularity,
+        original_title,
+        original_name,
+        genres,
+        overview
+    } = infoFilm
 
-            const genresAllOneFilm = genres.map(item => item.name).join(", ");
+    const genresAllOneFilm = genres.map(item => item.name).join(", ");
 
-            return `
-            <div class="modal-markup-card">
+    return `
                 <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="" />
 
-                <div class="modal-markup-card-сontent">
-                    <h2>${title || name}</h2>
+                <div class="modal-сontent">
+                    <h3>${title || name}</h3>
                     <h5>Vote/Votes ${vote_average}/${vote_count}</h5>
                     <h5>Popularity ${popularity}</h5>
                     <h5>Original Title ${original_title || original_name}</h5>
@@ -570,11 +565,21 @@ function createInfoMovieMarkup(infoFilm) {
                     <h5>ABOUT</h5>
                     <p>${overview}</p>
                 </div>
-            </div>
             `;
-        })
-        .join('');
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 //todo ---------------------------  OLD  уже не надо---------------------------------------------
 // +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:

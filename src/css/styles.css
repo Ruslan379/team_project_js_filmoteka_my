@@ -108,9 +108,9 @@ body.show-modal .modal {
 .modal-film {
   padding: 24px;
   border-radius: 4px;
-  max-width: 640px;
+  max-width: 806px;
   width: 100%;
-  min-height: 320px;
+  min-height: 558px;
   background-color: #fff;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
@@ -124,7 +124,7 @@ body.show-modal .modal {
   /* display: flex; */
   /* margin-left: auto; */
   /* margin-right: auto; */
-  margin-left: 567px;
+  margin-left: 736px;
 }
 
 /* ! кнопки ADD TO WATCHED и ADD TO QUEUE (modal-library) */
@@ -142,6 +142,16 @@ body.show-modal .modal {
   /* margin-left: auto; */
   /* margin-right: auto; */
 }
+
+/* ! весь контейнер модалки */
+.modal-markup {
+  display: flex;
+}
+
+.modal-сontent {
+  margin-left: 20px;
+}
+
 
 
 
