@@ -4,7 +4,10 @@ export default function getRefs() {
     searchForm: document.querySelector('#search-form'),
 
     //! Получаем ссылку на div-контейнер для разметки карточек изображений:
-    imageCards: document.querySelector('.gallery'),
+    moviesCards: document.querySelector('.gallery'),
+
+    //! Получаем ссылку на div-контейнер для разметки карточек изображений:
+    InfoMovie: document.querySelector('.modal-markup'),
 
     //! Получаем ссылку на кнопку HOME:
     homeBtn: document.querySelector('.button-home'),

@@ -148,7 +148,7 @@ async function onHome() {
     loadMoreBtn.disable();
 
     //! Очищаем контейнер:
-    clearHitsContainer();
+    clearMovieContainer();
 
     //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
@@ -226,7 +226,7 @@ async function onFormMoviesSearch(evt) {
 
 
     //! Очищаем контейнер при новом вводе данных в input form:
-    clearHitsContainer();
+    clearMovieContainer();
 
     //! Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
     const results = await themoviedbApiService.getSearchMovies();
@@ -236,7 +236,7 @@ async function onFormMoviesSearch(evt) {
     films = results;
 
     //! ПРОВЕРКА hits на пустой массив
-    checkHitsForEmpty(results);
+    checkMovieForEmpty(results);
 
     //! Рисование интерфейса
     appendHitsMarkup(results);
@@ -275,35 +275,47 @@ async function onMovieDetails(event) {
 
     console.log("idFilms:", idFilms); //! id фильма
 
+
+
     //! ==> Делаем запрос
     try {
         const results = await themoviedbApiService.getMovieDetails(idFilms);
+        //! Очищаем контейнер МОДАЛКИ:
+        clearModalContainer();
         //! Перезаписываем в глобальную переменную (films) значение всей (results)
         infoFilms = results;
     } catch (error) {
+        //! Очищаем контейнер МОДАЛКИ:
+        clearModalContainer();
+        infoFilms = null;
         console.log(error); //!
         Notiflix.Notify.failure(`Ошибка запроса: ${error.message}`, { timeout: 3500, },);
     }
     //? ------- Получаем и консолим все данные для рендера разметки главной страницы -------
-    console.log("getMovieDetails ==> infoFilms:", infoFilms); //!
-    const titleOrName = infoFilms.title || infoFilms.name;
-    console.log("titleOrName:", titleOrName);
-    console.log("id:", infoFilms.id); //!
-    console.log("poster_path:", infoFilms.poster_path);
-    console.log("Vote:", infoFilms.vote_average);
-    console.log("Votes:", infoFilms.vote_count);
-    console.log("Popularity:", infoFilms.popularity);
-    const originalTitleOrName = infoFilms.original_title || infoFilms.original_name;
-    console.log("Original Title:", originalTitleOrName);
-    const genresAllOneFilm = infoFilms.genres.map(item => item.name).join(", ");
-    console.log("Genre:", genresAllOneFilm); //! строка всех жанров
-    console.log("About:", infoFilms.overview);
+    // console.log("getMovieDetails ==> infoFilms:", infoFilms); //!
+    // const titleOrName = infoFilms.title || infoFilms.name;
+    // console.log("titleOrName:", titleOrName);
+    // console.log("id:", infoFilms.id); //!
+    // console.log("poster_path:", infoFilms.poster_path);
+    // console.log("Vote:", infoFilms.vote_average);
+    // console.log("Votes:", infoFilms.vote_count);
+    // console.log("Popularity:", infoFilms.popularity);
+    // const originalTitleOrName = infoFilms.original_title || infoFilms.original_name;
+    // console.log("Original Title:", originalTitleOrName);
+    // const genresAllOneFilm = infoFilms.genres.map(item => item.name).join(", ");
+    // console.log("Genre:", genresAllOneFilm); //! строка всех жанров
+    // console.log("About:", infoFilms.overview);
     //?_________________КОНЕЦ Получения и консоли всех данных _____________________
 
     //! ==> Открываем модалку
     window.addEventListener('keydown', onEscKeyPress);
     document.body.classList.add('show-modal');
 
+    const infoFilm = [infoFilms];
+    // console.log("getMovieDetails ==> infoFilm:", infoFilm); //!
+
+    //! Рисование интерфейса 
+    appendInfoMovieMarkup(infoFilm);
 }
 
 
@@ -322,7 +334,7 @@ async function onLoadMore(evt) {
     films = results;
 
     //! Очищаем контейнер:
-    clearHitsContainer();
+    clearMovieContainer();
 
     //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
     // checkHitsForEnd(endOfCollection);
@@ -379,7 +391,7 @@ async function onLoadMore(evt) {
 //     // console.log("onLoadMore ==> results:", results); //!
 
 //     //! Очищаем контейнер:
-//     clearHitsContainer();
+//     clearMovieContainer();
 
 //     //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
 //     // checkHitsForEnd(endOfCollection);
@@ -393,7 +405,7 @@ async function onLoadMore(evt) {
 //* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-//? --------------------------- themoviedb-Функции ---------------------
+//* --------------------------- themoviedb-Функции ---------------------
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 function convertingIdToGenre(id) {
     const genre = genres.filter(genre => genre.id === id);
@@ -404,13 +416,17 @@ function convertingIdToGenre(id) {
 
 
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-function clearHitsContainer() {
-    refs.imageCards.innerHTML = "";
+function clearMovieContainer() {
+    refs.moviesCards.innerHTML = "";
 }
 
+//!   Ф-ция, к-рая очищает контейнер МОДАЛКИ:
+function clearModalContainer() {
+    refs.InfoMovie.innerHTML = "";
+}
 
 //!  Ф-ция, к-рая  прверяет results на пустой массив:
-function checkHitsForEmpty(results) {
+function checkMovieForEmpty(results) {
     if (!results.length) {
         //! ПОКАЗЫВАЕМ строку предупреждения об отсутствии фильмов:
         refs.resultNotSuccessful.hidden = false;
@@ -430,6 +446,8 @@ function checkHitsForEmpty(results) {
 function onCloseModal() {
     window.removeEventListener('keydown', onEscKeyPress);
     document.body.classList.remove('show-modal');
+    //! Очищаем контейнер МОДАЛКИ:
+    clearModalContainer();
 }
 
 function onBackdropClick(event) {
@@ -450,7 +468,7 @@ function onEscKeyPress(event) {
         onCloseModal();
     }
 }
-//?_____________________________________________________________________
+//*_____________________________________________________________________
 
 
 
@@ -477,13 +495,12 @@ function showsTotalHits(totalHits) {
 //*  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
 function appendHitsMarkup(results) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-    refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup(results));
-    // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
+    refs.moviesCards.insertAdjacentHTML('beforeend', createMoviesCardsMarkup(results));
 }
 
 
 //*   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
-function createImageCardsMarkup(results) {
+function createMoviesCardsMarkup(results) {
     return results
         .map(({ id, poster_path, title, name, genre_ids, first_air_date, release_date }) => {
 
@@ -500,7 +517,7 @@ function createImageCardsMarkup(results) {
             // console.log("yearDate:", yearDate); //!
 
             return `
-            <div >
+            <div>
                 <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="" />
 
                 <div>
@@ -514,7 +531,50 @@ function createImageCardsMarkup(results) {
 };
 
 
+//! ------------------------------ infoFilms -----------------------------------------
+//*  Ф-ция-then, к-рая отрисовывает интерфейс ОДНОГО фильма в МОДАЛКЕ:
+function appendInfoMovieMarkup(infoFilm) {
+    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+    refs.InfoMovie.insertAdjacentHTML('afterbegin', createInfoMovieMarkup(infoFilm));
+}
 
+//*   Ф-ция, к-рая создает новую разметку ОДНОГО фильма в МОДАЛКЕ:
+function createInfoMovieMarkup(infoFilm) {
+    console.log("createInfoMovieMarkup ==> infoFilm:", infoFilm); //!
+    return infoFilm
+        .map(({
+            id,
+            poster_path,
+            title, name,
+            vote_average,
+            vote_count,
+            popularity,
+            original_title,
+            original_name,
+            genres,
+            overview
+        }) => {
+
+            const genresAllOneFilm = genres.map(item => item.name).join(", ");
+
+            return `
+            <div class="modal-markup-card">
+                <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="" />
+
+                <div class="modal-markup-card-сontent">
+                    <h2>${title || name}</h2>
+                    <h5>Vote/Votes ${vote_average}/${vote_count}</h5>
+                    <h5>Popularity ${popularity}</h5>
+                    <h5>Original Title ${original_title || original_name}</h5>
+                    <h5>Genre ${genresAllOneFilm}</h5>
+                    <h5>ABOUT</h5>
+                    <p>${overview}</p>
+                </div>
+            </div>
+            `;
+        })
+        .join('');
+};
 //todo ---------------------------  OLD  уже не надо---------------------------------------------
 // +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
 //  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
@@ -540,7 +600,7 @@ function createImageCardsMarkup(results) {
 //     themoviedbApiService.resetPage()
 
 //     //! Очищаем контейнер при новом вводе данных в input form:
-//     clearHitsContainer()
+//     clearMovieContainer()
 
 //     loadMoreBtn.disable()
 //     //? Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
@@ -551,7 +611,7 @@ function createImageCardsMarkup(results) {
 //             // console.log("endOfCollection: ", endOfCollection); //!
 
 //             //! ПРОВЕРКА hits на пустой массив
-//             checkHitsForEmpty(hits)
+//             checkMovieForEmpty(hits)
 
 //             showsTotalHits(totalHits) //* Консолим свойство totalHits
 //             return hits
@@ -594,13 +654,13 @@ function createImageCardsMarkup(results) {
 // _OLD Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
 // function appendHitsMarkup_OLD(results) {
 //     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-//     refs.imageCards.insertAdjacentHTML('beforeend', createImageCardsMarkup_OLD(results));
+//     refs.moviesCards.insertAdjacentHTML('beforeend',  createMoviesCardsMarkup_OLD(results));
 //     // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
 // }
 
 
 // _OLD  Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
-// function createImageCardsMarkup_OLD(hits) {
+// function  createMoviesCardsMarkup_OLD(hits) {
 //     return hits
 //         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
 //             return `
