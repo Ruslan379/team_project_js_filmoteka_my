@@ -81,7 +81,7 @@ refs.homeBtn.addEventListener('click', onHome);
 refs.filmotekaBtn.addEventListener('click', onHome);
 
 //! Создаем слушателя событий на кнопке Filmoteka:
-refs.myLibraryBtn.addEventListener('click', onMyLibrary);
+// refs.myLibraryBtn.addEventListener('click', onMyLibrary);
 
 
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
