@@ -49,6 +49,13 @@ w.homeBtn.addEventListener("click",B),
 //! Создаем слушателя событий на кнопке Filmoteka:
 w.filmotekaBtn.addEventListener("click",B),
 //! Создаем слушателя событий на кнопке Filmoteka:
+w.myLibraryBtn.addEventListener("click",(function(){
+//! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+w.resultNotSuccessful.hidden=!0,
+//! ПРЯЧЕМ форму со строкой инпута:
+w.searchFormAlert.hidden=!0,
+//! ПОКАЗЫВАЕМ блок кнопок WATCHED и QUEUE в header:
+w.watchedQueueHeader.hidden=!1})),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 w.movieDetails.addEventListener("click",(function(t){return z.apply(this,arguments)})),w.closeModalBtn.addEventListener("click",_),w.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&_()})),
 //! ПОКАЗЫВАЕМ форму со строкой инпута:
@@ -60,28 +67,30 @@ w.watchedQueueHeader.hidden=!0;
 //! Создаем глобальную переменную (films) для хранения значение всей (results)
 var C=[],E=0,L=null,A="";
 //! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
-//!
 function B(){return R.apply(this,arguments)}function R(){return(R=
-//!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 //! +++ Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka) +++
 t(a)(t(l).mark((function e(){var n;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:
 //! Задаем значение переменной (currentPage = "home-Filmoteka") для определения типа запроса в кнопке LOAD MORE
 return A="home-Filmoteka",
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 w.resultNotSuccessful.hidden=!0,
+//! ПОКАЗЫВАЕМ форму со строкой инпута:
+w.searchFormAlert.hidden=!1,//! ПОКАЗЫВАЕМ
+//! ПРЯЧЕМ блок кнопок WATCHED и QUEUE в header:
+w.watchedQueueHeader.hidden=!0,
 //! Делаем сброс значения page = 1 после submit form 
 //! с помощью метода resetPage из класса ThemoviedbApiService
 k.resetPage(),
 //! Кнопка LOAD MORE => показываем и отключаем
 N.show(),N.disable(),
 //! Очищаем контейнер:
-M(),t.next=8,k.getTrendingAllDay();case 8:n=t.sent,
+M(),t.next=10,k.getTrendingAllDay();case 10:n=t.sent,
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
 C=n,
 //! Рисование интерфейса 
 U(n),
 //! Кнопка LOAD MORE => включаем
-N.enable();case 12:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function S(){return(S=
+N.enable();case 14:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function S(){return(S=
 //! ++++++++++ Пошук та відображення фільмів за ключовим словом из input form +++++++++++
 t(a)(t(l).mark((function e(n){var i;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if(n.preventDefault(),
 //! это то, что приходит в input и 
@@ -154,11 +163,13 @@ function U(t){
 w.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
 function(t){return t.map((function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.genre_ids,r=t.first_air_date,a=t.release_date,s=o.map((function(t){return function(t){return v.filter((function(e){return e.id===t}))[0].name}(t)})).join(", "),l=(r||a||"???? - ?? - ??").substr(0,4);//! значение года из строки даты:
-return'\n            <div>\n                <img src="https://image.tmdb.org/t/p/w780'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||i,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}
+return'\n            <div>\n                <img src="https://image.tmdb.org/t/p/w780'.concat(e,'" alt="" />\n\n                <div>\n                    <br />\n                    <h5>').concat(n||i,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}
 //! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
 (t))}function F(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 w.InfoMovie.insertAdjacentHTML("afterbegin",
 //! --------------------------------------------------------------------------------------------
-function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", ");return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div class="modal-сontent">\n                    <h3>').concat(n||i,"</h3>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n            ")}(t))}console.log("genres:",v)}();
-//# sourceMappingURL=index.1bbfdee1.js.map
+function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", ");return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div class="modal-сontent">\n                    <h3>').concat(n||i,"</h3>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n            ")}(t))}console.log("genres:",v),//!
+//!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
+B()}();
+//# sourceMappingURL=index.911950cd.js.map
