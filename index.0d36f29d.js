@@ -76,22 +76,23 @@ m.enable()}
 //!  Создаем слушателя событий на кнопке LOAD MORE:
 m.refs.button.addEventListener("click",(
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-async function(t){m.disable();//! Кнопка LOAD MORE => ВЫключаем
-//! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
-const e=await u.getTrendingAllDay();
-//! Перезаписываем в глобальную переменную (films) значение всей (results)
-d=e,
+//!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
+async function(){
+//! Кнопка LOAD MORE => ВЫключаем
+m.disable(),
+//! проверяеm значения переменной (currentPage) 
+//! и СРАЗУ получаем в переменной films нужный массив объектов 
+//! для отрисовки следующих 20 фильмов
+await async function(){if("home-Filmoteka"===x){const t=await u.getTrendingAllDay();d=t}else{if("Movie search"!==x)return;{const t=await u.getSearchMovies();d=t}}}
+//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
+(),
 //! Очищаем контейнер:
 b(),
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
 //! Рисование интерфейса
-N(e),
+N(d),
 //! Кнопка LOAD MORE => включаем
-m.enable()}
-//! НЕ РАБОТАЕТ, ==>  ЗАВИСАЕТ!!! 
-//!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
-)),
+m.enable()})),
 //! Создаем слушателя событий на кнопке HOME:
 p.homeBtn.addEventListener("click",y),
 //! Создаем слушателя событий на кнопке Filmoteka:
@@ -115,8 +116,10 @@ window.addEventListener("keydown",k),document.body.classList.add("show-modal"),
 //! Рисование интерфейса 
 n=g,
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-p.InfoMovie.insertAdjacentHTML("afterbegin",function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:r,vote_count:a,popularity:s,original_title:l,original_name:c,genres:f,overview:p}=t,u=f.map((t=>t.name)).join(", ");return`\n                <img src="https://image.tmdb.org/t/p/w300${n}" alt="" />\n\n                <div class="modal-сontent">\n                    <h3>${i||o}</h3>\n                    <h5>Vote/Votes ${r}/${a}</h5>\n                    <h5>Popularity ${s}</h5>\n                    <h5>Original Title ${l||c}</h5>\n                    <h5>Genre ${u}</h5>\n                    <h5>ABOUT</h5>\n                    <p>${p}</p>\n                </div>\n            `}(n));
-//! ------------------------------ infoFilm -----------------------------------------
+p.InfoMovie.insertAdjacentHTML("afterbegin",
+//! --------------------------------------------------------------------------------------------
+function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:r,vote_count:a,popularity:s,original_title:l,original_name:c,genres:f,overview:p}=t,u=f.map((t=>t.name)).join(", ");return`\n                <img src="https://image.tmdb.org/t/p/w300${n}" alt="" />\n\n                <div class="modal-сontent">\n                    <h3>${i||o}</h3>\n                    <h5>Vote/Votes ${r}/${a}</h5>\n                    <h5>Popularity ${s}</h5>\n                    <h5>Original Title ${l||c}</h5>\n                    <h5>Genre ${u}</h5>\n                    <h5>ABOUT</h5>\n                    <p>${p}</p>\n                </div>\n            `}(n));
+//! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
 var n})),
 //! +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
 p.closeModalBtn.addEventListener("click",v),p.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&v()})),
@@ -154,8 +157,10 @@ function b(){p.moviesCards.innerHTML=""}
 function w(){p.InfoMovie.innerHTML=""}function v(){window.removeEventListener("keydown",k),document.body.classList.remove("show-modal"),
 //! Очищаем контейнер МОДАЛКИ:
 w()}function k(t){"Escape"===t.code&&v()}
-//! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
+//! +++++++++++++++++++++++++++++ Markup Movies ++++++++++++++++++++++++++++++++++++++++++++++
 function N(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-p.moviesCards.insertAdjacentHTML("beforeend",function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>`\n            <div>\n                <img src="https://image.tmdb.org/t/p/w780${e}" alt="" />\n\n                <div>\n                    <h5>${n||i}</h5>\n                    <h5>${o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", ")} | ${(r||a||"???? - ?? - ??").substr(0,4)}</h5>\n                </div>\n            </div>\n            `)).join("")}(t))}console.log("genres:",f);
-//# sourceMappingURL=index.a1fb34ea.js.map
+p.moviesCards.insertAdjacentHTML("beforeend",
+//! --------------------------------------------------------------------------------------------
+function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>`\n            <div>\n                <img src="https://image.tmdb.org/t/p/w780${e}" alt="" />\n\n                <div>\n                    <h5>${n||i}</h5>\n                    <h5>${o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", ")} | ${(r||a||"???? - ?? - ??").substr(0,4)}</h5>\n                </div>\n            </div>\n            `)).join("")}(t))}console.log("genres:",f);
+//# sourceMappingURL=index.0d36f29d.js.map

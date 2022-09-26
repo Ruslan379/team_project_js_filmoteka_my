@@ -35,29 +35,29 @@ closeModalBtn:document.querySelector('[data-action="close-modal"]'),backdrop:doc
 //! Получаем ссылку на строку предупреждения об отсутствии фильмов:
 resultNotSuccessful:document.querySelector(".search-form-alert")},k=new y,N=new b({selector:'[data-action="load-more1"]',hidden:!0});
 //!  Создаем слушателя событий на поле ввода данных - input form:
-w.searchForm.addEventListener("submit",(function(t){return R.apply(this,arguments)})),
+w.searchForm.addEventListener("submit",(function(t){return S.apply(this,arguments)})),
 //!  Создаем слушателя событий на кнопке LOAD MORE:
-N.refs.button.addEventListener("click",(function(t){return z.apply(this,arguments)})),
+N.refs.button.addEventListener("click",(function(){return T.apply(this,arguments)})),
 //! Создаем слушателя событий на кнопке HOME:
-w.homeBtn.addEventListener("click",A),
+w.homeBtn.addEventListener("click",B),
 //! Создаем слушателя событий на кнопке Filmoteka:
-w.filmotekaBtn.addEventListener("click",A),
+w.filmotekaBtn.addEventListener("click",B),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
-w.movieDetails.addEventListener("click",(function(t){return S.apply(this,arguments)})),
+w.movieDetails.addEventListener("click",(function(t){return z.apply(this,arguments)})),
 //! +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
-w.closeModalBtn.addEventListener("click",M),w.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&M()})),
+w.closeModalBtn.addEventListener("click",_),w.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&_()})),
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 w.resultNotSuccessful.hidden=!0;
 //! Создаем глобальную переменную (films) для хранения значение всей (results)
-var C=[],E=0,L=null;
+var C=[],E=0,L=null,A="";
 //! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
 //!
-function A(){return B.apply(this,arguments)}function B(){return(B=
+function B(){return R.apply(this,arguments)}function R(){return(R=
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 //! +++ Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka) +++
 t(a)(t(l).mark((function e(){var n;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:
 //! Задаем значение переменной (currentPage = "home-Filmoteka") для определения типа запроса в кнопке LOAD MORE
-return"home-Filmoteka",
+return A="home-Filmoteka",
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 w.resultNotSuccessful.hidden=!0,
 //! Делаем сброс значения page = 1 после submit form 
@@ -66,13 +66,13 @@ k.resetPage(),
 //! Кнопка LOAD MORE => показываем и отключаем
 N.show(),N.disable(),
 //! Очищаем контейнер:
-T(),t.next=8,k.getTrendingAllDay();case 8:n=t.sent,
+M(),t.next=8,k.getTrendingAllDay();case 8:n=t.sent,
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
 C=n,
 //! Рисование интерфейса 
-j(n),
+U(n),
 //! Кнопка LOAD MORE => включаем
-N.enable();case 12:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function R(){return(R=
+N.enable();case 12:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function S(){return(S=
 //! ++++++++++ Пошук та відображення фільмів за ключовим словом из input form +++++++++++
 t(a)(t(l).mark((function e(n){var i;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if(n.preventDefault(),
 //! это то, что приходит в input и 
@@ -81,7 +81,7 @@ k.query=n.currentTarget.elements.searchQuery.value.trim(),//! + убираем �
 console.log("searchQuery: ",k.query),//!
 n.currentTarget.elements.searchQuery.value="",""!==k.query){t.next=6;break}return t.abrupt("return",alert("Поле ввода не долно быть пустым!"));case 6:
 //! Задаем значение переменной (currentPage = "Movie search") для определения типа запроса в кнопке LOAD MORE
-return"Movie search",
+return A="Movie search",
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 w.resultNotSuccessful.hidden=!0,
 //! Делаем сброс значения page = 1 после submit form 
@@ -90,63 +90,66 @@ k.resetPage(),
 //! Кнопка LOAD MORE => показываем и отключаем
 N.show(),N.disable(),
 //! Очищаем контейнер при новом вводе данных в input form:
-T(),t.next=14,k.getSearchMovies();case 14:i=t.sent,
+M(),t.next=14,k.getSearchMovies();case 14:i=t.sent,
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
 C=i,
 //! ПРОВЕРКА hits на пустой массив
-I(i),
-//! Рисование интерфейса
 j(i),
+//! Рисование интерфейса
+U(i),
 //! Кнопка LOAD MORE => включаем
-N.enable();case 19:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function S(){return(S=//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+N.enable();case 19:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function z(){return(z=//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //! +++ _____ +++
 t(a)(t(l).mark((function e(n){var i,o,r,a;return t(l).wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(!n.target.src){e.next=4;break}i=String(n.target.src),o=i.substring(31),console.log("films:",C),//!
 r=C.findIndex((function(t){return t.poster_path===o})),E=C[r].id,e.next=5;break;case 4:return e.abrupt("return");case 5:return console.log("idFilms:",E),//! id фильма
 e.prev=6,e.next=9,k.getMovieDetails(E);case 9:a=e.sent,
 //! Очищаем контейнер МОДАЛКИ:
-O(),
+W(),
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
 L=a,e.next=20;break;case 14:e.prev=14,e.t0=e.catch(6),
 //! Очищаем контейнер МОДАЛКИ:
-O(),L=null,console.log(e.t0),//!
+W(),L=null,console.log(e.t0),//!
 t(p).Notify.failure("Ошибка запроса: ".concat(e.t0.message),{timeout:3500});case 20:
 //! ==> Открываем модалку
-window.addEventListener("keydown",W),document.body.classList.add("show-modal"),
+window.addEventListener("keydown",D),document.body.classList.add("show-modal"),
 //! Рисование интерфейса 
-_(L);case 23:case"end":return e.stop()}}),e,null,[[6,14]])})))).apply(this,arguments)}function z(){return(z=
+F(L);case 23:case"end":return e.stop()}}),e,null,[[6,14]])})))).apply(this,arguments)}function T(){return(T=
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-t(a)(t(l).mark((function e(n){var i;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return N.disable(),t.next=3,k.getTrendingAllDay();case 3:i=t.sent,
-//! Перезаписываем в глобальную переменную (films) значение всей (results)
-C=i,
+//!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
+t(a)(t(l).mark((function e(){return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:
+//! Кнопка LOAD MORE => ВЫключаем
+return N.disable(),t.next=3,O();case 3:
 //! Очищаем контейнер:
-T(),
+M(),
 //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
 //! Рисование интерфейса
-j(i),
+U(C),
 //! Кнопка LOAD MORE => включаем
-N.enable();case 8:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
-//! НЕ РАБОТАЕТ, ==>  ЗАВИСАЕТ!!! 
-//!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
+N.enable();case 6:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function O(){return I.apply(this,arguments)}function I(){return(I=t(a)(t(l).mark((function e(){var n,i;return t(l).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if("home-Filmoteka"!==A){t.next=7;break}return t.next=3,k.getTrendingAllDay();case 3:n=t.sent,C=n,t.next=15;break;case 7:if("Movie search"!==A){t.next=14;break}return t.next=10,k.getSearchMovies();case 10:i=t.sent,C=i,t.next=15;break;case 14:return t.abrupt("return");case 15:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-function T(){w.moviesCards.innerHTML=""}
+function M(){w.moviesCards.innerHTML=""}
 //!   Ф-ция, к-рая очищает контейнер МОДАЛКИ:
-function O(){w.InfoMovie.innerHTML=""}
+function W(){w.InfoMovie.innerHTML=""}
 //!  Ф-ция, к-рая  прверяет results на пустой массив:
-function I(e){e.length||(
+function j(e){e.length||(
 //! ПОКАЗЫВАЕМ строку предупреждения об отсутствии фильмов:
 w.resultNotSuccessful.hidden=!1,t(p).Notify.failure("Search result not successful. Enter the correct movie name and",{timeout:3e3}),N.hide())}
 //! +++++++++++++++++++++++ Функции для МОДАЛКИ +++++++++++++++++++++++++++
-function M(){window.removeEventListener("keydown",W),document.body.classList.remove("show-modal"),
+function _(){window.removeEventListener("keydown",D),document.body.classList.remove("show-modal"),
 //! Очищаем контейнер МОДАЛКИ:
-O()}function W(t){"Escape"===t.code&&M()}
-//! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
-function j(t){
+W()}function D(t){"Escape"===t.code&&_()}
+//! +++++++++++++++++++++++++++++ Markup Movies ++++++++++++++++++++++++++++++++++++++++++++++
+function U(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-w.moviesCards.insertAdjacentHTML("beforeend",function(t){return t.map((function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.genre_ids,r=t.first_air_date,a=t.release_date,s=o.map((function(t){return function(t){return v.filter((function(e){return e.id===t}))[0].name}(t)})).join(", "),l=(r||a||"???? - ?? - ??").substr(0,4);//! значение года из строки даты:
+w.moviesCards.insertAdjacentHTML("beforeend",
+//! --------------------------------------------------------------------------------------------
+function(t){return t.map((function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.genre_ids,r=t.first_air_date,a=t.release_date,s=o.map((function(t){return function(t){return v.filter((function(e){return e.id===t}))[0].name}(t)})).join(", "),l=(r||a||"???? - ?? - ??").substr(0,4);//! значение года из строки даты:
 return'\n            <div>\n                <img src="https://image.tmdb.org/t/p/w780'.concat(e,'" alt="" />\n\n                <div>\n                    <h5>').concat(n||i,"</h5>\n                    <h5>").concat(s," | ").concat(l,"</h5>\n                </div>\n            </div>\n            ")})).join("")}
-//! ------------------------------ infoFilm -----------------------------------------
-(t))}function _(t){
+//! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
+(t))}function F(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
-w.InfoMovie.insertAdjacentHTML("afterbegin",function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", ");return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div class="modal-сontent">\n                    <h3>').concat(n||i,"</h3>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n            ")}(t))}console.log("genres:",v)}();
-//# sourceMappingURL=index.88ff15df.js.map
+w.InfoMovie.insertAdjacentHTML("afterbegin",
+//! --------------------------------------------------------------------------------------------
+function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", ");return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div class="modal-сontent">\n                    <h3>').concat(n||i,"</h3>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n            ")}(t))}console.log("genres:",v)}();
+//# sourceMappingURL=index.809cdc73.js.map
