@@ -317,75 +317,18 @@ async function onMovieDetails(event) {
 
 
 
-
+//todo ==> РАБОТАЕТ, но только под один тип запроса
 //* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ции-запрос_1) ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
-async function onLoadMore(evt) {
-    loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
-
-
-    //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
-    const results = await themoviedbApiService.getTrendingAllDay();
-
-    //! Перезаписываем в глобальную переменную (films) значение всей (results)
-    films = results;
-
-    //! Очищаем контейнер:
-    clearMovieContainer();
-
-    //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-    // checkHitsForEnd(endOfCollection);
-
-    //! Рисование интерфейса
-    appendHitsMarkup(results);
-
-    //! Кнопка LOAD MORE => включаем
-    loadMoreBtn.enable();
-}
-//* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-//! НЕ РАБОТАЕТ, ==>  ЗАВИСАЕТ!!! 
-//?   Ф-ция, к-рая проверяет значения переменной (currentPage) для определения типа запроса в кнопке LOAD MORE
-// async function checkResults() {
-//     if (currentPage === "home-Filmoteka") {
-//         const results = await themoviedbApiService.getTrendingAllDay();
-//         return results;
-//     } else {
-//         if (currentPage === "Movie search") {
-//             const results = await themoviedbApiService.getSearchMovies();
-//             return results;
-//         } else {
-//             return;
-//         }
-//     };
-
-//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ции-запрос_2) ++++++++++++++++++++++++++++++++++++++++++++
-//!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 // async function onLoadMore(evt) {
-
 //     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
 
 
-//     //? Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
-//     const results = await themoviedbApiService.getSearchMovies();
+//     //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
+//     const results = await themoviedbApiService.getTrendingAllDay();
 
-//     //! Делаем fetch-запрос исходя из проверки значения переменной (currentPage):
-//     //! Проверка значения переменной (currentPage) для определения типа запроса в кнопке LOAD MORE
-//     // checkResults();
-
-//     // if (currentPage === "home-Filmoteka") {
-//     //     const results = await themoviedbApiService.getTrendingAllDay();
-//     //     // return results;
-//     // } else {
-//     //     if (currentPage === "Movie search") {
-//     //         const results = await themoviedbApiService.getSearchMovies();
-//     //         // return results;
-//     //     } else {
-//     //         // return;
-//     //     }
-
-//     // console.log("onLoadMore ==> results:", results); //!
+//     //! Перезаписываем в глобальную переменную (films) значение всей (results)
+//     films = results;
 
 //     //! Очищаем контейнер:
 //     clearMovieContainer();
@@ -402,25 +345,80 @@ async function onLoadMore(evt) {
 //* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
+
+
+//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ции-запрос ==> ОБЩАЯ - для 1 и 2) ++++++++++++++++++++++++++++++++++++++++++++
+//!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
+async function onLoadMore() {
+
+    //! Кнопка LOAD MORE => ВЫключаем
+    loadMoreBtn.disable()
+
+    //! проверяеm значения переменной (currentPage) 
+    //! и СРАЗУ получаем в переменной films нужный массив объектов 
+    //! для отрисовки следующих 20 фильмов
+    await checkResults();
+
+    // console.log("onLoadMore ==> films:", films); //!
+
+    //! Очищаем контейнер:
+    clearMovieContainer();
+
+    //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
+    // checkHitsForEnd(endOfCollection);
+
+    //! Рисование интерфейса
+    appendHitsMarkup(films);
+
+    //! Кнопка LOAD MORE => включаем
+    loadMoreBtn.enable();
+};
+//* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 //* --------------------------- themoviedb-Функции ---------------------
+//?   Ф-ция, к-рая проверяет значения переменной (currentPage) для определения типа запроса в кнопке LOAD MORE
+async function checkResults() {
+    if (currentPage === "home-Filmoteka") {
+        const results = await themoviedbApiService.getTrendingAllDay();
+        films = results;
+        // console.log("home-Filmoteka ==> films:", films); //!
+    } else {
+        if (currentPage === "Movie search") {
+            const results = await themoviedbApiService.getSearchMovies();
+            films = results;
+            // console.log("Movie search ==> films:", films); //!
+        } else {
+            return;
+        }
+    };
+};
+
+
+
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 function convertingIdToGenre(id) {
     const genre = genres.filter(genre => genre.id === id);
     // console.log("genre:", genre); //! 
     // console.log("genre[0].name:", genre[0].name); //!
     return genre[0].name;
-}
+};
+
 
 
 //!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
 function clearMovieContainer() {
     refs.moviesCards.innerHTML = "";
-}
+};
+
+
 
 //!   Ф-ция, к-рая очищает контейнер МОДАЛКИ:
 function clearModalContainer() {
     refs.InfoMovie.innerHTML = "";
-}
+};
+
+
 
 //!  Ф-ция, к-рая  прверяет results на пустой массив:
 function checkMovieForEmpty(results) {
@@ -447,6 +445,7 @@ function onCloseModal() {
     clearModalContainer();
 }
 
+
 function onBackdropClick(event) {
     // console.log(event.currentTarget); //!
     // console.log(event.target); //!
@@ -455,6 +454,7 @@ function onBackdropClick(event) {
         onCloseModal();
     }
 };
+
 
 function onEscKeyPress(event) {
     // console.log(event.code); //!
@@ -488,14 +488,14 @@ function showsTotalHits(totalHits) {
 
 
 
-//! +++++++++++++++++++++++++++++ Markup ++++++++++++++++++++++++++++++++++++++++++++++++++++
+//! +++++++++++++++++++++++++++++ Markup Movies ++++++++++++++++++++++++++++++++++++++++++++++
 //*  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
 function appendHitsMarkup(results) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
     refs.moviesCards.insertAdjacentHTML('beforeend', createMoviesCardsMarkup(results));
 }
 
-
+//! --------------------------------------------------------------------------------------------
 //*   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
 function createMoviesCardsMarkup(results) {
     return results
@@ -528,13 +528,16 @@ function createMoviesCardsMarkup(results) {
 };
 
 
-//! ------------------------------ infoFilm -----------------------------------------
+
+
+//! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
 //*  Ф-ция-then, к-рая отрисовывает интерфейс ОДНОГО фильма в МОДАЛКЕ:
 function appendInfoMovieMarkup(infoFilm) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
     refs.InfoMovie.insertAdjacentHTML('afterbegin', createInfoMovieMarkup(infoFilm));
-}
+};
 
+//! --------------------------------------------------------------------------------------------
 //*   Ф-ция, к-рая создает новую разметку ОДНОГО фильма в МОДАЛКЕ:
 function createInfoMovieMarkup(infoFilm) {
     // console.log("createInfoMovieMarkup ==> infoFilm:", infoFilm); //!
