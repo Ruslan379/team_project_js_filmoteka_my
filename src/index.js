@@ -181,7 +181,9 @@ async function onHome() {
 
     //     // console.log("title or name:", result.title || result.name); //* работает, можно так
     //     const titleOrName = result.title || result.name;
+    //     const capitalsTitle = result.title.toUpperCase(); //!(НЕ РАБОТАЕТ!!!)
     //     console.log("titleOrName:", titleOrName);
+    //     console.log("capitalsTitle:", capitalsTitle); //!(НЕ РАБОТАЕТ!!!)
 
     //     // console.log("genre_ids:", result.genre_ids); //!
     //     //? Получаем массив жанров для каждого фильма и строку всех жанров:
@@ -543,6 +545,7 @@ function createMoviesCardsMarkup(results) {
             // console.log("yearDate:", yearDate); //!
 
             //? Делаем заглавныее буквы в названии фильма (НЕ РАБОТАЕТ!!!)
+            // const capitalsTitle = title.toLocaleUpperCase();
             // const capitalsTitle = title.toUpperCase();
             // console.log("capitalsTitle:", capitalsTitle); //!
             // const capitalsName = name.toUpperCase();
