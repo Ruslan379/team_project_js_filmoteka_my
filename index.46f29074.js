@@ -104,7 +104,6 @@ u.homeBtn.addEventListener("click",y),
 //! Создаем слушателя событий на кнопке Filmoteka:
 u.filmotekaBtn.addEventListener("click",y),
 //! Создаем слушателя событий на кнопке Filmoteka:
-u.myLibraryBtn.addEventListener("click",onMyLibrary),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 u.movieDetails.addEventListener("click",(async function(t){if(!t.target.src)return;{
 //! Получаем (id) фильма для отрисовки карточки с полной информацией об этом фильме
@@ -173,4 +172,4 @@ function N(t){
 u.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
 function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>`\n            <div>\n                <img src="https://image.tmdb.org/t/p/w780${e}" alt="" />\n\n                <div>\n                    <h5>${n||i}</h5>\n                    <h5>${o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", ")} | ${(r||a||"???? - ?? - ??").substr(0,4)}</h5>\n                </div>\n            </div>\n            `)).join("")}(t))}console.log("genres:",f);
-//# sourceMappingURL=index.989bb39a.js.map
+//# sourceMappingURL=index.46f29074.js.map

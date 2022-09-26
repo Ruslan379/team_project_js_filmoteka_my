@@ -49,7 +49,6 @@ w.homeBtn.addEventListener("click",B),
 //! Создаем слушателя событий на кнопке Filmoteka:
 w.filmotekaBtn.addEventListener("click",B),
 //! Создаем слушателя событий на кнопке Filmoteka:
-w.myLibraryBtn.addEventListener("click",onMyLibrary),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 w.movieDetails.addEventListener("click",(function(t){return z.apply(this,arguments)})),w.closeModalBtn.addEventListener("click",_),w.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&_()})),
 //! ПОКАЗЫВАЕМ форму со строкой инпута:
@@ -162,4 +161,4 @@ return'\n            <div>\n                <img src="https://image.tmdb.org/t/p
 w.InfoMovie.insertAdjacentHTML("afterbegin",
 //! --------------------------------------------------------------------------------------------
 function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", ");return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="" />\n\n                <div class="modal-сontent">\n                    <h3>').concat(n||i,"</h3>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n            ")}(t))}console.log("genres:",v)}();
-//# sourceMappingURL=index.9563b755.js.map
+//# sourceMappingURL=index.1bbfdee1.js.map
