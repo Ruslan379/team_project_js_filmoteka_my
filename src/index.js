@@ -80,18 +80,28 @@ refs.homeBtn.addEventListener('click', onHome);
 //! Создаем слушателя событий на кнопке Filmoteka:
 refs.filmotekaBtn.addEventListener('click', onHome);
 
+//! Создаем слушателя событий на кнопке Filmoteka:
+refs.myLibraryBtn.addEventListener('click', onMyLibrary);
+
 
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 refs.movieDetails.addEventListener('click', onMovieDetails);
 
-//! +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
+//* +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
 // refs.openModalBtn.addEventListener('click', onOpenModal); //? ----- для тестирования
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
 
+//* ++++++++++++++++++ ПОКАЗЫВАЕМ/ПРЯЧЕМ элементы разметки ++++++++++++++++++++
+//! ПОКАЗЫВАЕМ форму со строкой инпута:
+// refs.searchFormAlert.hidden = true; //! ПРЯЧЕМ
+refs.searchFormAlert.hidden = false; //! ПОКАЗЫВАЕМ
+
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
-// console.log(refs.inputAlert); //!
 refs.resultNotSuccessful.hidden = true;
+
+//! ПРЯЧЕМ блок кнопок WATCHED и QUEUE в header:
+refs.watchedQueueHeader.hidden = true;
 
 //* __________________________________ КОНЕЦ создания ВСЕХ слушателей __________________________________
 
@@ -108,7 +118,7 @@ let idFilms = 0;
 let infoFilm = null;
 
 
-// Переменная для определения типа запроса в кнопке LOAD MORE - пока не пригодилась
+//! Переменная для определения типа запроса в кнопке LOAD MORE 
 let currentPage = "";
 
 
