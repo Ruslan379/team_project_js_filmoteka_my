@@ -81,7 +81,7 @@ refs.homeBtn.addEventListener('click', onHome);
 refs.filmotekaBtn.addEventListener('click', onHome);
 
 //! Создаем слушателя событий на кнопке Filmoteka:
-// refs.myLibraryBtn.addEventListener('click', onMyLibrary);
+refs.myLibraryBtn.addEventListener('click', onMyLibrary);
 
 
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
@@ -136,7 +136,7 @@ console.log("genres:", genres); //!
 
 
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
-// onHome();
+onHome();
 
 
 
@@ -148,6 +148,12 @@ async function onHome() {
 
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
     refs.resultNotSuccessful.hidden = true;
+
+    //! ПОКАЗЫВАЕМ форму со строкой инпута:
+    refs.searchFormAlert.hidden = false; //! ПОКАЗЫВАЕМ
+
+    //! ПРЯЧЕМ блок кнопок WATCHED и QUEUE в header:
+    refs.watchedQueueHeader.hidden = true;
 
     //! Делаем сброс значения page = 1 после submit form 
     //! с помощью метода resetPage из класса ThemoviedbApiService
@@ -323,6 +329,19 @@ async function onMovieDetails(event) {
 
     //! Рисование интерфейса 
     appendInfoMovieMarkup(infoFilm);
+};
+
+//* -------------------------- Ф-ция-запрос_4, для работы с MY LIBRARY: ----------------------
+function onMyLibrary() {
+    // console.log("Вешаю слушателя на кнопку MY LIBRARY"); //!
+    //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+    refs.resultNotSuccessful.hidden = true;
+
+    //! ПРЯЧЕМ форму со строкой инпута:
+    refs.searchFormAlert.hidden = true;
+
+    //! ПОКАЗЫВАЕМ блок кнопок WATCHED и QUEUE в header:
+    refs.watchedQueueHeader.hidden = false;
 }
 
 
@@ -523,11 +542,17 @@ function createMoviesCardsMarkup(results) {
             const yearDate = date.substr(0, 4); //! значение года из строки даты:
             // console.log("yearDate:", yearDate); //!
 
+            //? Делаем заглавныее буквы в названии фильма (НЕ РАБОТАЕТ!!!)
+            // const capitalsTitle = title.toUpperCase();
+            // console.log("capitalsTitle:", capitalsTitle); //!
+            // const capitalsName = name.toUpperCase();
+
             return `
             <div>
                 <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="" />
 
                 <div>
+                    <br />
                     <h5>${title || name}</h5>
                     <h5>${genresAllOneFilm} | ${yearDate}</h5>
                 </div>
@@ -564,7 +589,12 @@ function createInfoMovieMarkup(infoFilm) {
         overview
     } = infoFilm
 
+    //? Получаем строку со всеми жанрами
     const genresAllOneFilm = genres.map(item => item.name).join(", ");
+
+    //? Делаем заглавныее буквы в названии фильма (НЕ РАБОТАЕТ!!!)
+    // const capitalsTitle = title.toUpperCase();
+    // const capitalsName = name.toUpperCase();
 
     return `
                 <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="" />
