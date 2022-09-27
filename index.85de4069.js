@@ -6,7 +6,7 @@ var g="https://api.themoviedb.org/3",x="41b230c5977baa736e324532e16fdadb",y=func
 this.page=1,//! номер страницы (группы) в axios-запросе
 this.per_page=40}return t(h)(e,[{key:"getTrendingAllDay",value:
 //! 1 - Загрузка популярных фильмов на главную (первую) страницу 
-function(){var e=this;return t(a)(t(l).mark((function n(){var i,o,r;return t(l).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return i="".concat(g,"/").concat("trending/all/day","?api_key=").concat(x,"&page=").concat(e.page),console.log("url_1: ",i),//!
+function(){var e=this;return t(a)(t(l).mark((function n(){var i,o,r;return t(l).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return i="".concat(g,"/").concat("trending/all/week","?api_key=").concat(x,"&page=").concat(e.page),console.log("url_1: ",i),//!
 n.next=4,t(m).get(i);case 4://!
 return o=n.sent,r=o.data.results,e.incrementPage(),console.log("getTrendingAllDay ==> this.page: ",e.page),n.abrupt("return",r);case 9:case"end":return n.stop()}}),n)})))()}},{key:"getSearchMovies",value://! 2 - Поиск кинофильма по ключевому слову из input form
 function(){var e=this;return t(a)(t(l).mark((function n(){var i,o,r;return t(l).wrap((function(n){for(;;)switch(n.prev=n.next){case 0:return i="".concat(g,"/").concat("search/movie","?api_key=").concat(x,"&language=en-US&query=").concat(e.searchQuery,"&page=").concat(e.page,"&include_adult=false"),console.log("url_2: ",i),//!
@@ -170,4 +170,4 @@ w.InfoMovie.insertAdjacentHTML("afterbegin",
 function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", ");return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="').concat(n||i,'" />\n\n                <div class="modal-сontent">\n                    <h3>').concat(n||i,"</h3>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n                ")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 B()}();
-//# sourceMappingURL=index.04602749.js.map
+//# sourceMappingURL=index.85de4069.js.map

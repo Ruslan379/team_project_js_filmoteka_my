@@ -23,7 +23,7 @@ searchFormAlert:document.querySelector(".search"),
 //! Получаем ссылку на блок кнопок WATCHED и QUEUE в header:
 watchedQueueHeader:document.querySelector(".nav-library-buttons")},p=new class{
 //! 1 - Загрузка популярных фильмов на главную (первую) страницу 
-async getTrendingAllDay(){const t=`https://api.themoviedb.org/3/trending/all/day?api_key=41b230c5977baa736e324532e16fdadb&page=${this.page}`;console.log("url_1: ",t);//!
+async getTrendingAllDay(){const t=`https://api.themoviedb.org/3/trending/all/week?api_key=41b230c5977baa736e324532e16fdadb&page=${this.page}`;console.log("url_1: ",t);//!
 const n=await e(c).get(t),{results:i}=n.data;//!
 return this.incrementPage(),console.log("getTrendingAllDay ==> this.page: ",this.page),i}
 //! 2 - Поиск кинофильма по ключевому слову из input form
@@ -179,4 +179,4 @@ u.moviesCards.insertAdjacentHTML("beforeend",
 function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <br />\n                        <h5>${n||i}</h5>\n                        <h5>${o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", ")} | ${(r||a||"???? - ?? - ??").substr(0,4)}</h5>\n                    </div>\n                </li>\n                `)).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 y();
-//# sourceMappingURL=index.1b091575.js.map
+//# sourceMappingURL=index.fe96b491.js.map
