@@ -8,12 +8,12 @@ import SimpleLightbox from "simplelightbox";
 // Библиотека SimpleLightbox - дополнительный импорт стилей
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-import ThemoviedbApiService from './js/api-themoviedb.js'; // Импорт класса ThemoviedbApiService с ./js/get-refs.js
-import getRefs from './js/get-refs.js'; // Импорт всех ссылок с ./js/get-refs.js
-import LoadMoreBtn from './js/load-more-btn.js'; // Импорт класса LoadMoreBtn Кнопки LOAD MORE
+import ThemoviedbApiService from '../js/api-themoviedb.js'; // Импорт класса ThemoviedbApiService с ./js/get-refs.js
+import getRefs from '../js/get-refs.js'; // Импорт всех ссылок с ./js/get-refs.js
+import LoadMoreBtn from '../js/load-more-btn.js'; // Импорт класса LoadMoreBtn Кнопки LOAD MORE
 
 //! Импорт массива объектов всех жанров из файла genres.js
-import { genres } from './js/genres.js'; //? api-themoviedb
+import { genres } from '../js/genres.js'; //? api-themoviedb
 
 //______________________________________________ конец всех import _______________________________________________________
 

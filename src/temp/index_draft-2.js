@@ -2,26 +2,37 @@ import './css/styles.css';
 
 import Notiflix from 'notiflix';
 
+// import axios from 'axios';
+
+//todo -------------------  OLD  уже не надо-----------------------
+// // Библиотека SimpleLightbox
+// import SimpleLightbox from "simplelightbox";
+// // Библиотека SimpleLightbox - дополнительный импорт стилей
+// import "simplelightbox/dist/simple-lightbox.min.css";
+//todo ________________________________________________________________
+
+
 //! Импорт класса ThemoviedbApiService с ./js/get-refs.js
-import ThemoviedbApiService from './js/api-themoviedb.js';
+import ThemoviedbApiService from '../js/api-themoviedb.js';
 
 //! Импорт всех ссылок с ./js/get-refs.js
-import getRefs from './js/get-refs.js';
+import getRefs from '../js/get-refs.js';
 
 //! Импорт класса LoadMoreBtn Кнопки LOAD MORE
-import LoadMoreBtn from './js/load-more-btn.js';
+import LoadMoreBtn from '../js/load-more-btn.js';
 
 //! Импорт массива объектов всех жанров из файла genres.js (ВРЕМЕННО. Надо сделать два запроса)
-import { genres } from './js/genres.js'; //? api-themoviedb
+import { genres } from '../js/genres.js'; //? api-themoviedb
+
+//______________________________________________ конец всех import _______________________________________________________
 
 
 
 
-
-//* +++++++++++++++++++++++++++++++++++ Импорты файлов ++++++++++++++++++++++++++++++++++++++++++++
 
 //! Создаем объект всех ссылок refs.*
 const refs = getRefs();
+
 
 //! Создаем экземпляр класса ThemoviedbApiService
 const themoviedbApiService = new ThemoviedbApiService();
@@ -32,17 +43,36 @@ const loadMoreBtn = new LoadMoreBtn({
     hidden: true,
 });
 
+// console.log(loadMoreBtn);
+// loadMoreBtn.show()
+// loadMoreBtn.disable()
+
+//todo -------------------  OLD  уже не надо-------------------------
+// Вызов библиотеки SimpleLightbox:
+// // let gallery = new SimpleLightbox('.gallery a');
+
+// let gallery = new SimpleLightbox('.gallery a', {
+//     // caption: true,
+//     captionPosition: 'bottom',
+//     captionDelay: 250,
+//     captionsData: "alt",
+// });
+//todo ________________________________________________________________
 
 
 
+
+
+//? _________________________________________________________________________________
 
 //* +++++++++++++++++++++++++++++++ Создаем ВСЕХ слушателей +++++++++++++++++++++++++++++++++++++++++
-
 //!  Создаем слушателя событий на поле ввода данных - input form:
+// refs.searchForm.addEventListener('submit', onFormSearch); //todo OLD
 refs.searchForm.addEventListener('submit', onFormMoviesSearch);
 
 //!  Создаем слушателя событий на кнопке LOAD MORE:
-loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
+// refs.loadMoreBtn.addEventListener('click', onLoadMore); // OLD => через import getRefs from './js/get-refs.js'
+loadMoreBtn.refs.button.addEventListener('click', onLoadMore); // NEW => через import LoadMoreBtn from './js/load-more-btn.js
 
 //! Создаем слушателя событий на кнопке HOME:
 refs.homeBtn.addEventListener('click', onHome);
@@ -57,12 +87,12 @@ refs.myLibraryBtn.addEventListener('click', onMyLibrary);
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 refs.movieDetails.addEventListener('click', onMovieDetails);
 
-//? +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
+//* +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
 // refs.openModalBtn.addEventListener('click', onOpenModal); //? ----- для тестирования
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
 
-//? ++++++++++++++++++ ПОКАЗЫВАЕМ/ПРЯЧЕМ элементы разметки ++++++++++++++++++++
+//* ++++++++++++++++++ ПОКАЗЫВАЕМ/ПРЯЧЕМ элементы разметки ++++++++++++++++++++
 //! ПОКАЗЫВАЕМ форму со строкой инпута:
 // refs.searchFormAlert.hidden = true; //! ПРЯЧЕМ
 refs.searchFormAlert.hidden = false; //! ПОКАЗЫВАЕМ
@@ -73,11 +103,10 @@ refs.resultNotSuccessful.hidden = true;
 //! ПРЯЧЕМ блок кнопок WATCHED и QUEUE в header:
 refs.watchedQueueHeader.hidden = true;
 
+//* __________________________________ КОНЕЦ создания ВСЕХ слушателей __________________________________
 
 
 
-
-//* +++++++++++++++++++++++++++++++ Создаем ГЛОБАЛЬНЫЕ переменные +++++++++++++++++++++++++++++++++++++++++
 
 //! Создаем глобальную переменную (films) для хранения значение всей (results)
 let films = [];
@@ -96,10 +125,11 @@ let currentPage = "";
 
 
 
-//* +++++++++++++++++++++++++++++++++++++++ Блок Функций  +++++++++++++++++++++++++++++++++++++++++++++++++
 
-//? Тестируем-консолим тип жанра по его id
-// console.log("genres:", genres); //!
+//? +++++++++++++++++++++++++++++++ Функции - themoviedb +++++++++++++++++++++++++++++++++++++++++
+
+//? Тестируем - консолим тип жанра по его id
+console.log("genres:", genres); //!
 // const genreName = convertingIdToGenre(10770);
 // console.log("genreName:", genreName); //!
 
@@ -111,7 +141,7 @@ onHome();
 
 
 //* -------------------------- Ф-ция-запрос_1, к-рая прослушивает события на кнопке HOME: ----------------------
-//! +++ Загрузка популярных фильмов на главную (первую) страницу  +++
+//! +++ Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka) +++
 async function onHome() {
     //! Задаем значение переменной (currentPage = "home-Filmoteka") для определения типа запроса в кнопке LOAD MORE
     currentPage = "home-Filmoteka";
@@ -151,9 +181,9 @@ async function onHome() {
 
     //     // console.log("title or name:", result.title || result.name); //* работает, можно так
     //     const titleOrName = result.title || result.name;
-    //     const capitalsTitle = result.title.toUpperCase(); //!!!(НЕ РАБОТАЕТ!!!)
+    //     const capitalsTitle = result.title.toUpperCase(); //!(НЕ РАБОТАЕТ!!!)
     //     console.log("titleOrName:", titleOrName);
-    //     console.log("capitalsTitle:", capitalsTitle); //!!!(НЕ РАБОТАЕТ!!!)
+    //     console.log("capitalsTitle:", capitalsTitle); //!(НЕ РАБОТАЕТ!!!)
 
     //     // console.log("genre_ids:", result.genre_ids); //!
     //     //? Получаем массив жанров для каждого фильма и строку всех жанров:
@@ -175,12 +205,15 @@ async function onHome() {
 
     //! Кнопка LOAD MORE => включаем
     loadMoreBtn.enable();
+
+    //? Использование библиотеки SimpleLightbox:
+    // gallery.refresh();  
 };
 
 
 
 //* ---------- Ф-ция-запрос_2, к-рая прослушивает события на поле ввода данных - input form:-------
-//! ++++++++++ Поиск кинофильма по ключевому слову из input form +++++++++++
+//! ++++++++++ Пошук та відображення фільмів за ключовим словом из input form +++++++++++
 async function onFormMoviesSearch(evt) {
     evt.preventDefault();
     //! это то, что приходит в input и 
@@ -209,6 +242,7 @@ async function onFormMoviesSearch(evt) {
     loadMoreBtn.show();
     loadMoreBtn.disable();
 
+
     //! Очищаем контейнер при новом вводе данных в input form:
     clearMovieContainer();
 
@@ -227,18 +261,23 @@ async function onFormMoviesSearch(evt) {
 
     //! Кнопка LOAD MORE => включаем
     loadMoreBtn.enable();
-};
 
+    //? Использование библиотеки SimpleLightbox:
+    // gallery.refresh();
+};
+//! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
 //* -------------------------- Ф-ция-запрос_3, к-рая запрашивает полную информацию об одном фильме: ----------------------
-//! +++ Запрос полной информации о фильме для МОДАЛКИ +++
+//! +++ _____ +++
 async function onMovieDetails(event) {
     // console.log("Вешаю слушателя на onMovieDetails"); //!
     if (event.target.src) {
-        //! Получаем (id) фильма по клику на карточке фильма
+
+        //! Получаем (id) фильма для отрисовки карточки с полной информацией об этом фильме
         // console.log("event.target.src: ", event.target.src); //!
+        // const allPosterPath = event.target.substr(33);
         const allPosterPath = String(event.target.src);
         // alert(typeof allPosterPath); // string //!
         // console.log("allPosterPath:", allPosterPath); //!
@@ -254,7 +293,9 @@ async function onMovieDetails(event) {
 
     console.log("idFilms:", idFilms); //! id фильма
 
-    //! ==> Делаем запрос-3 полной информации о фильме для МОДАЛКИ.
+
+
+    //! ==> Делаем запрос
     try {
         const results = await themoviedbApiService.getMovieDetails(idFilms);
         //! Очищаем контейнер МОДАЛКИ:
@@ -264,7 +305,6 @@ async function onMovieDetails(event) {
     } catch (error) {
         //! Очищаем контейнер МОДАЛКИ:
         clearModalContainer();
-        //! Очищаем контейнер переменную (films):
         infoFilm = null;
         console.log(error); //!
         Notiflix.Notify.failure(`Ошибка запроса: ${error.message}`, { timeout: 3500, },);
@@ -293,9 +333,6 @@ async function onMovieDetails(event) {
     appendInfoMovieMarkup(infoFilm);
 };
 
-
-
-
 //* -------------------------- Ф-ция-запрос_4, для работы с MY LIBRARY: ----------------------
 function onMyLibrary() {
     // console.log("Вешаю слушателя на кнопку MY LIBRARY"); //!
@@ -311,9 +348,8 @@ function onMyLibrary() {
 
 
 
-
-//todo ==> РАБОТАЕТ, но только под один тип запроса (уже не используется)
-// ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ции-запрос_1) ++++++++++++++++++++++++++++++++++++++++++++
+//todo ==> РАБОТАЕТ, но только под один тип запроса
+//* ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE (для Ф-ции-запрос_1) ++++++++++++++++++++++++++++++++++++++++++++
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 // async function onLoadMore(evt) {
 //     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
@@ -329,7 +365,7 @@ function onMyLibrary() {
 //     clearMovieContainer();
 
 //     //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-//     // checkResultsForEnd(endOfCollection);
+//     // checkHitsForEnd(endOfCollection);
 
 //     //! Рисование интерфейса
 //     appendHitsMarkup(results);
@@ -359,8 +395,8 @@ async function onLoadMore() {
     //! Очищаем контейнер:
     clearMovieContainer();
 
-    //!  Проверка results на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
-    // checkResultsForEnd(endOfCollection);
+    //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
+    // checkHitsForEnd(endOfCollection);
 
     //! Рисование интерфейса
     appendHitsMarkup(films);
@@ -401,14 +437,14 @@ function convertingIdToGenre(id) {
 
 
 
-//!  Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
+//!   Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
 function clearMovieContainer() {
     refs.moviesCards.innerHTML = "";
 };
 
 
 
-//!  Ф-ция, к-рая очищает контейнер МОДАЛКИ:
+//!   Ф-ция, к-рая очищает контейнер МОДАЛКИ:
 function clearModalContainer() {
     refs.InfoMovie.innerHTML = "";
 };
@@ -420,14 +456,14 @@ function checkMovieForEmpty(results) {
     if (!results.length) {
         //! ПОКАЗЫВАЕМ строку предупреждения об отсутствии фильмов:
         refs.resultNotSuccessful.hidden = false;
-        // Notiflix.Notify.failure(`Search result not successful. Enter the correct movie name and`, { timeout: 3000, },);
+        Notiflix.Notify.failure(`Search result not successful. Enter the correct movie name and`, { timeout: 3000, },);
         loadMoreBtn.hide(); //! Кнопка LOAD MORE => ПРЯЧЕМ
     }
 };
 
 
-//? +++++++++++++++++++++++ Функции для МОДАЛКИ +++++++++++++++++++++++++++
-//? ----- для тестирования открытия модалки по кнопке
+//! +++++++++++++++++++++++ Функции для МОДАЛКИ +++++++++++++++++++++++++++
+//? ----- для тестирования
 // function onOpenModal() {
 //     window.addEventListener('keydown', onEscKeyPress);
 //     document.body.classList.add('show-modal');
@@ -440,6 +476,7 @@ function onCloseModal() {
     clearModalContainer();
 }
 
+
 function onBackdropClick(event) {
     // console.log(event.currentTarget); //!
     // console.log(event.target); //!
@@ -448,6 +485,7 @@ function onBackdropClick(event) {
         onCloseModal();
     }
 };
+
 
 function onEscKeyPress(event) {
     // console.log(event.code); //!
@@ -458,11 +496,26 @@ function onEscKeyPress(event) {
         onCloseModal();
     }
 }
-//?_____________________________________________________________________
+//*_____________________________________________________________________
 
 
 
+//todo ------------------------- OLD-Функции ------------------------------------
+//? Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
+function checkHitsForEnd(endOfCollection) {
+    if (endOfCollection <= 0) {
+        Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`, { timeout: 3000, },);
+        loadMoreBtn.hide(); //! Кнопка LOAD MORE => ПРЯЧЕМ
+    }
+}
 
+
+//?   Ф-ция, к-рая консолит свойство totalHits:
+function showsTotalHits(totalHits) {
+    if (totalHits > 0)
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`, { timeout: 3000, },);
+}
+//todo __________________________________________________________________________
 
 
 
@@ -474,7 +527,7 @@ function appendHitsMarkup(results) {
 }
 
 //! --------------------------------------------------------------------------------------------
-//*   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки из ВСЕХ карточек:
+//*   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
 function createMoviesCardsMarkup(results) {
     return results
         .map(({ id, poster_path, title, name, genre_ids, first_air_date, release_date }) => {
@@ -498,19 +551,20 @@ function createMoviesCardsMarkup(results) {
             // const capitalsName = name.toUpperCase();
 
             return `
-                <li key=${id}>
-                    <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="${title || name}" />
+            <div>
+                <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="" />
 
-                    <div>
-                        <br />
-                        <h5>${title || name}</h5>
-                        <h5>${genresAllOneFilm} | ${yearDate}</h5>
-                    </div>
-                </li>
-                `;
+                <div>
+                    <br />
+                    <h5>${title || name}</h5>
+                    <h5>${genresAllOneFilm} | ${yearDate}</h5>
+                </div>
+            </div>
+            `;
         })
         .join('');
 };
+
 
 
 
@@ -546,7 +600,7 @@ function createInfoMovieMarkup(infoFilm) {
     // const capitalsName = name.toUpperCase();
 
     return `
-                <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="${title || name}" />
+                <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="" />
 
                 <div class="modal-сontent">
                     <h3>${title || name}</h3>
@@ -557,24 +611,138 @@ function createInfoMovieMarkup(infoFilm) {
                     <h5>ABOUT</h5>
                     <p>${overview}</p>
                 </div>
-                `;
+            `;
 };
 
 
 
-//todo ------------------------- OLD-Функции (пока не удалять)------------------------------------
-//? Ф-ция, к-рая проверяет hits на ОКОНЧАНИЕ КОЛЛЕКЦИИ
-// function checkResultsForEnd(endOfCollection) {
-//     if (endOfCollection <= 0) {
-//         Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`, { timeout: 3000, },);
-//         loadMoreBtn.hide(); //! Кнопка LOAD MORE => ПРЯЧЕМ
+
+
+
+
+
+
+
+
+
+
+//todo ---------------------------  OLD  уже не надо---------------------------------------------
+// +++++++++++++++++++++++++++++++++++ input form +++++++++++++++++++++++++++++++++++++++++++++++
+//  Ф-ция, к-рая прослушивает события на поле ввода данных - input form:
+// function onFormSearch(evt) {
+//     evt.preventDefault();
+//     // console.log("Вешаю слушателя на поле ввода данных - input form"); //!
+
+//     //! это то, что приходит в input и
+//     //! записывается с помощью сетера класса ThemoviedbApiService в переменную searchQuery
+//     themoviedbApiService.query = evt.currentTarget.elements.searchQuery.value.trim(); //! + убираем пробелы
+//     console.log("searchQuery: ", themoviedbApiService.query); //!
+
+//     if (themoviedbApiService.query === "") {
+//         return alert("Поле ввода не долно быть пустым!");
 //     }
+
+//     //! Кнопка LOAD MORE => показываем и отключаем
+//     loadMoreBtn.show()
+//     loadMoreBtn.disable()
+
+//     //! Делаем сброс значения page = 1 после submit form
+//     //! с помощью метода resetPage из класса ThemoviedbApiService
+//     themoviedbApiService.resetPage()
+
+//     //! Очищаем контейнер при новом вводе данных в input form:
+//     clearMovieContainer()
+
+//     loadMoreBtn.disable()
+//     //? Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
+//     themoviedbApiService.fetchHits()
+//         .then(({ totalHits, hits, endOfCollection }) => {
+//             // console.log("totalHits: ", totalHits); //!
+//             // console.log("hits: ", hits); //!
+//             // console.log("endOfCollection: ", endOfCollection); //!
+
+//             //! ПРОВЕРКА hits на пустой массив
+//             checkMovieForEmpty(hits)
+
+//             showsTotalHits(totalHits) //* Консолим свойство totalHits
+//             return hits
+//         })
+//         .then(hits => {
+//             appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
+//             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+//             gallery.refresh();  //? Использование библиотеки SimpleLightbox:
+//         });
+// };
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+// ++++++++++++++++++++++++++++++++ Кнопка LOAD MORE _OLD ++++++++++++++++++++++++++++++++++++++++++++
+//  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
+// function onLoadMore(evt) {
+//     loadMoreBtn.disable() //! Кнопка LOAD MORE => ВЫключаем
+//     //? Делаем fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
+//     themoviedbApiService.fetchHits()
+//         .then(({ totalHits, hits, endOfCollection }) => {
+//             // console.log("totalHits: ", totalHits); //!
+//             // console.log("hits: ", hits); //!
+
+//             //!  Проверка hits на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
+//             checkHitsForEnd(endOfCollection)
+//             return hits
+//         })
+//         // .then(appendHitsMarkup); // Рисование интерфейса выносим в отдельную ф-цию
+//         .then(hits => {
+//             appendHitsMarkup_OLD(hits); //* Рисование интерфейса выносим в отдельную ф-цию
+//             loadMoreBtn.enable();  //! Кнопка LOAD MORE => включаем
+//             gallery.refresh();  //? Использование библиотеки SimpleLightbox:
+//         });
+// }
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+//  +++++++++++++++++++++++++++++ Markup _OLD ++++++++++++++++++++++++++++++++++++++++++++++++++++
+// _OLD Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
+// function appendHitsMarkup_OLD(results) {
+//     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+//     refs.moviesCards.insertAdjacentHTML('beforeend',  createMoviesCardsMarkup_OLD(results));
+//     // console.log(hits[0].largeImageURL); //! ссылка на большое изображение
 // }
 
 
-//?   Ф-ция, к-рая консолит свойство totalResults:
-// function showsTotalResults(totalResults) {
-//     if (totalResults > 0)
-//         Notiflix.Notify.success(`Hooray! We found ${totalResults} images.`, { timeout: 3000, },);
+// _OLD  Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки:
+// function  createMoviesCardsMarkup_OLD(hits) {
+//     return hits
+//         .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+//             return `
+//                 <div class="photo-card">
+//                         <a class="gallery__link" href="${largeImageURL}">
+//                             <img class="img-card"
+//                                 src="${webformatURL}"
+//                                 alt=${tags}
+//                                 loading="lazy"
+//                             />
+//                         </a>
+//                     <div class="info">
+//                         <p class="info-item">
+//                             <b>Likes</b>
+//                             <b class="info-data">${likes}</b>
+//                         </p>
+//                         <p class="info-item">
+//                             <b>Views</b>
+//                             <b class="info-data">${views}</b>
+//                         </p>
+//                         <p class="info-item">
+//                             <b>Comments</b>
+//                             <b class="info-data">${comments}</b>
+//                         </p>
+//                         <p class="info-item">
+//                             <b>Downloads</b>
+//                             <b class="info-data">${downloads}</b>
+//                         </p>
+//                     </div>
+//                 </div>
+//             `;
+//         })
+//         .join('');
 // }
-//todo __________________________________________________________________________
