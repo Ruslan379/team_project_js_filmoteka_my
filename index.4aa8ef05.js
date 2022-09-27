@@ -106,8 +106,8 @@ u.resultNotSuccessful.hidden=!0,
 u.searchFormAlert.hidden=!0,
 //! ПОКАЗЫВАЕМ блок кнопок WATCHED и QUEUE в header:
 u.watchedQueueHeader.hidden=!1,
-//! Кнопка LOAD MORE => отключаем
-m.disable(),
+//! Кнопка LOAD MORE => ПРЯЧЕМ
+m.hide(),
 //! Очищаем контейнер:
 b()})),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
@@ -185,4 +185,4 @@ function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_
 let c=n;n&&(c=n.toUpperCase());let u=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <br />\n                        <h5>${c||u}</h5>\n                        <h5>${s} | ${l}</h5>\n                    </div>\n                </li>\n                `})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 y();
-//# sourceMappingURL=index.ee7281e8.js.map
+//# sourceMappingURL=index.4aa8ef05.js.map
