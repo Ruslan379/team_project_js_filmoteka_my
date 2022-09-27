@@ -35,6 +35,18 @@ export default function getRefs() {
     //! Получаем ссылку на блок кнопок WATCHED и QUEUE в header:
     watchedQueueHeader: document.querySelector('.nav-library-buttons'),
 
+    //! Получаем ссылку на кнопоку WATCHED в МОДАЛКЕ:
+    watchedModal: document.querySelector('.modal-watched'),
+
+    //! Получаем ссылку на кнопоку QUEUE в МОДАЛКЕ:
+    queueModal: document.querySelector('.modal-queue'),
+
+    //! Получаем ссылку на кнопоку WATCHED в header:
+    watchedHeader: document.querySelector('.nav-library-watched'),
+
+    //! Получаем ссылку на кнопоку QUEUE в header:
+    queueHeader: document.querySelector('.nav-library-queue'),
+
   };
 };
 

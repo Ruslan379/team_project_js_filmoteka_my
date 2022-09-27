@@ -12,7 +12,7 @@ import getRefs from './js/get-refs.js';
 import LoadMoreBtn from './js/load-more-btn.js';
 
 //! Импорт массива объектов всех жанров из файла genres.js (ВРЕМЕННО. Надо сделать два запроса)
-import { genres } from './js/genres.js'; //? api-themoviedb
+import { genres } from './js/genres.js';
 
 
 
@@ -50,8 +50,8 @@ refs.homeBtn.addEventListener('click', onHome);
 //! Создаем слушателя событий на кнопке Filmoteka:
 refs.filmotekaBtn.addEventListener('click', onHome);
 
-//! Создаем слушателя событий на кнопке Filmoteka:
-refs.myLibraryBtn.addEventListener('click', onMyLibrary);
+//! Создаем слушателя событий на кнопке MY LIBRARY:
+refs.myLibraryBtn.addEventListener('click', onMyLibraryWatched);
 
 
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
@@ -61,6 +61,15 @@ refs.movieDetails.addEventListener('click', onMovieDetails);
 // refs.openModalBtn.addEventListener('click', onOpenModal); //? ----- для тестирования
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
+//? +++++++++++++++ Создаем слушателей для кнопок МОДАЛКИ ++++++++++++++++++++
+refs.watchedModal.addEventListener('click', onWatchedModal);
+refs.queueModal.addEventListener('click', onQueueModal);
+
+//? ++++ Создаем слушателей на кнопках WATCHED и QUEUE для страницы MY LIBRARY +++++++
+refs.watchedHeader.addEventListener('click', onMyLibraryWatched);
+refs.queueHeader.addEventListener('click', onQueue);
+
+
 
 //? ++++++++++++++++++ ПОКАЗЫВАЕМ/ПРЯЧЕМ элементы разметки ++++++++++++++++++++
 //! ПОКАЗЫВАЕМ форму со строкой инпута:
@@ -92,8 +101,9 @@ let infoFilm = null;
 //! Переменная для определения типа запроса в кнопке LOAD MORE 
 let currentPage = "";
 
-
-
+//! Переменные для хранения массива объектов фильмо для станиц WATCHED и QUEUE
+let localStorageWatched = JSON.parse(localStorage.getItem("watched")) ?? [];
+let localStorageQueue = JSON.parse(localStorage.getItem("queue")) ?? [];
 
 
 //* +++++++++++++++++++++++++++++++++++++++ Блок Функций  +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -108,10 +118,7 @@ let currentPage = "";
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 onHome();
 
-//todo ПРОВЕКА на ВЕРХНИЙ регистр (пока не удалять)
-// const title1 = "Fullmetal Alchemist: The Final Alchemy"
-// const capitalsTitle = title1.toLocaleUpperCase();
-// console.log("capitalsTitle:", capitalsTitle); //!
+
 
 //* -------------------------- Ф-ция-запрос_1, к-рая прослушивает события на кнопке HOME: ----------------------
 //! +++ Загрузка популярных фильмов на главную (первую) страницу  +++
@@ -174,7 +181,7 @@ async function onHome() {
     //?_________________КОНЕЦ Получения и консоли всех данных _____________________
 
     //! Рисование интерфейса 
-    appendHitsMarkup(results);
+    appendMoviesMarkup(results);
 
     //! Кнопка LOAD MORE => включаем
     loadMoreBtn.enable();
@@ -226,7 +233,7 @@ async function onFormMoviesSearch(evt) {
     checkMovieForEmpty(results);
 
     //! Рисование интерфейса
-    appendHitsMarkup(results);
+    appendMoviesMarkup(results);
 
     //! Кнопка LOAD MORE => включаем
     loadMoreBtn.enable();
@@ -238,10 +245,13 @@ async function onFormMoviesSearch(evt) {
 //* -------------------------- Ф-ция-запрос_3, к-рая запрашивает полную информацию об одном фильме: ----------------------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 async function onMovieDetails(event) {
-    // console.log("Вешаю слушателя на onMovieDetails"); //!
+    console.log("Вешаю слушателя на onMovieDetails"); //!
+    // console.log("event.target: ", event.target); //!
+    console.log("event.target.li: ", event.target.li); //!
+    // console.log("event.target.li.accessKey: ", event.target.li.accessKey); //!
     if (event.target.src) {
         //! Получаем (id) фильма по клику на карточке фильма
-        // console.log("event.target.src: ", event.target.src); //!
+        console.log("event.target.src: ", event.target.src); //!
         const allPosterPath = String(event.target.src);
         // alert(typeof allPosterPath); // string //!
         // console.log("allPosterPath:", allPosterPath); //!
@@ -296,11 +306,32 @@ async function onMovieDetails(event) {
     appendInfoMovieMarkup(infoFilm);
 };
 
+//* -------------------------- Ф-ция_4, добавление просмотренных фильмов в localStorage по кноке WATCHED: ----------------------
+//! +++ Запрос полной информации о фильме для МОДАЛКИ +++
+async function onWatchedModal() {
+    console.log("Вешаю слушателя на кнопку WATCHED"); //!
+    console.log("infoFilm:", infoFilm); //!
+    localStorageWatched = [...localStorageWatched, infoFilm];
+    console.log("localStorageWatched:", localStorageWatched); //!
+    localStorage.setItem("watched", JSON.stringify(localStorageWatched));
+}
+
+
+//* -------------------------- Ф-ция_5, добавление просмотренных фильмов в localStorage по кноке QUEUE: ----------------------
+//! +++ Запрос полной информации о фильме для МОДАЛКИ +++
+async function onQueueModal() {
+    console.log("Вешаю слушателя на кнопку QUEUE"); //!
+    console.log("infoFilm:", infoFilm); //!
+    localStorageQueue = [...localStorageQueue, infoFilm];
+    console.log("localStorageQueue:", localStorageQueue); //!
+    localStorage.setItem("queue", JSON.stringify(localStorageQueue));
+};
 
 
 
-//* -------------------------- Ф-ция-запрос_4, для работы с MY LIBRARY: ----------------------
-function onMyLibrary() {
+
+//* -------------------------- Ф-ция_6, для работы с MY LIBRARY и кнопкой WATCHED: ----------------------
+function onMyLibraryWatched() {
     // console.log("Вешаю слушателя на кнопку MY LIBRARY"); //!
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
     refs.resultNotSuccessful.hidden = true;
@@ -311,13 +342,55 @@ function onMyLibrary() {
     //! ПОКАЗЫВАЕМ блок кнопок WATCHED и QUEUE в header:
     refs.watchedQueueHeader.hidden = false;
 
-    //! Кнопка LOAD MORE => ПРЯЧЕМ
-    loadMoreBtn.hide();
+    //! Кнопка LOAD MORE => показываем и отключаем
+    // loadMoreBtn.show();
+    loadMoreBtn.hide(); //! Временно => ПРЯЧЕМ
+    loadMoreBtn.disable();
 
     //! Очищаем контейнер:
     clearMovieContainer();
-}
 
+    //! Перезаписываем в локальную переменную (results) значение всего (localStorage)
+    const results = JSON.parse(localStorage.getItem("watched")) ?? [];
+    console.log("results:", results); //!
+
+    //! Рисование интерфейса 
+    appendWatchedQueueMarkup(results);
+
+    //! Кнопка LOAD MORE => включаем
+    // loadMoreBtn.enable();
+};
+
+//* -------------------------- Ф-ция_7, для работы с MY LIBRARY и кнопкой QUEUE: ----------------------
+function onQueue() {
+    // console.log("Вешаю слушателя на кнопку MY LIBRARY"); //!
+    //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
+    refs.resultNotSuccessful.hidden = true;
+
+    //! ПРЯЧЕМ форму со строкой инпута:
+    refs.searchFormAlert.hidden = true;
+
+    //! ПОКАЗЫВАЕМ блок кнопок WATCHED и QUEUE в header:
+    refs.watchedQueueHeader.hidden = false;
+
+    //! Кнопка LOAD MORE => показываем и отключаем
+    // loadMoreBtn.show();
+    loadMoreBtn.hide(); //! Временно => ПРЯЧЕМ
+    loadMoreBtn.disable();
+
+    //! Очищаем контейнер:
+    clearMovieContainer();
+
+    //! Перезаписываем в локальную переменную (results) значение всего (localStorage)
+    const results = JSON.parse(localStorage.getItem("queue")) ?? [];
+    console.log("results:", results); //!
+
+    //! Рисование интерфейса 
+    appendWatchedQueueMarkup(results);
+
+    //! Кнопка LOAD MORE => включаем
+    // loadMoreBtn.enable();
+};
 
 
 
@@ -341,7 +414,7 @@ function onMyLibrary() {
 //     // checkResultsForEnd(endOfCollection);
 
 //     //! Рисование интерфейса
-//     appendHitsMarkup(results);
+//     appendMoviesMarkup(results);
 
 //     //! Кнопка LOAD MORE => включаем
 //     loadMoreBtn.enable();
@@ -372,7 +445,7 @@ async function onLoadMore() {
     // checkResultsForEnd(endOfCollection);
 
     //! Рисование интерфейса
-    appendHitsMarkup(films);
+    appendMoviesMarkup(films);
 
     //! Кнопка LOAD MORE => включаем
     loadMoreBtn.enable();
@@ -477,7 +550,7 @@ function onEscKeyPress(event) {
 
 //! +++++++++++++++++++++++++++++ Markup Movies ++++++++++++++++++++++++++++++++++++++++++++++
 //*  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
-function appendHitsMarkup(results) {
+function appendMoviesMarkup(results) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
     refs.moviesCards.insertAdjacentHTML('beforeend', createMoviesCardsMarkup(results));
 }
@@ -593,6 +666,87 @@ function createInfoMovieMarkup(infoFilm) {
                 </div>
                 `;
 };
+
+
+//! +++++++++++++++++++++++++++++ Markup WATCHED и QUEUE ++++++++++++++++++++++++++++++++++++++++++++++
+//*  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
+function appendWatchedQueueMarkup(results) {
+    //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
+    refs.moviesCards.insertAdjacentHTML('beforeend', createWatchedQueueCardsMarkup(results));
+}
+
+//! --------------------------------------------------------------------------------------------
+//*   Ф-ция, к-рая создает новую разметку для ОДНОЙ карточки из ВСЕХ карточек:
+function createWatchedQueueCardsMarkup(results) {
+    console.log("results:", results);
+    return results
+        .map(({
+            id,
+            poster_path,
+            title,
+            name,
+            genres,
+            first_air_date,
+            release_date,
+            vote_average
+        }) => {
+
+            //? Получаем строку со всеми жанрами
+            const genresAllOneFilm = genres.map(item => item.name).join(", ");
+            // console.log("genresAllOneFilm:", genresAllOneFilm); //!
+
+            //? Получаем значение года из строки даты:
+            const date = first_air_date || release_date || "???? - ?? - ??";
+            // console.log("date:", date); //!
+            const yearDate = date.substr(0, 4); //! значение года из строки даты:
+            // console.log("yearDate:", yearDate); //!
+
+            //?Убираем лишние знаки после запятой 
+            const voteAverage = vote_average.toFixed(1);
+            // console.log("voteAverage:", voteAverage); //!
+
+            //? Делаем заглавныее буквы в названии фильма (пока НЕ РАБОТАЕТ capitalsName)
+            let capitalsTitle = title;
+            if (title) {
+                capitalsTitle = title.toUpperCase();
+                // const title = title.toUpperCase();
+                // console.log("capitalsTitle:", capitalsTitle); //!
+            };
+
+            let capitalsName = name;
+            if (name) {
+                const capitalsName = name.toUpperCase();
+                // const name = name.toUpperCase();
+                // console.log("capitalsName:", capitalsName); //!
+            };
+            // console.log(typeof title); //!
+            // const capitalsTitle = title.toLocaleUpperCase();
+            // const capitalsTitle = title.toUpperCase();
+            // console.log("capitalsTitle:", capitalsTitle); //!
+            // const capitalsName = name.toUpperCase();
+
+            return `
+                <li key=${id}>
+                    <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="${title || name}" />
+
+                    <div>
+                        <br />
+                        <h5>${capitalsTitle || capitalsName}</h5>
+                        <h5>${genresAllOneFilm} | ${yearDate} &nbsp${voteAverage}</h5>
+                    </div>
+                </li>
+                `;
+        })
+        .join('');
+};
+
+
+
+
+
+
+
+
 
 
 
