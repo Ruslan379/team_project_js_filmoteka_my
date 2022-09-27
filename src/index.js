@@ -495,19 +495,19 @@ function createMoviesCardsMarkup(results) {
             // console.log("yearDate:", yearDate); //!
 
             //? Делаем заглавныее буквы в названии фильма (пока НЕ РАБОТАЕТ capitalsName)
-            // let capitalsTitle = title;
-            // if (title) {
-            //     capitalsTitle = title.toUpperCase();
-            //     // const title = title.toUpperCase();
-            //     console.log("capitalsTitle:", capitalsTitle); //!
-            // };
+            let capitalsTitle = title;
+            if (title) {
+                capitalsTitle = title.toUpperCase();
+                // const title = title.toUpperCase();
+                // console.log("capitalsTitle:", capitalsTitle); //!
+            };
 
-            // let capitalsName = name;
-            // if (name) {
-            //     const capitalsName = name.toUpperCase();
-            //     // const name = name.toUpperCase();
-            //     console.log("capitalsName:", capitalsName); //!
-            // };
+            let capitalsName = name;
+            if (name) {
+                const capitalsName = name.toUpperCase();
+                // const name = name.toUpperCase();
+                // console.log("capitalsName:", capitalsName); //!
+            };
             // console.log(typeof title); //!
             // const capitalsTitle = title.toLocaleUpperCase();
             // const capitalsTitle = title.toUpperCase();
@@ -520,7 +520,7 @@ function createMoviesCardsMarkup(results) {
 
                     <div>
                         <br />
-                        <h5>${title || name}</h5>
+                        <h5>${capitalsTitle || capitalsName}</h5>
                         <h5>${genresAllOneFilm} | ${yearDate}</h5>
                     </div>
                 </li>
@@ -558,15 +558,26 @@ function createInfoMovieMarkup(infoFilm) {
     //? Получаем строку со всеми жанрами
     const genresAllOneFilm = genres.map(item => item.name).join(", ");
 
-    //? Делаем заглавныее буквы в названии фильма (НЕ РАБОТАЕТ!!!)
-    // const capitalsTitle = title.toUpperCase();
-    // const capitalsName = name.toUpperCase();
+    //? Делаем заглавныее буквы в названии фильма (пока НЕ РАБОТАЕТ capitalsName)
+    let capitalsTitle = title;
+    if (title) {
+        capitalsTitle = title.toUpperCase();
+        // const title = title.toUpperCase();
+        // console.log("capitalsTitle:", capitalsTitle); //!
+    };
+
+    let capitalsName = name;
+    if (name) {
+        const capitalsName = name.toUpperCase();
+        // const name = name.toUpperCase();
+        // console.log("capitalsName:", capitalsName); //!
+    };
 
     return `
                 <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="${title || name}" />
 
                 <div class="modal-сontent">
-                    <h3>${title || name}</h3>
+                    <h3>${capitalsTitle || capitalsName}</h3>
                     <h5>Vote/Votes ${vote_average}/${vote_count}</h5>
                     <h5>Popularity ${popularity}</h5>
                     <h5>Original Title ${original_title || original_name}</h5>
