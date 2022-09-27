@@ -133,26 +133,22 @@ $(i),
 //! Кнопка LOAD MORE => включаем
 B.enable();case 19:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function F(){return(F=
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-t(a)(t(d).mark((function e(n){var i,r,o,a;return t(d).wrap((function(e){for(;;)switch(e.prev=e.next){case 0://!
-if(console.log("Вешаю слушателя на onMovieDetails"),//!
-console.log("event.target.li: ",n.target.li),!n.target.src){e.next=6;break}
-//! Получаем (id) фильма по клику на карточке фильма
-console.log("event.target.src: ",n.target.src),//!
-i=String(n.target.src),r=i.substring(31),o=z.findIndex((function(t){return t.poster_path===r})),O=z[o].id,e.next=7;break;case 6:return e.abrupt("return");case 7:return console.log("idFilms:",O),//! id фильма
-e.prev=8,e.next=11,L.getMovieDetails(O);case 11:a=e.sent,
+t(a)(t(d).mark((function e(n){var i,r,o,a,s;return t(d).wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(console.log("Вешаю слушателя на onMovieDetails"),//!
+i=document.getElementsByTagName("li"),console.log("liKey[2].getAttribute(key):",i[2].getAttribute("key")),!n.target.src){e.next=7;break}r=String(n.target.src),o=r.substring(31),a=z.findIndex((function(t){return t.poster_path===o})),O=z[a].id,e.next=8;break;case 7:return e.abrupt("return");case 8:return console.log("idFilms:",O),//! id фильма
+e.prev=9,e.next=12,L.getMovieDetails(O);case 12:s=e.sent,
 //! Очищаем контейнер МОДАЛКИ:
 Y(),
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
-I=a,e.next=22;break;case 16:e.prev=16,e.t0=e.catch(8),
+I=s,e.next=23;break;case 17:e.prev=17,e.t0=e.catch(9),
 //! Очищаем контейнер МОДАЛКИ:
 Y(),
 //! Очищаем контейнер переменную (films):
 I=null,console.log(e.t0),//!
-t(x).Notify.failure("Ошибка запроса: ".concat(e.t0.message),{timeout:3500});case 22:
+t(x).Notify.failure("Ошибка запроса: ".concat(e.t0.message),{timeout:3500});case 23:
 //! ==> Открываем модалку
 window.addEventListener("keydown",Z),document.body.classList.add("show-modal"),
 //! Рисование интерфейса 
-tt(I);case 25:case"end":return e.stop()}}),e,null,[[8,16]])})))).apply(this,arguments)}function P(){return(P=
+tt(I);case 26:case"end":return e.stop()}}),e,null,[[9,17]])})))).apply(this,arguments)}function P(){return(P=
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 t(a)(t(d).mark((function e(){return t(d).wrap((function(e){for(;;)switch(e.prev=e.next){case 0:console.log("Вешаю слушателя на кнопку WATCHED"),//!
 console.log("infoFilm:",I),//!
@@ -220,4 +216,4 @@ S.moviesCards.insertAdjacentHTML("beforeend",
 function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,r=t.name,o=t.genres,a=t.first_air_date,s=t.release_date,l=t.vote_average,c=o.map((function(t){return t.name})).join(", "),f=(a||s||"???? - ?? - ??").substr(0,4),u=l.toFixed(1),p=i;i&&(p=i.toUpperCase());var m=r;if(r)r.toUpperCase();return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||r,'" />\n\n                    <div>\n                        <br />\n                        <h5>').concat(p||m,"</h5>\n                        <h5>").concat(c," | ").concat(f," &nbsp").concat(u,"</h5>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 _()}();
-//# sourceMappingURL=index.bc5f19cf.js.map
+//# sourceMappingURL=index.c29b4fcb.js.map
