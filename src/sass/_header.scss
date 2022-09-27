@@ -1,0 +1,66 @@
+
+.section-header {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: #ffe8e8;
+    text-align: center;
+    background-color: rgb(121, 0, 0);
+}
+
+/* ! кнопки Filmoteka,  HOME, MY LIBRARY */
+.nav-all-buttons {
+    display: flex;
+    justify-content: space-around;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+}
+
+.nav-main-buttons {
+    display: flex;
+    justify-content: space-around;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+}
+
+.button-home {
+    margin-right: 40px;
+    /* display: flex; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+}
+
+/* ! search-form */
+.search-form {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    margin-bottom: 24px;
+}
+
+.search-form-alert {
+    color: #ffdddd;
+}
+
+/* ! кнопки WATCHED и QUEUE  */
+.nav-library-buttons {
+    display: flex;
+    justify-content: center;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+}
+
+.nav-library-watched {
+    margin-right: 200px;
+}
+
+/* .nav-library-watched.nav-library-queue {
+  padding: 15px 40px;
+} */
+
+.nav-library-watched {
+    padding: 15px 40px;
+}
+
+.nav-library-queue {
+    padding: 15px 40px;
+}
