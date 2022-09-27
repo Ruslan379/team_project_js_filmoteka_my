@@ -247,36 +247,48 @@ async function onFormMoviesSearch(evt) {
 async function onMovieDetails(event) {
     console.log("Вешаю слушателя на onMovieDetails"); //!
 
-    const liKey = document.getElementsByTagName("li"); //? полуаю массив всех li
-    console.log("liKey[2].getAttribute(key):", liKey[2].getAttribute("key")); //? могу взять НУЖНЫЙ элемент массива и его id;
-    //? Как узнать номер li, на котором сделан клик
-
+    //? НЕ ТАК...
+    // const liKey = document.getElementsByTagName("li"); //? полуаю массив всех li
+    // console.log("liKey[2].getAttribute(key):", liKey[2].getAttribute("key")); //? могу взять НУЖНЫЙ элемент массива и его id;
+    //? и НЕ ТАК...
     // const liKey = document.querySelector("li");
     // console.log("liKey = document.querySelector(li):", liKey); //!
     // const key = liKey.getAttribute("key");
     // console.log("key:", key); //!
 
-    // console.log("event ", event); //!
-    // console.log("event.target.path:", event.target.path); //!
-    // console.log("event.target.li: ", event.target.li); //!
-    // console.log("event.target.li.accessKey: ", event.target.li.accessKey); //!
-    if (event.target.src) {
-        //! Получаем (id) фильма по клику на карточке фильма
-        // console.log("event.target.src: ", event.target.src); //!
-        const allPosterPath = String(event.target.src);
-        // alert(typeof allPosterPath); // string //!
-        // console.log("allPosterPath:", allPosterPath); //!
-        const posterPath = allPosterPath.substring(31);
-        // console.log("posterPath:", posterPath); //!
 
-        // console.log("films:", films); //!
+    //todo _OLD_ Получение id фильма по клику только на ПОСТЕР
+    // if (event.target.src) {
+    //     //! Получаем (id) фильма по клику на карточке фильма
+    //     // console.log("event.target.src: ", event.target.src); //!
+    //     const allPosterPath = String(event.target.src);
+    //     // alert(typeof allPosterPath); // string //!
+    //     // console.log("allPosterPath:", allPosterPath); //!
+    //     const posterPath = allPosterPath.substring(31);
+    //     // console.log("posterPath:", posterPath); //!
 
-        const i = films.findIndex(film => film.poster_path === posterPath)
-        // console.log("i:", i); //!
-        idFilms = films[i].id; //! id фильма
+    //     // console.log("films:", films); //!
+
+    //     const i = films.findIndex(film => film.poster_path === posterPath)
+    //     // console.log("i:", i); //!
+    //     idFilms = films[i].id; //! id фильма
+    // } else return;
+
+    // console.log("idFilms:", idFilms); //! id фильма
+    //todo ________________________________________________
+
+
+    //!!!!!!!! УРА, ПОЛУЧИЛОСЬ взять id фильма по клику !!!!!!!!!!!!!!!
+    //? Как узнать номер li, на котором сделан клик
+    let idFilms = 1;
+    if (event.target.closest("li")) {
+        const itemId = event.target.closest("li");
+        // console.log("itemId:", itemId); //!
+        idFilms = Number(itemId.getAttribute("key")); //!!! вот ОН, РОДНОЙ!!!
+        console.log("idFilms:", idFilms); //!
     } else return;
+    //!!!!!!!! УРА, ПОЛУЧИЛОСЬ взять id фильма по клику !!!!!!!!!!!!!!!
 
-    console.log("idFilms:", idFilms); //! id фильма
 
     //! ==> Делаем запрос-3 полной информации о фильме для МОДАЛКИ.
     try {
