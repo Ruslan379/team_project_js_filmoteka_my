@@ -1,4 +1,4 @@
-import './css/styles.css';
+// import './css/styles.css';
 
 import Notiflix from 'notiflix';
 
@@ -310,6 +310,9 @@ function onMyLibrary() {
 
     //! ПОКАЗЫВАЕМ блок кнопок WATCHED и QUEUE в header:
     refs.watchedQueueHeader.hidden = false;
+
+    //! Очищаем контейнер:
+    clearMovieContainer();
 }
 
 
