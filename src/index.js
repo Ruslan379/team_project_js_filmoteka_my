@@ -246,12 +246,23 @@ async function onFormMoviesSearch(evt) {
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 async function onMovieDetails(event) {
     console.log("Вешаю слушателя на onMovieDetails"); //!
-    // console.log("event.target: ", event.target); //!
-    console.log("event.target.li: ", event.target.li); //!
+
+    const liKey = document.getElementsByTagName("li"); //? полуаю массив всех li
+    console.log("liKey[2].getAttribute(key):", liKey[2].getAttribute("key")); //? могу взять НУЖНЫЙ элемент массива и его id;
+    //? Как узнать номер li, на котором сделан клик
+
+    // const liKey = document.querySelector("li");
+    // console.log("liKey = document.querySelector(li):", liKey); //!
+    // const key = liKey.getAttribute("key");
+    // console.log("key:", key); //!
+
+    // console.log("event ", event); //!
+    // console.log("event.target.path:", event.target.path); //!
+    // console.log("event.target.li: ", event.target.li); //!
     // console.log("event.target.li.accessKey: ", event.target.li.accessKey); //!
     if (event.target.src) {
         //! Получаем (id) фильма по клику на карточке фильма
-        console.log("event.target.src: ", event.target.src); //!
+        // console.log("event.target.src: ", event.target.src); //!
         const allPosterPath = String(event.target.src);
         // alert(typeof allPosterPath); // string //!
         // console.log("allPosterPath:", allPosterPath); //!
