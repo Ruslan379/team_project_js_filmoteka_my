@@ -128,7 +128,7 @@ n=g,
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 u.InfoMovie.insertAdjacentHTML("afterbegin",
 //! --------------------------------------------------------------------------------------------
-function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:r,vote_count:a,popularity:s,original_title:l,original_name:c,genres:f,overview:u}=t,p=f.map((t=>t.name)).join(", ");return`\n                <img src="https://image.tmdb.org/t/p/w300${n}" alt="${i||o}" />\n\n                <div class="modal-сontent">\n                    <h3>${i||o}</h3>\n                    <h5>Vote/Votes ${r}/${a}</h5>\n                    <h5>Popularity ${s}</h5>\n                    <h5>Original Title ${l||c}</h5>\n                    <h5>Genre ${p}</h5>\n                    <h5>ABOUT</h5>\n                    <p>${u}</p>\n                </div>\n                `}(n));
+function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:r,vote_count:a,popularity:s,original_title:l,original_name:c,genres:f,overview:u}=t,p=f.map((t=>t.name)).join(", ");let m=i;i&&(m=i.toUpperCase());let d=o;return o&&o.toUpperCase(),`\n                <img src="https://image.tmdb.org/t/p/w300${n}" alt="${i||o}" />\n\n                <div class="modal-сontent">\n                    <h3>${m||d}</h3>\n                    <h5>Vote/Votes ${r}/${a}</h5>\n                    <h5>Popularity ${s}</h5>\n                    <h5>Original Title ${l||c}</h5>\n                    <h5>Genre ${p}</h5>\n                    <h5>ABOUT</h5>\n                    <p>${u}</p>\n                </div>\n                `}(n));
 //! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
 var n})),u.closeModalBtn.addEventListener("click",v),u.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&v()})),
 //! ПОКАЗЫВАЕМ форму со строкой инпута:
@@ -176,7 +176,9 @@ function N(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 u.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
-function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <br />\n                        <h5>${n||i}</h5>\n                        <h5>${o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", ")} | ${(r||a||"???? - ?? - ??").substr(0,4)}</h5>\n                    </div>\n                </li>\n                `)).join("")}(t))}
+function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>{const s=o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", "),l=(r||a||"???? - ?? - ??").substr(0,4);//! массив жанров для каждого фильма
+//! значение года из строки даты:
+let c=n;n&&(c=n.toUpperCase());let u=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <br />\n                        <h5>${c||u}</h5>\n                        <h5>${s} | ${l}</h5>\n                    </div>\n                </li>\n                `})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 y();
-//# sourceMappingURL=index.fe96b491.js.map
+//# sourceMappingURL=index.c7343151.js.map
