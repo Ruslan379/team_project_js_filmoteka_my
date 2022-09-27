@@ -108,7 +108,10 @@ let currentPage = "";
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 onHome();
 
-
+//todo ПРОВЕКА на ВЕРХНИЙ регистр (пока не удалять)
+// const title1 = "Fullmetal Alchemist: The Final Alchemy"
+// const capitalsTitle = title1.toLocaleUpperCase();
+// console.log("capitalsTitle:", capitalsTitle); //!
 
 //* -------------------------- Ф-ция-запрос_1, к-рая прослушивает события на кнопке HOME: ----------------------
 //! +++ Загрузка популярных фильмов на главную (первую) страницу  +++
@@ -245,7 +248,7 @@ async function onMovieDetails(event) {
         const posterPath = allPosterPath.substring(31);
         // console.log("posterPath:", posterPath); //!
 
-        console.log("films:", films); //!
+        // console.log("films:", films); //!
 
         const i = films.findIndex(film => film.poster_path === posterPath)
         // console.log("i:", i); //!
@@ -491,7 +494,21 @@ function createMoviesCardsMarkup(results) {
             const yearDate = date.substr(0, 4); //! значение года из строки даты:
             // console.log("yearDate:", yearDate); //!
 
-            //? Делаем заглавныее буквы в названии фильма (НЕ РАБОТАЕТ!!!)
+            //? Делаем заглавныее буквы в названии фильма (пока НЕ РАБОТАЕТ capitalsName)
+            // let capitalsTitle = title;
+            // if (title) {
+            //     capitalsTitle = title.toUpperCase();
+            //     // const title = title.toUpperCase();
+            //     console.log("capitalsTitle:", capitalsTitle); //!
+            // };
+
+            // let capitalsName = name;
+            // if (name) {
+            //     const capitalsName = name.toUpperCase();
+            //     // const name = name.toUpperCase();
+            //     console.log("capitalsName:", capitalsName); //!
+            // };
+            // console.log(typeof title); //!
             // const capitalsTitle = title.toLocaleUpperCase();
             // const capitalsTitle = title.toUpperCase();
             // console.log("capitalsTitle:", capitalsTitle); //!
