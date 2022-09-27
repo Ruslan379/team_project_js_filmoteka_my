@@ -55,6 +55,8 @@ w.resultNotSuccessful.hidden=!0,
 w.searchFormAlert.hidden=!0,
 //! ПОКАЗЫВАЕМ блок кнопок WATCHED и QUEUE в header:
 w.watchedQueueHeader.hidden=!1,
+//! Кнопка LOAD MORE => показываем и отключаем
+N.show(),N.disable(),
 //! Очищаем контейнер:
 M()})),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
@@ -171,4 +173,4 @@ w.InfoMovie.insertAdjacentHTML("afterbegin",
 function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", "),p=n;n&&(p=n.toUpperCase());var m=i;if(i)i.toUpperCase();return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="').concat(n||i,'" />\n\n                <div class="modal-сontent">\n                    <h3>').concat(p||m,"</h3>\n                    <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                    <h5>Popularity ").concat(a,"</h5>\n                    <h5>Original Title ").concat(s||l,"</h5>\n                    <h5>Genre ").concat(u,"</h5>\n                    <h5>ABOUT</h5>\n                    <p>").concat(f,"</p>\n                </div>\n                ")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 B()}();
-//# sourceMappingURL=index.15b47d04.js.map
+//# sourceMappingURL=index.48baeb5b.js.map
