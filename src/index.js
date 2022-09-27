@@ -311,8 +311,7 @@ function onMyLibrary() {
     //! ПОКАЗЫВАЕМ блок кнопок WATCHED и QUEUE в header:
     refs.watchedQueueHeader.hidden = false;
 
-    //! Кнопка LOAD MORE => показываем и отключаем
-    loadMoreBtn.show()
+    //! Кнопка LOAD MORE => отключаем
     loadMoreBtn.disable();
 
     //! Очищаем контейнер:
