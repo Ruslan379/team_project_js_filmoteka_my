@@ -57,15 +57,16 @@ refs.myLibraryBtn.addEventListener('click', onMyLibraryWatched);
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 refs.movieDetails.addEventListener('click', onMovieDetails);
 
-//? +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
+//! +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
 // refs.openModalBtn.addEventListener('click', onOpenModal); //? ----- для тестирования
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
-//? +++++++++++++++ Создаем слушателей для кнопок МОДАЛКИ ++++++++++++++++++++
-refs.watchedModal.addEventListener('click', onWatchedModal);
+//! +++++++++++++++ Создаем слушателей для кнопок МОДАЛКИ ++++++++++++++++++++
+refs.watchedAddModal.addEventListener('click', onWatchedAddModal);
+let watchedDeleteModal = "1" //! Заглушка-обманка для слушателя на кнопке 
 refs.queueModal.addEventListener('click', onQueueModal);
 
-//? ++++ Создаем слушателей на кнопках WATCHED и QUEUE для страницы MY LIBRARY +++++++
+//! ++++ Создаем слушателей на кнопках WATCHED и QUEUE для страницы MY LIBRARY +++++++
 refs.watchedHeader.addEventListener('click', onMyLibraryWatched);
 refs.queueHeader.addEventListener('click', onQueue);
 
@@ -178,7 +179,7 @@ async function onHome() {
     //     const yearDate = date.substr(0, 4);
     //     console.log("yearDate:", yearDate);
     // });
-    //?_________________КОНЕЦ Получения и консоли всех данных _____________________
+    //?_________________КОНЕЦ Получения и Консоли всех данных _____________________
 
     //! Рисование интерфейса 
     appendMoviesMarkup(results);
@@ -246,6 +247,9 @@ async function onFormMoviesSearch(evt) {
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 async function onMovieDetails(event) {
     console.log("Вешаю слушателя на onMovieDetails"); //!
+    //! Устанвливеем начальные значения textContent и data-action для кнопок WATCHED и QUEUE в модалке
+    refs.watchedAddModal.textContent = "ADD TO WATCHED";
+    // refs.watchedAddModal.textContent = "ADD TO QUEUE";
 
     //? НЕ ТАК...
     // const liKey = document.getElementsByTagName("li"); //? полуаю массив всех li
@@ -329,22 +333,53 @@ async function onMovieDetails(event) {
     appendInfoMovieMarkup(infoFilm);
 };
 
-//* -------------------------- Ф-ция_4, добавление просмотренных фильмов в localStorage по кноке WATCHED: ----------------------
+//* -------------------------- Ф-ция_4, ДОБАВЛЕНИЕ просмотренных фильмов в localStorage по кноке ADD TO WATCHED: ----------------------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-function onWatchedModal() {
-    console.log("Вешаю слушателя на кнопку WATCHED"); //!
+function onWatchedAddModal() {
+    console.log("Вешаю слушателя на кнопку ADD TO WATCHED в МОДАЛКЕ"); //!
     console.log("infoFilm:", infoFilm); //!
     console.log("infoFilm.id:", infoFilm.id); //!
     //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
-    if (localStorageWatched.find(option => option.id === infoFilm.id)) return;
+    if (localStorageWatched.find(option => option.id === infoFilm.id)) {
+        Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в WATCHED`, { timeout: 3500, },);
+        refs.watchedAddModal.textContent = "DELETE FROM WATCHED";
+        // меняем data-action
+        return;
+    }
     //! Запись фильма в localStorage
     localStorageWatched = [...localStorageWatched, infoFilm];
     console.log("localStorageWatched:", localStorageWatched); //!
     localStorage.setItem("watched", JSON.stringify(localStorageWatched));
+    Notiflix.Notify.success(`Фильм ${infoFilm.title || infoFilm.name} добавлен в WATCHED`, { timeout: 3500, },);
+    //! Смена названия кнопки на "DELETE FROM WATCHED"
+    const textWatchedAddModal = refs.watchedAddModal.textContent;
+    console.log("textWatchedAddModal:", textWatchedAddModal); //!
+    refs.watchedAddModal.textContent = "DELETE FROM WATCHED";
+
+    //! Замена атрибута "data-action" на "modal-delete-watched" (РАБОТАТ с ОШИБКОЙ!!!)
+    refs.watchedAddModal.setAttribute("data-action", "modal-delete-watched");
+    console.log("refs.watchedAddModal:", refs.watchedAddModal.getAttribute("data-action")); //!
+    //! Получаем ссылку на кнопоку DELETE FROM WATCHED":
+    watchedDeleteModal = document.querySelector('button[data-action="modal-delete-watched"]'), //!!!
+        //! Создаем слушателя на новой кнопке "DELETE FROM WATCHED"
+        watchedDeleteModal.addEventListener('click', onWatchedDeleteModal); //!!!
+    //! теперь АКТИВНОЙ становится кнопка "DELETE FROM WATCHED"
+}
+
+//* -------------------------- Ф-ция_5, УДАЛЕНИЕ просмотренных фильмов из localStorage по кноке DELETE FROM WATCHED: ----------------------
+function onWatchedDeleteModal() {
+    console.log("Вешаю слушателя на кнопку DELETE FROM WATCHED в МОДАЛКЕ"); //!
+
 }
 
 
-//* -------------------------- Ф-ция_5, добавление просмотренных фильмов в localStorage по кноке QUEUE: ----------------------
+
+
+
+
+
+
+//* -------------------------- Ф-ция_6, добавление просмотренных фильмов в localStorage по кноке ADD TO QUEUE: ----------------------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 function onQueueModal() {
     console.log("Вешаю слушателя на кнопку QUEUE"); //!
@@ -363,7 +398,7 @@ function onQueueModal() {
 
 
 
-//* -------------------------- Ф-ция_6, для работы с MY LIBRARY и кнопкой WATCHED: ----------------------
+//* -------------------------- Ф-ция_8, для работы с MY LIBRARY и кнопкой WATCHED: ----------------------
 function onMyLibraryWatched() {
     // console.log("Вешаю слушателя на кнопку MY LIBRARY"); //!
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
@@ -394,7 +429,7 @@ function onMyLibraryWatched() {
     // loadMoreBtn.enable();
 };
 
-//* -------------------------- Ф-ция_7, для работы с MY LIBRARY и кнопкой QUEUE: ----------------------
+//* -------------------------- Ф-ция_9, для работы с MY LIBRARY и кнопкой QUEUE: ----------------------
 function onQueue() {
     // console.log("Вешаю слушателя на кнопку MY LIBRARY"); //!
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
