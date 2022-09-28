@@ -62,13 +62,21 @@ S.myLibraryBtn.addEventListener("click",F),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 S.movieDetails.addEventListener("click",(function(t){return D.apply(this,arguments)})),S.closeModalBtn.addEventListener("click",Q),S.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&Q()})),S.watchedModal.addEventListener("click",(
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-function(){console.log("Вешаю слушателя на кнопку WATCHED"),//!
+function(){//!
+//! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+if(console.log("Вешаю слушателя на кнопку WATCHED"),//!
 console.log("infoFilm:",O),//!
+console.log("infoFilm.id:",O.id),M.find((function(t){return t.id===O.id})))return;
+//! Запись фильма в localStorage
 M=t(l)(M).concat([O]),console.log("localStorageWatched:",M),//!
 localStorage.setItem("watched",JSON.stringify(M))}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-)),S.queueModal.addEventListener("click",(function(){console.log("Вешаю слушателя на кнопку QUEUE"),//!
+)),S.queueModal.addEventListener("click",(function(){//!
+//! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+if(console.log("Вешаю слушателя на кнопку QUEUE"),//!
 console.log("infoFilm:",O),//!
+console.log("infoFilm.id:",O.id),W.find((function(t){return t.id===O.id})))return;
+//! Запись фильма в localStorage
 W=t(l)(W).concat([O]),console.log("localStorageQueue:",W),//!
 localStorage.setItem("queue",JSON.stringify(W))})),S.watchedHeader.addEventListener("click",F),S.queueHeader.addEventListener("click",(function(){var t;
 //! Перезаписываем в локальную переменную (results) значение всего (localStorage)
@@ -203,7 +211,7 @@ function G(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 S.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
-function(t){return t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genre_ids,a=t.first_air_date,s=t.release_date,l=r.map((function(t){return function(t){return A.filter((function(e){return e.id===t}))[0].name}(t)})).join(", "),c=(a||s||"???? - ?? - ??").substr(0,4),f=i;i&&(f=i.toUpperCase());var u=o;if(o)o.toUpperCase();return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <br />\n                        <h5>').concat(f||u,"</h5>\n                        <h5>").concat(l," | ").concat(c,"</h5>\n                    </div>\n                </li>\n                ")})).join("")}
+function(t){return t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genre_ids,a=t.first_air_date,s=t.release_date,l=r.map((function(t){return function(t){return A.filter((function(e){return e.id===t}))[0].name}(t)})).join(", "),c=(a||s||"???? - ?? - ??").substr(0,4),f=i;i&&(f=i.toUpperCase());var u=o;if(o)o.toUpperCase();return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <h2>').concat(f||u,"</h2>\n                        <h3>").concat(l," &nbsp|&nbsp ").concat(c,"</h3>\n                    </div>\n                </li>\n                ")})).join("")}
 //! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
 (t))}function K(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
@@ -215,7 +223,7 @@ function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vot
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 S.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
-function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genres,a=t.first_air_date,s=t.release_date,l=t.vote_average,c=r.map((function(t){return t.name})).join(", "),f=(a||s||"???? - ?? - ??").substr(0,4),u=l.toFixed(1),p=i;i&&(p=i.toUpperCase());var m=o;if(o)o.toUpperCase();return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <br />\n                        <h5>').concat(p||m,"</h5>\n                        <h5>").concat(c," | ").concat(f," &nbsp").concat(u,"</h5>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
+function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genres,a=t.first_air_date,s=t.release_date,l=t.vote_average,c=r.map((function(t){return t.name})).join(", "),f=(a||s||"???? - ?? - ??").substr(0,4),u=l.toFixed(1),p=i;i&&(p=i.toUpperCase());var m=o;if(o)o.toUpperCase();return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <h2>').concat(p||m,"</h2>\n                        <h3>").concat(c," &nbsp|&nbsp ").concat(f,"&nbsp &nbsp").concat(u,"</h3>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 j()}();
-//# sourceMappingURL=index.0e7a2f28.js.map
+//# sourceMappingURL=index.54b272d8.js.map

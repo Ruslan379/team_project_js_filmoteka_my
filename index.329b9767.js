@@ -140,13 +140,21 @@ function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:r,vote_count:a,
 //! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
 var i}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-)),u.closeModalBtn.addEventListener("click",E),u.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&E()})),u.watchedModal.addEventListener("click",(function(){console.log("Вешаю слушателя на кнопку WATCHED"),//!
+)),u.closeModalBtn.addEventListener("click",E),u.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&E()})),u.watchedModal.addEventListener("click",(function(){//!
+//! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+if(console.log("Вешаю слушателя на кнопку WATCHED"),//!
 console.log("infoFilm:",h),//!
+console.log("infoFilm.id:",h.id),y.find((t=>t.id===h.id)))return;
+//! Запись фильма в localStorage
 y=[...y,h],console.log("localStorageWatched:",y),//!
 localStorage.setItem("watched",JSON.stringify(y))}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-)),u.queueModal.addEventListener("click",(function(){console.log("Вешаю слушателя на кнопку QUEUE"),//!
+)),u.queueModal.addEventListener("click",(function(){//!
+//! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+if(console.log("Вешаю слушателя на кнопку QUEUE"),//!
 console.log("infoFilm:",h),//!
+console.log("infoFilm.id:",h.id),w.find((t=>t.id===h.id)))return;
+//! Запись фильма в localStorage
 w=[...w,h],console.log("localStorageQueue:",w),//!
 localStorage.setItem("queue",JSON.stringify(w))})),u.watchedHeader.addEventListener("click",k),u.queueHeader.addEventListener("click",(function(){var t;
 //! Перезаписываем в локальную переменную (results) значение всего (localStorage)
@@ -228,9 +236,9 @@ u.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
 function(t){return t.map((({id:t,poster_path:e,title:n,name:i,genre_ids:o,first_air_date:r,release_date:a})=>{const s=o.map((t=>function(t){return f.filter((e=>e.id===t))[0].name}(t))).join(", "),l=(r||a||"???? - ?? - ??").substr(0,4);//! массив жанров для каждого фильма
 //! значение года из строки даты:
-let c=n;n&&(c=n.toUpperCase());let u=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <br />\n                        <h5>${c||u}</h5>\n                        <h5>${s} | ${l}</h5>\n                    </div>\n                </li>\n                `})).join("")}(t))}function S(t){
+let c=n;n&&(c=n.toUpperCase());let u=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <h2>${c||u}</h2>\n                        <h3>${s} &nbsp|&nbsp ${l}</h3>\n                    </div>\n                </li>\n                `})).join("")}(t))}function S(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 u.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
-function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:r,release_date:a,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(r||a||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let p=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <br />\n                        <h5>${u||p}</h5>\n                        <h5>${l} | ${c} &nbsp${f}</h5>\n                    </div>\n                </li>\n                `})).join("")}(t))}v();
-//# sourceMappingURL=index.daa35737.js.map
+function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:r,release_date:a,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(r||a||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let p=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <h2>${u||p}</h2>\n                        <h3>${l} &nbsp|&nbsp ${c}&nbsp &nbsp${f}</h3>\n                    </div>\n                </li>\n                `})).join("")}(t))}v();
+//# sourceMappingURL=index.329b9767.js.map
