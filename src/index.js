@@ -331,7 +331,7 @@ async function onMovieDetails(event) {
 
 //* -------------------------- Ф-ция_4, добавление просмотренных фильмов в localStorage по кноке WATCHED: ----------------------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-async function onWatchedModal() {
+function onWatchedModal() {
     console.log("Вешаю слушателя на кнопку WATCHED"); //!
     console.log("infoFilm:", infoFilm); //!
     localStorageWatched = [...localStorageWatched, infoFilm];
@@ -342,7 +342,7 @@ async function onWatchedModal() {
 
 //* -------------------------- Ф-ция_5, добавление просмотренных фильмов в localStorage по кноке QUEUE: ----------------------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-async function onQueueModal() {
+function onQueueModal() {
     console.log("Вешаю слушателя на кнопку QUEUE"); //!
     console.log("infoFilm:", infoFilm); //!
     localStorageQueue = [...localStorageQueue, infoFilm];
@@ -768,7 +768,7 @@ function createWatchedQueueCardsMarkup(results) {
 
 
 
-
+// if (watchedFilms.find(option => option.id === infoFilm.id)) return;
 
 
 
