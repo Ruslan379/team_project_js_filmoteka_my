@@ -21,7 +21,7 @@ resultNotSuccessful:document.querySelector('[data-action="search-alert"]'),
 //! Получаем ссылку на форму со строкой инпута:
 searchFormAlert:document.querySelector('div[data-action="search-form-alert"]'),
 //! Получаем ссылку на блок кнопок WATCHED и QUEUE в header:
-watchedQueueHeader:document.querySelector(".nav-library-buttons"),
+watchedQueueHeader:document.querySelector('button[data-action="modal-add-watched"]'),
 //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
 watchedModal:document.querySelector('button[data-action="modal-add-watched"]'),
 //! Получаем ссылку на кнопоку DELETE FROM WATCHED в МОДАЛКЕ:
@@ -140,12 +140,12 @@ function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:r,vote_count:a,
 //! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
 var i}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-)),u.closeModalBtn.addEventListener("click",E),u.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&E()})),u.watchedModal.addEventListener("click",(async function(){console.log("Вешаю слушателя на кнопку WATCHED"),//!
+)),u.closeModalBtn.addEventListener("click",E),u.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&E()})),u.watchedModal.addEventListener("click",(function(){console.log("Вешаю слушателя на кнопку WATCHED"),//!
 console.log("infoFilm:",h),//!
 y=[...y,h],console.log("localStorageWatched:",y),//!
 localStorage.setItem("watched",JSON.stringify(y))}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-)),u.queueModal.addEventListener("click",(async function(){console.log("Вешаю слушателя на кнопку QUEUE"),//!
+)),u.queueModal.addEventListener("click",(function(){console.log("Вешаю слушателя на кнопку QUEUE"),//!
 console.log("infoFilm:",h),//!
 w=[...w,h],console.log("localStorageQueue:",w),//!
 localStorage.setItem("queue",JSON.stringify(w))})),u.watchedHeader.addEventListener("click",k),u.queueHeader.addEventListener("click",(function(){var t;
@@ -233,4 +233,4 @@ let c=n;n&&(c=n.toUpperCase());let u=i;if(i){i.toUpperCase()}return`\n          
 u.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
 function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:r,release_date:a,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(r||a||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let p=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <br />\n                        <h5>${u||p}</h5>\n                        <h5>${l} | ${c} &nbsp${f}</h5>\n                    </div>\n                </li>\n                `})).join("")}(t))}v();
-//# sourceMappingURL=index.445b54b0.js.map
+//# sourceMappingURL=index.86a5ff75.js.map
