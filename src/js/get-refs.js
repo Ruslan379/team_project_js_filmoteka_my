@@ -43,8 +43,9 @@ export default function getRefs() {
     searchFormAlert: document.querySelector('div[data-action="search-form-alert"]'),
 
     //! Получаем ссылку на блок кнопок WATCHED и QUEUE в header:
-    // watchedQueueHeader: document.querySelector('.nav-library-buttons'), //todo OLD
-    watchedQueueHeader: document.querySelector('[data-action="library-buttons"]'),
+    // watchedQueueHeader: document.querySelector('.nav-library-buttons1'), //todo OLD
+    // watchedQueueHeader: document.querySelector('#library-buttons'),
+    watchedQueueHeader: document.querySelector('[data-action="library-btn"]'),
 
     //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
     // watchedModal: document.querySelector('.modal-watched'), //todo OLD

@@ -42,25 +42,29 @@
 }
 
 /* ! кнопки WATCHED и QUEUE  */
-.nav-library-buttons {
-    display: flex;
-    justify-content: center;
+//!
+.nav-library-btn {
+    margin-top: 20px;
+    // display: flex;
+    // justify-content: center;
     /* margin-left: auto; */
     /* margin-right: auto; */
 }
 
-.nav-library-watched {
-    margin-right: 200px;
-}
+//!
+// .nav-library-watched {
+//     margin-right: 200px;
+// }
 
 /* .nav-library-watched.nav-library-queue {
   padding: 15px 40px;
 } */
 
 .nav-library-watched {
-    padding: 15px 40px;
+    padding: 10px 30px;
+    margin-right: 300px;
 }
 
 .nav-library-queue {
-    padding: 15px 40px;
+    padding: 10px 30px;
 }
