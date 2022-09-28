@@ -38,7 +38,7 @@ resultNotSuccessful:document.querySelector('[data-action="search-alert"]'),
 //! Получаем ссылку на форму со строкой инпута:
 searchFormAlert:document.querySelector('div[data-action="search-form-alert"]'),
 //! Получаем ссылку на блок кнопок WATCHED и QUEUE в header:
-watchedQueueHeader:document.querySelector('[data-action="library-buttons"]'),
+watchedQueueHeader:document.querySelector('[data-action="library-btn"]'),
 //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
 watchedModal:document.querySelector('button[data-action="modal-add-watched"]'),
 //! Получаем ссылку на кнопоку DELETE FROM WATCHED в МОДАЛКЕ:
@@ -218,4 +218,4 @@ S.moviesCards.insertAdjacentHTML("beforeend",
 function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genres,a=t.first_air_date,s=t.release_date,l=t.vote_average,c=r.map((function(t){return t.name})).join(", "),f=(a||s||"???? - ?? - ??").substr(0,4),u=l.toFixed(1),p=i;i&&(p=i.toUpperCase());var m=o;if(o)o.toUpperCase();return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <br />\n                        <h5>').concat(p||m,"</h5>\n                        <h5>").concat(c," | ").concat(f," &nbsp").concat(u,"</h5>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 j()}();
-//# sourceMappingURL=index.9f63478b.js.map
+//# sourceMappingURL=index.0e7a2f28.js.map
