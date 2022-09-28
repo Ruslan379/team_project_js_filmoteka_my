@@ -21,7 +21,7 @@ resultNotSuccessful:document.querySelector('[data-action="search-alert"]'),
 //! Получаем ссылку на форму со строкой инпута:
 searchFormAlert:document.querySelector('div[data-action="search-form-alert"]'),
 //! Получаем ссылку на блок кнопок WATCHED и QUEUE в header:
-watchedQueueHeader:document.querySelector('div[data-action="modal-add-watched"]'),
+watchedQueueHeader:document.querySelector('div[data-action="nav-library-buttons"]'),
 //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
 watchedModal:document.querySelector('button[data-action="modal-add-watched"]'),
 //! Получаем ссылку на кнопоку DELETE FROM WATCHED в МОДАЛКЕ:
@@ -233,4 +233,4 @@ let c=n;n&&(c=n.toUpperCase());let u=i;if(i){i.toUpperCase()}return`\n          
 u.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
 function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:r,release_date:a,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(r||a||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let p=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <br />\n                        <h5>${u||p}</h5>\n                        <h5>${l} | ${c} &nbsp${f}</h5>\n                    </div>\n                </li>\n                `})).join("")}(t))}v();
-//# sourceMappingURL=index.b67b9c6d.js.map
+//# sourceMappingURL=index.01b31f70.js.map
