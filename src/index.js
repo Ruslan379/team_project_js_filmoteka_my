@@ -334,6 +334,10 @@ async function onMovieDetails(event) {
 function onWatchedModal() {
     console.log("Вешаю слушателя на кнопку WATCHED"); //!
     console.log("infoFilm:", infoFilm); //!
+    console.log("infoFilm.id:", infoFilm.id); //!
+    //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+    if (localStorageWatched.find(option => option.id === infoFilm.id)) return;
+    //! Запись фильма в localStorage
     localStorageWatched = [...localStorageWatched, infoFilm];
     console.log("localStorageWatched:", localStorageWatched); //!
     localStorage.setItem("watched", JSON.stringify(localStorageWatched));
@@ -345,7 +349,13 @@ function onWatchedModal() {
 function onQueueModal() {
     console.log("Вешаю слушателя на кнопку QUEUE"); //!
     console.log("infoFilm:", infoFilm); //!
+    console.log("infoFilm.id:", infoFilm.id); //!
+    //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+    if (localStorageQueue.find(option => option.id === infoFilm.id)) return;
+    //! Запись фильма в localStorage
     localStorageQueue = [...localStorageQueue, infoFilm];
+
+
     console.log("localStorageQueue:", localStorageQueue); //!
     localStorage.setItem("queue", JSON.stringify(localStorageQueue));
 };
@@ -621,9 +631,8 @@ function createMoviesCardsMarkup(results) {
                     <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="${title || name}" />
 
                     <div>
-                        <br />
-                        <h5>${capitalsTitle || capitalsName}</h5>
-                        <h5>${genresAllOneFilm} | ${yearDate}</h5>
+                        <h2>${capitalsTitle || capitalsName}</h2>
+                        <h3>${genresAllOneFilm} &nbsp|&nbsp ${yearDate}</h3>
                     </div>
                 </li>
                 `;
@@ -753,9 +762,8 @@ function createWatchedQueueCardsMarkup(results) {
                     <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="${title || name}" />
 
                     <div>
-                        <br />
-                        <h5>${capitalsTitle || capitalsName}</h5>
-                        <h5>${genresAllOneFilm} | ${yearDate} &nbsp${voteAverage}</h5>
+                        <h2>${capitalsTitle || capitalsName}</h2>
+                        <h3>${genresAllOneFilm} &nbsp|&nbsp ${yearDate}&nbsp &nbsp${voteAverage}</h3>
                     </div>
                 </li>
                 `;
@@ -768,7 +776,7 @@ function createWatchedQueueCardsMarkup(results) {
 
 
 
-// if (watchedFilms.find(option => option.id === infoFilm.id)) return;
+
 
 
 
