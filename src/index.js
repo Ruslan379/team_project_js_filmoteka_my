@@ -101,9 +101,12 @@ let infoFilm = null;
 //! Переменная для определения типа запроса в кнопке LOAD MORE 
 let currentPage = "";
 
-//! Переменные для хранения массива объектов фильмо для станиц WATCHED и QUEUE
+//! Переменные для хранения массива объектов фильмов для станиц WATCHED и QUEUE
 let localStorageWatched = JSON.parse(localStorage.getItem("watched")) ?? [];
 let localStorageQueue = JSON.parse(localStorage.getItem("queue")) ?? [];
+
+//! Переменная для определения типа станиц WATCHED и QUEUE
+let libraryPage = "";
 
 
 //* +++++++++++++++++++++++++++++++++++++++ Блок Функций  +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -248,6 +251,8 @@ async function onMovieDetails(event) {
     console.log("Вешаю слушателя на onMovieDetails"); //!
     //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
     refs.watchedModal.textContent = "ADD TO WATCHED";
+    if (libraryPage === "watched") refs.watchedModal.textContent = "DELETE FROM WATCHED";
+
     refs.queueModal.textContent = "ADD TO QUEUE";
 
     //? НЕ ТАК...
@@ -332,14 +337,21 @@ async function onMovieDetails(event) {
     appendInfoMovieMarkup(infoFilm);
 };
 
-//* -------------------------- Ф-ция_4, ДОБАВЛЕНИЕ/УДАЛЕНИЕ просмотренных фильмов в localStorage по кноке ADD TO WATCHED: ----------------------
+
+
+
+//* -------------- Ф-ция_4, ДОБАВЛЕНИЕ/УДАЛЕНИЕ просмотренных фильмов в localStorage по кноке ADD TO WATCHED: ----------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 function onWatchedModal() {
     console.log("Вешаю слушателя на кнопку ADD TO WATCHED в МОДАЛКЕ"); //!
+    //! Проверяем значение типа станиц WATCHED или QUEUE
+    // if (libraryPage === "watched") refs.watchedModal.textContent = "DELETE FROM WATCHED";
+
     console.log("infoFilm:", infoFilm); //!
     console.log("infoFilm.id:", infoFilm.id); //!
     const textWatchedModal = refs.watchedModal.textContent;
     console.log("textWatchedModal ==> начало:", textWatchedModal); //!
+
     if (textWatchedModal === "ADD TO WATCHED") {
         //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
         if (localStorageWatched.find(option => option.id === infoFilm.id)) {
@@ -365,7 +377,7 @@ function onWatchedModal() {
             refs.watchedModal.textContent = "ADD TO WATCHED";
         }
     }
-}
+};
 
 
 
@@ -377,7 +389,7 @@ function onWatchedModal() {
 
 
 
-//* -------------------------- Ф-ция_5, добавление просмотренных фильмов в localStorage по кноке ADD TO QUEUE: ----------------------
+//* ------------------ Ф-ция_5, ДОБАВЛЕНИЕ/УДАЛЕНИЕ просмотренных фильмов в localStorage по кноке ADD TO QUEUE: --------------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 function onQueueModal() {
     console.log("Вешаю слушателя на кнопку QUEUE"); //!
@@ -398,7 +410,12 @@ function onQueueModal() {
 
 //* -------------------------- Ф-ция_6, для работы с MY LIBRARY и кнопкой WATCHED: ----------------------
 function onMyLibraryWatched() {
-    // console.log("Вешаю слушателя на кнопку MY LIBRARY"); //!
+    console.log("Вешаю слушателя на кнопку MY LIBRARY==>WATCHED"); //!
+
+    refs.watchedModal.textContent = "DELETE FROM WATCHED";
+    //! Назначаем тип станицы WATCHED 
+    libraryPage = "watched";
+
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
     refs.resultNotSuccessful.hidden = true;
 
@@ -429,7 +446,10 @@ function onMyLibraryWatched() {
 
 //* -------------------------- Ф-ция_7, для работы с MY LIBRARY и кнопкой QUEUE: ----------------------
 function onQueue() {
-    // console.log("Вешаю слушателя на кнопку MY LIBRARY"); //!
+    console.log("Вешаю слушателя на кнопку MY LIBRARY==>QUEUE"); //!
+    //! Назначаем тип станицы QUEUE
+    libraryPage = "queue";
+
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
     refs.resultNotSuccessful.hidden = true;
 
