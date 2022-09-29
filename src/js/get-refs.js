@@ -19,6 +19,8 @@ export default function getRefs() {
     //! Получаем ссылку на кнопку Filmoteka:
     // filmotekaBtn: document.querySelector('.button-filmoteka'), //todo OLD
     filmotekaBtn: document.querySelector('button[data-action="button-filmoteka"]'),
+    // filmotekaBtn: document.querySelector('div[data-action="filmoteka"]'), //!+-+-+-
+    // filmotekaBtn: document.querySelectorAll('div[data-action="filmoteka"]'), //!+-+-+-
 
     //! Получаем ссылку на кнопку MY LIBRARY:
     // myLibraryBtn: document.querySelector('.button-mylibrary'), //todo OLD
