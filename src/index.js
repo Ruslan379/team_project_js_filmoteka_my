@@ -98,15 +98,16 @@ let idFilms = 0;
 let infoFilm = null;
 
 
-//! Переменная для определения типа запроса в кнопке LOAD MORE 
+//! Переменная для определения типа запроса в кнопке LOAD MORE
+//! и типа станиц WATCHED и QUEUE
 let currentPage = "";
 
 //! Переменные для хранения массива объектов фильмов для станиц WATCHED и QUEUE
 let localStorageWatched = JSON.parse(localStorage.getItem("watched")) ?? [];
 let localStorageQueue = JSON.parse(localStorage.getItem("queue")) ?? [];
 
-//! Переменная для определения типа станиц WATCHED и QUEUE
-let libraryPage = "";
+// Переменная для определения типа станиц WATCHED и QUEUE
+// let libraryPage = "";
 
 
 //* +++++++++++++++++++++++++++++++++++++++ Блок Функций  +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -249,11 +250,27 @@ async function onFormMoviesSearch(evt) {
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 async function onMovieDetails(event) {
     console.log("Вешаю слушателя на onMovieDetails"); //!
-    //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
-    refs.watchedModal.textContent = "ADD TO WATCHED";
-    if (libraryPage === "watched") refs.watchedModal.textContent = "DELETE FROM WATCHED";
 
+    //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
+    //! в зависимости от того, на какой странице находится пользователь
+    refs.watchedModal.textContent = "ADD TO WATCHED";
+    if (refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.remove("colorRed");
+    if (!refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.add("colorGreen");
+    if (currentPage === "watched") {
+        refs.watchedModal.textContent = "DELETE FROM WATCHED";
+        if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
+        if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
+
+    };
     refs.queueModal.textContent = "ADD TO QUEUE";
+    if (refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.remove("colorRed");
+    if (!refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.add("colorGreen");
+    refs.queueModal.classList.add("colorGreen");
+    if (currentPage === "queue") {
+        refs.queueModal.textContent = "DELETE FROM QUEUE";
+        if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
+        if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
+    };
 
     //? НЕ ТАК...
     // const liKey = document.getElementsByTagName("li"); //? полуаю массив всех li
@@ -344,11 +361,10 @@ async function onMovieDetails(event) {
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 function onWatchedModal() {
     console.log("Вешаю слушателя на кнопку ADD TO WATCHED в МОДАЛКЕ"); //!
-    //! Проверяем значение типа станиц WATCHED или QUEUE
-    // if (libraryPage === "watched") refs.watchedModal.textContent = "DELETE FROM WATCHED";
 
     console.log("infoFilm:", infoFilm); //!
     console.log("infoFilm.id:", infoFilm.id); //!
+
     const textWatchedModal = refs.watchedModal.textContent;
     console.log("textWatchedModal ==> начало:", textWatchedModal); //!
 
@@ -357,7 +373,8 @@ function onWatchedModal() {
         if (localStorageWatched.find(option => option.id === infoFilm.id)) {
             Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в WATCHED`, { timeout: 3500, },);
             refs.watchedModal.textContent = "DELETE FROM WATCHED";
-            // меняем data-action
+            if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
+            if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
             return;
         };
         //! Запись фильма в localStorage
@@ -367,24 +384,29 @@ function onWatchedModal() {
         Notiflix.Notify.success(`Фильм ${infoFilm.title || infoFilm.name} добавлен в WATCHED`, { timeout: 3500, },);
         //! Смена названия (textContent) кнопки на "DELETE FROM WATCHED"
         refs.watchedModal.textContent = "DELETE FROM WATCHED";
+        if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
+        if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
         console.log("textWatchedModal ==> конец:", textWatchedModal); //!
     } else {
         if (textWatchedModal === "DELETE FROM WATCHED") {
             localStorageWatched = localStorageWatched.filter(item => item.id !== infoFilm.id);
             localStorage.setItem("watched", JSON.stringify(localStorageWatched));
-            console.log("Фильм удален из WATCHED");
+            console.log("Фильм удален из WATCHED"); //!
             Notiflix.Notify.info(`Фильм ${infoFilm.title || infoFilm.name} удален из WATCHED`, { timeout: 3500, },);
             refs.watchedModal.textContent = "ADD TO WATCHED";
-        }
-    }
+            if (refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.remove("colorRed");
+            if (!refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.add("colorGreen");
+
+            if (currentPage === "watched") {
+                console.log("currentPage", currentPage); //!
+                onCloseModal();
+                //! Очищаем контейнер:
+                clearMovieContainer();
+                appendWatchedQueueMarkup(localStorageWatched);
+            };
+        };
+    };
 };
-
-
-
-
-
-
-
 
 
 
@@ -392,29 +414,63 @@ function onWatchedModal() {
 //* ------------------ Ф-ция_5, ДОБАВЛЕНИЕ/УДАЛЕНИЕ просмотренных фильмов в localStorage по кноке ADD TO QUEUE: --------------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 function onQueueModal() {
-    console.log("Вешаю слушателя на кнопку QUEUE"); //!
+    console.log("Вешаю слушателя на кнопку ADD TO QUEUE в МОДАЛКЕ"); //!
+
     console.log("infoFilm:", infoFilm); //!
     console.log("infoFilm.id:", infoFilm.id); //!
-    //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
-    if (localStorageQueue.find(option => option.id === infoFilm.id)) return;
-    //! Запись фильма в localStorage
-    localStorageQueue = [...localStorageQueue, infoFilm];
 
+    const textQueuedModal = refs.queueModal.textContent;
+    console.log("textQueuedModal ==> начало:", textQueuedModal); //!
 
-    console.log("localStorageQueue:", localStorageQueue); //!
-    localStorage.setItem("queue", JSON.stringify(localStorageQueue));
+    if (textQueuedModal === "ADD TO QUEUE") {
+        //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+        if (localStorageQueue.find(option => option.id === infoFilm.id)) {
+            Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в QUEUE`, { timeout: 3500, },);
+            refs.queueModal.textContent = "DELETE FROM QUEUE";
+            if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
+            if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
+            return;
+        };
+        //! Запись фильма в localStorage
+        localStorageQueue = [...localStorageQueue, infoFilm];
+        console.log("localStorageQueue:", localStorageQueue); //!
+        localStorage.setItem("queue", JSON.stringify(localStorageQueue));
+        Notiflix.Notify.success(`Фильм ${infoFilm.title || infoFilm.name} добавлен в QUEUE`, { timeout: 3500, },);
+        //! Смена названия (textContent) кнопки на "DELETE FROM QUEUE"
+        refs.queueModal.textContent = "DELETE FROM QUEUE";
+        if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
+        if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
+        console.log("textQueuedModal ==> конец:", textQueuedModal); //!
+    } else {
+        if (textQueuedModal === "DELETE FROM QUEUE") {
+            localStorageQueue = localStorageQueue.filter(item => item.id !== infoFilm.id);
+            localStorage.setItem("queue", JSON.stringify(localStorageQueue));
+            console.log("Фильм удален из QUEUE");
+            Notiflix.Notify.info(`Фильм ${infoFilm.title || infoFilm.name} удален из QUEUE`, { timeout: 3500, },);
+            refs.queueModal.textContent = "ADD TO QUEUE";
+            if (refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.remove("colorRed");
+            if (!refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.add("colorGreen");
+            if (currentPage === "queue") {
+                console.log("currentPage", currentPage); //!
+                onCloseModal();
+                //! Очищаем контейнер:
+                clearMovieContainer();
+                appendWatchedQueueMarkup(localStorageQueue);
+            };
+        };
+    };
 };
 
 
 
 
-//* -------------------------- Ф-ция_6, для работы с MY LIBRARY и кнопкой WATCHED: ----------------------
+//* -------------------------- Ф-ция_6, для работы с MY LIBRARY или кнопкой WATCHED: ----------------------
 function onMyLibraryWatched() {
     console.log("Вешаю слушателя на кнопку MY LIBRARY==>WATCHED"); //!
 
-    refs.watchedModal.textContent = "DELETE FROM WATCHED";
-    //! Назначаем тип станицы WATCHED 
-    libraryPage = "watched";
+    // refs.watchedModal.textContent = "DELETE FROM WATCHED";
+    //! Назначаем тип станицы WATCHED для логики работы кнопок МОДАЛКИ
+    currentPage = "watched";
 
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
     refs.resultNotSuccessful.hidden = true;
@@ -444,11 +500,15 @@ function onMyLibraryWatched() {
     // loadMoreBtn.enable();
 };
 
-//* -------------------------- Ф-ция_7, для работы с MY LIBRARY и кнопкой QUEUE: ----------------------
+
+
+
+//* -------------------------- Ф-ция_7, для работы с кнопкой QUEUEв MY LIBRARY : ----------------------
 function onQueue() {
     console.log("Вешаю слушателя на кнопку MY LIBRARY==>QUEUE"); //!
-    //! Назначаем тип станицы QUEUE
-    libraryPage = "queue";
+
+    //! Назначаем тип станицы QUEUE для логики работы кнопок МОДАЛКИ
+    currentPage = "queue";
 
     //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
     refs.resultNotSuccessful.hidden = true;
@@ -505,7 +565,7 @@ function onQueue() {
 //     //! Кнопка LOAD MORE => включаем
 //     loadMoreBtn.enable();
 // }
-//* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//todo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
@@ -539,7 +599,9 @@ async function onLoadMore() {
 //* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-//* --------------------------- themoviedb-Функции ---------------------
+
+
+//* ---------------------------- Функции-вызывалки ---------------------
 //?   Ф-ция, к-рая проверяет значения переменной (currentPage) для определения типа запроса в кнопке LOAD MORE
 async function checkResults() {
     if (currentPage === "home-Filmoteka") {
@@ -633,7 +695,7 @@ function onEscKeyPress(event) {
 
 
 
-
+//* ---------------------------- Функции-разметки ----------------------------------------------
 //! +++++++++++++++++++++++++++++ Markup Movies ++++++++++++++++++++++++++++++++++++++++++++++
 //*  Ф-ция-then, к-рая отрисовывает интерфейс ВСЕХ карточек на странице:
 function appendMoviesMarkup(results) {
@@ -667,12 +729,14 @@ function createMoviesCardsMarkup(results) {
                 // console.log("capitalsTitle:", capitalsTitle); //!
             };
 
-            let capitalsName = name;
-            if (name) {
-                const capitalsName = name.toUpperCase();
-                // const name = name.toUpperCase();
-                // console.log("capitalsName:", capitalsName); //!
-            };
+            // let capitalsName = name;
+            // if (name) {
+            // capitalsName = name.toUpperCase();
+            // const capitalsName = name.toUpperCase(); //!!! тут ошибка сделана СПЕЦИАЛЬНО!!!
+            // const name = name.toUpperCase();
+            // console.log("capitalsName:", capitalsName); //!
+            // };
+
             // console.log(typeof title); //!
             // const capitalsTitle = title.toLocaleUpperCase();
             // const capitalsTitle = title.toUpperCase();
@@ -684,7 +748,7 @@ function createMoviesCardsMarkup(results) {
                     <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="${title || name}" />
 
                     <div>
-                        <h2>${capitalsTitle || capitalsName}</h2>
+                    <h2>${capitalsTitle || name}</h2>
                         <h3>${genresAllOneFilm} &nbsp|&nbsp ${yearDate}</h3>
                     </div>
                 </li>
