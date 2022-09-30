@@ -97,7 +97,7 @@ refs.watchedQueueHeader.hidden = true;
 let films = [];
 
 //! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
-let idFilms = 0;
+let idFilms = 1;
 
 //! Создаем глобальную переменную (infoFilm) для хранения полной информации об одном фильме
 let infoFilm = null;
@@ -312,7 +312,7 @@ async function onMovieDetails(event) {
 
     //!!!!!!!! УРА, ПОЛУЧИЛОСЬ взять id фильма по клику !!!!!!!!!!!!!!!
     //? Как узнать номер li, на котором сделан клик
-    let idFilms = 1;
+    // let idFilms = 1;
     if (event.target.closest("li")) {
         const itemId = event.target.closest("li");
         // console.log("itemId:", itemId); //!
@@ -732,18 +732,9 @@ function onEscKeyPress(event) {
 
 //! +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
 function addIventListenerModalBtn() {
-    // const refs = {
-    //     //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
-    //     watchedModal: document.querySelector('button[data-action="modal-add-watched"]'), //todo ПОКА НЕ НАДО уже есть из импорта
-    //     //! Получаем ссылку на кнопоку ADD TO QUEUE в МОДАЛКЕ:
-    //     queueModal: document.querySelector('button[data-action="modal-add-queue"]'), //todo ПОКА НЕ НАДО уже есть из импорта
-    // };
-
-
     refs.watchedModal = document.querySelector('button[data-action="modal-add-watched"]'); //todo ПОКА НЕ НАДО уже есть из импорта
     refs.queueModal = document.querySelector('button[data-action="modal-add-queue"]');
 
-    // console.log("<ADD TO WATCHED> и <ADD TO QUEUE> refs :", refs); //!
     console.log("addIventListenerModalBtn_refs.watchedModal:", refs.watchedModal); //!
     console.log("addIventListenerModalBtn_refs.queueModal:", refs.queueModal); //!
 

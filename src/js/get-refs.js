@@ -57,7 +57,7 @@ export default function getRefs() {
     //! Получаем ссылку на кнопоку ADD TO QUEUE в МОДАЛКЕ:
     // queueModal: document.querySelector('.modal-queue'), //todo OLD
     // queueModal: document.querySelector('button[data-action="modal-add-queue"]'), //! ПОКА НЕ НАДО уже есть из импорта
-    queueModal: null,
+    queueModal: null, //
 
     //! Получаем ссылку на кнопоку WATCHED в header:
     // watchedHeader: document.querySelector('.nav-library-watched'), //todo OLD
