@@ -385,7 +385,7 @@ function onWatchedModal() {
     console.log("textWatchedModal ==> начало:", textWatchedModal); //!
 
     if (textWatchedModal === "ADD TO WATCHED") {
-        //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+        //! Блокировка повторной записи фильма в localStorage 
         if (localStorageWatched.find(option => option.id === infoFilm.id)) {
             Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в WATCHED`, { timeout: 3500, },);
             refs.watchedModal.textContent = "DELETE FROM WATCHED";
@@ -439,7 +439,7 @@ function onQueueModal() {
     console.log("textQueuedModal ==> начало:", textQueuedModal); //!
 
     if (textQueuedModal === "ADD TO QUEUE") {
-        //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
+        //! Блокировка повторной записи фильма в localStorage 
         if (localStorageQueue.find(option => option.id === infoFilm.id)) {
             Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в QUEUE`, { timeout: 3500, },);
             refs.queueModal.textContent = "DELETE FROM QUEUE";
@@ -519,7 +519,7 @@ function onMyLibraryWatched() {
 
 
 
-//* -------------------------- Ф-ция_7, для работы с кнопкой QUEUEв MY LIBRARY : ----------------------
+//* -------------------------- Ф-ция_7, для работы с кнопкой QUEUE в MY LIBRARY : ----------------------
 function onQueue() {
     console.log("Вешаю слушателя на кнопку MY LIBRARY==>QUEUE"); //!
 
@@ -732,31 +732,63 @@ function addIventListenerModalBtn() {
 
 
 
-//!+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
+// ! +++++++++++++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> +++++++++++++++++++++++
 function operationLogicWatchedQueue() {
     console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:", refs.watchedModal); //!
     console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:", refs.queueModal); //!
-    //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
-    //! в зависимости от того, на какой странице находится пользователь
+
+    //? ------------------------------------------- кнопка WATCHED -------------------------------------------
+    //! Устанвливаем начальные значения textContent для кнопки WATCHED в модалке
     refs.watchedModal.textContent = "ADD TO WATCHED";
     if (refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.remove("colorRed");
     if (!refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.add("colorGreen");
+
+    //! ИЛИ: в зависимости от того, на какой странице находится пользователь:
+
+    //! Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если фильм уже есть в localStorage
+    if (currentPage === "home-Filmoteka" || currentPage === "Movie search") {
+        // console.log("currentPage = home-Filmoteka && Movie search"); //!
+        if (localStorageWatched.find(option => option.id === infoFilm.id)) {
+            Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в WATCHED`, { timeout: 3500, },);
+            refs.watchedModal.textContent = "DELETE FROM WATCHED";
+            if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
+            if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
+        };
+    };
+
+    //! Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если пользователь на странице MY LIBRARY==>WATCHED
     if (currentPage === "watched") {
         refs.watchedModal.textContent = "DELETE FROM WATCHED";
         if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
         if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
-
     };
+
+    //? ------------------------------------------- кнопка QUEUE -------------------------------------------
+    //! Устанвливаем начальные значения textContent для кнопки QUEUE в модалке
     refs.queueModal.textContent = "ADD TO QUEUE";
     if (refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.remove("colorRed");
     if (!refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.add("colorGreen");
+
+    //! Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если фильм уже есть в localStorage
+    if (currentPage === "home-Filmoteka" || currentPage === "Movie search") {
+        // console.log("currentPage = home-Filmoteka && Movie search"); //!
+        if (localStorageQueue.find(option => option.id === infoFilm.id)) {
+            Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в QUEUE`, { timeout: 3500, },);
+            refs.queueModal.textContent = "DELETE FROM QUEUE";
+            if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
+            if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
+        };
+    };
+
+    //! Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если пользователь на странице MY LIBRARY==>QUEUE
     refs.queueModal.classList.add("colorGreen");
     if (currentPage === "queue") {
         refs.queueModal.textContent = "DELETE FROM QUEUE";
         if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
         if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
     };
-}
+};
+//! __________________________________________________________________________________________________________________
 
 
 
