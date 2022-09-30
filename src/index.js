@@ -268,7 +268,6 @@ async function onFormMoviesSearch(evt) {
 async function onMovieDetails(event) {
     console.log("Вешаю слушателя на открытие МОДАЛКИ (onMovieDetails)"); //!
 
-
     //?+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
     //! НЕ ТУТ!!!
     //? ___________________________________________________________________________________________
@@ -355,11 +354,11 @@ async function onMovieDetails(event) {
     window.addEventListener('keydown', onEscKeyPress);
     document.body.classList.add('show-modal');
 
-    //! Рисование интерфейса 
-    appendInfoMovieMarkup(infoFilm);
-
     //! Прячем Spinner
     spinner.removeSpinner();
+
+    //! Рисование интерфейса 
+    appendInfoMovieMarkup(infoFilm);
 
     //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
     addIventListenerModalBtn();
@@ -484,7 +483,6 @@ function onQueueModal() {
 function onMyLibraryWatched() {
     console.log("Вешаю слушателя на кнопку MY LIBRARY==>WATCHED"); //!
 
-    // refs.watchedModal.textContent = "DELETE FROM WATCHED";
     //! Назначаем тип станицы WATCHED для логики работы кнопок МОДАЛКИ
     currentPage = "watched";
 
@@ -1050,3 +1048,43 @@ function onWatchedDeleteModal() {
 //         Notiflix.Notify.success(`Hooray! We found ${totalResults} images.`, { timeout: 3000, },);
 // }
 //todo __________________________________________________________________________
+
+
+//!! --KHARLAMOVA TETIANA----------------МОДАЛЬНЕ ВІКНО З КОМАНДОЮ----------------------------------
+// (() => {
+//     const refsModalTeam = {
+//         openModalTeamLink: document.querySelector('.team-link'),
+//         closeModalTeamBtn: document.querySelector('.team-close-btn'),
+//         modalTeam: document.querySelector('.backdrop-team'),
+//         body: document.querySelector('body'),
+//     };
+//     const { openModalTeamLink, closeModalTeamBtn, modalTeam, body } =
+//         refsModalTeam;
+//     openModalTeamLink.addEventListener('click', onOpenModalTeam);
+//     closeModalTeamBtn.addEventListener('click', onCloseModalTeam);
+//     modalTeam.addEventListener('click', onBackdropTeamClick);
+
+//     function onCloseModalTeam(e) {
+//         modalTeam.classList.toggle('is-hidden');
+//         body.classList.toggle('no-scroll');
+//         window.removeEventListener('keydown', onEscKeyPress);
+//     }
+
+//     function onOpenModalTeam(e) {
+//         window.addEventListener('keydown', onEscKeyPress);
+//         modalTeam.classList.toggle('is-hidden');
+//         body.classList.toggle('no-scroll');
+//     }
+//     function onEscKeyPress(e) {
+//         if (e.key === 'Escape') {
+//             onCloseModalTeam();
+//         }
+//     }
+
+//     function onBackdropTeamClick(e) {
+//         if (e.currentTarget === e.target) {
+//             onCloseModalTeam();
+//         }
+//     }
+// })();
+// -----------------------------END OF МОДАЛЬНЕ ВІКНО З КОМАНДОЮ-------------------------------------
