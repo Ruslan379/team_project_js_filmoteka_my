@@ -60,7 +60,9 @@ A.myLibraryBtn.addEventListener("click",q),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 A.movieDetails.addEventListener("click",(function(t){return F.apply(this,arguments)})),
 //! +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
-A.closeModalBtn.addEventListener("click",K),A.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&K()})),console.log("Слушатели_refs.watchedModal:",A.watchedModal),//!
+A.closeModalBtn.addEventListener("click",K),A.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&K()})),
+//! +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
+console.log("Слушатели_refs.watchedModal:",A.watchedModal),//!
 console.log("Слушатели_refs.queueModal:",A.queueModal),//!
 //! Импортируем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ 
 //! ++++ Создаем слушателей на кнопках WATCHED и QUEUE для страницы MY LIBRARY +++++++
@@ -82,12 +84,9 @@ S.disable(),
 J();var e=null!==(t=JSON.parse(localStorage.getItem("queue")))&&void 0!==t?t:[];console.log("results:",e),//!
 //! Рисование интерфейса 
 it(e)})),
-//! ПОКАЗЫВАЕМ форму со строкой инпута:
+//! ++++++++++++++++++ ПОКАЗЫВАЕМ/ПРЯЧЕМ элементы разметки ++++++++++++++++++++
 A.searchFormAlert.hidden=!1,//! ПОКАЗЫВАЕМ
-//! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
-A.resultNotSuccessful.hidden=!0,
-//! ПРЯЧЕМ блок кнопок WATCHED и QUEUE в header:
-A.watchedQueueHeader.hidden=!0;
+A.resultNotSuccessful.hidden=!0,A.watchedQueueHeader.hidden=!0;
 //! Создаем глобальную переменную (films) для хранения значение всей (results)
 var M,T,B=[],O=1,z=null,I="",W=null!==(M=JSON.parse(localStorage.getItem("watched")))&&void 0!==M?M:[],D=null!==(T=JSON.parse(localStorage.getItem("queue")))&&void 0!==T?T:[];
 //! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
@@ -159,7 +158,9 @@ window.addEventListener("keydown",Z),document.body.classList.add("show-modal"),
 //! Рисование интерфейса 
 nt(z),
 //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
-$(),tt();case 25:case"end":return e.stop()}}),e,null,[[6,14]])})))).apply(this,arguments)}
+$(),
+//! Вызываем БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> 
+tt();case 25:case"end":return e.stop()}}),e,null,[[6,14]])})))).apply(this,arguments)}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 function P(){console.log("Вешаю слушателя на кнопку ADD TO WATCHED в МОДАЛКЕ"),//!
 console.log("infoFilm:",z),//!
@@ -222,13 +223,15 @@ J(),
 //! Рисование интерфейса
 et(B),
 //! Кнопка LOAD MORE => включаем
-S.enable();case 6:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function Q(){return G.apply(this,arguments)}function G(){return(G=t(a)(t(m).mark((function e(){var n,i;return t(m).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if("home-Filmoteka"!==I){t.next=7;break}return t.next=3,R.getTrendingAllDay();case 3:n=t.sent,B=n,t.next=15;break;case 7:if("Movie search"!==I){t.next=14;break}return t.next=10,R.getSearchMovies();case 10:i=t.sent,B=i,t.next=15;break;case 14:return t.abrupt("return");case 15:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
-//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
-//!  Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
+S.enable();case 6:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function Q(){return G.apply(this,arguments)}function G(){return(G=
+//! ++++++++++++++ Ф-ция, к-рая проверяет значения переменной (currentPage) для определения типа запроса в кнопке LOAD MORE ++++++++++++++
+t(a)(t(m).mark((function e(){var n,i;return t(m).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if("home-Filmoteka"!==I){t.next=7;break}return t.next=3,R.getTrendingAllDay();case 3:n=t.sent,B=n,t.next=15;break;case 7:if("Movie search"!==I){t.next=14;break}return t.next=10,R.getSearchMovies();case 10:i=t.sent,B=i,t.next=15;break;case 14:return t.abrupt("return");case 15:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
+//! ++++++++++++++ Ф-ция, к-рая получает id жанра и возвращает тип жанра ++++++++++++++
+//! ++++++++++++++ Ф-ция, к-рая очищает контейнер при новом вводе данных в input form: ++++++++++++++
 function J(){A.moviesCards.innerHTML=""}
-//!  Ф-ция, к-рая очищает контейнер МОДАЛКИ:
+//! ++++++++++++++ Ф-ция, к-рая очищает контейнер МОДАЛКИ: ++++++++++++++
 function V(){A.InfoMovie.innerHTML=""}
-//!  Ф-ция, к-рая  прверяет results на пустой массив:
+//! ++++++++++++++ Ф-ция, к-рая  прверяет results на пустой массив: ++++++++++++++
 function Y(t){t.length||(
 //! ПОКАЗЫВАЕМ строку предупреждения об отсутствии фильмов:
 A.resultNotSuccessful.hidden=!1,S.hide())}
@@ -258,7 +261,8 @@ function(t){return t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.n
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 A.InfoMovie.insertAdjacentHTML("afterbegin",
 //! --------------------------------------------------------------------------------------------
-function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", "),p=n;n&&(p=n.toUpperCase());var d=i;if(i)i.toUpperCase();return'\n        <div class="modal-markup">\n            \n            <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="').concat(n||i,'" />\n            \n            <div class="modal-сontent">\n                <h3>').concat(p||d,"</h3>\n                <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                <h5>Popularity ").concat(a,"</h5>\n                <h5>Original Title ").concat(s||l,"</h5>\n                <h5>Genre ").concat(u,"</h5>\n                <h5>ABOUT</h5>\n                <p>").concat(f,'</p>\n            </div>\n\n        </div>\n\n        \x3c!--! Кнопки-Markup <ADD TO WATCHED> и <ADD TO QUEUE></ADD> --\x3e\n        <div class="modal-library">\n            <button \n                type="button" \n                class="modal-watched"\n                data-action="modal-add-watched"\n                >\n                ADD TO WATCHED\n            </button>\n            <button \n                type="button" \n                class="modal-queue"\n                data-action="modal-add-queue"\n                >\n                ADD TO QUEUE\n            </button>\n        </div>\n    ')}
+function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vote_count,a=t.popularity,s=t.original_title,l=t.original_name,c=t.genres,f=t.overview,u=c.map((function(t){return t.name})).join(", "),p=n;n&&(p=n.toUpperCase());var d=i;if(i)i.toUpperCase();//!!! тут ошибка сделана СПЕЦИАЛЬНО!!!
+return'\n        <div class="modal-markup">\n            \n            <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" alt="').concat(n||i,'" />\n            \n            <div class="modal-сontent">\n                <h3>').concat(p||d,"</h3>\n                <h5>Vote/Votes ").concat(o,"/").concat(r,"</h5>\n                <h5>Popularity ").concat(a,"</h5>\n                <h5>Original Title ").concat(s||l,"</h5>\n                <h5>Genre ").concat(u,"</h5>\n                <h5>ABOUT</h5>\n                <p>").concat(f,'</p>\n            </div>\n\n        </div>\n\n        \x3c!--! Кнопки-Markup <ADD TO WATCHED> и <ADD TO QUEUE> --\x3e\n        <div class="modal-library">\n            <button \n                type="button" \n                class="modal-watched"\n                data-action="modal-add-watched"\n                >\n                ADD TO WATCHED\n            </button>\n            <button \n                type="button" \n                class="modal-queue"\n                data-action="modal-add-queue"\n                >\n                ADD TO QUEUE\n            </button>\n        </div>\n    ')}
 //! +++++++++++++++++++++++++++++ Markup WATCHED и QUEUE ++++++++++++++++++++++++++++++++++++++++++++++
 (t));
 //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
@@ -266,7 +270,8 @@ function(t){t.id;var e=t.poster_path,n=t.title,i=t.name,o=t.vote_average,r=t.vot
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 A.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
-function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genres,a=t.first_air_date,s=t.release_date,l=t.vote_average,c=r.map((function(t){return t.name})).join(", "),f=(a||s||"???? - ?? - ??").substr(0,4),u=l.toFixed(1),p=i;i&&(p=i.toUpperCase());var d=o;if(o)o.toUpperCase();return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <h2>').concat(p||d,"</h2>\n                        <h3>").concat(c," &nbsp|&nbsp ").concat(f,"&nbsp &nbsp").concat(u,"</h3>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
+function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genres,a=t.first_air_date,s=t.release_date,l=t.vote_average,c=r.map((function(t){return t.name})).join(", "),f=(a||s||"???? - ?? - ??").substr(0,4),u=l.toFixed(1),p=i;i&&(p=i.toUpperCase());var d=o;if(o)o.toUpperCase();//!!! тут ошибка сделана СПЕЦИАЛЬНО!!!
+return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <h2>').concat(p||d,"</h2>\n                        <h3>").concat(c," &nbsp|&nbsp ").concat(f,"&nbsp &nbsp").concat(u,"</h3>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 _()}();
-//# sourceMappingURL=index.5364797c.js.map
+//# sourceMappingURL=index.76b9f9d3.js.map

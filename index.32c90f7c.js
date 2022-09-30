@@ -72,7 +72,7 @@ const e=await p.getSearchMovies();
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
 d=e,
 //! ПРОВЕРКА hits на пустой массив
-//!  Ф-ция, к-рая  прверяет results на пустой массив:
+//! ++++++++++++++ Ф-ция, к-рая  прверяет results на пустой массив: ++++++++++++++
 function(t){t.length||(
 //! ПОКАЗЫВАЕМ строку предупреждения об отсутствии фильмов:
 u.resultNotSuccessful.hidden=!1,m.hide())}
@@ -94,8 +94,10 @@ m.disable(),
 //! проверяеm значения переменной (currentPage) 
 //! и СРАЗУ получаем в переменной films нужный массив объектов 
 //! для отрисовки следующих 20 фильмов
-await async function(){if("home-Filmoteka"===x){const t=await p.getTrendingAllDay();d=t}else{if("Movie search"!==x)return;{const t=await p.getSearchMovies();d=t}}}
-//!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
+await
+//! ++++++++++++++ Ф-ция, к-рая проверяет значения переменной (currentPage) для определения типа запроса в кнопке LOAD MORE ++++++++++++++
+async function(){if("home-Filmoteka"===x){const t=await p.getTrendingAllDay();d=t}else{if("Movie search"!==x)return;{const t=await p.getSearchMovies();d=t}}}
+//! ++++++++++++++ Ф-ция, к-рая получает id жанра и возвращает тип жанра ++++++++++++++
 (),
 //! Очищаем контейнер:
 A(),
@@ -112,6 +114,7 @@ u.filmotekaBtn.addEventListener("click",k),
 u.myLibraryBtn.addEventListener("click",C),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
 u.movieDetails.addEventListener("click",(async function(t){//!
+//! НЕ ТУТ!!!
 //!!!!!!!! УРА, ПОЛУЧИЛОСЬ взять id фильма по клику !!!!!!!!!!!!!!!
 if(console.log("Вешаю слушателя на открытие МОДАЛКИ (onMovieDetails)"),!t.target.closest("li"))return;
 //!!!!!!!! УРА, ПОЛУЧИЛОСЬ взять id фильма по клику !!!!!!!!!!!!!!!
@@ -134,11 +137,12 @@ n=g,
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 u.InfoMovie.insertAdjacentHTML("afterbegin",
 //! --------------------------------------------------------------------------------------------
-function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:a,vote_count:r,popularity:s,original_title:l,original_name:c,genres:f,overview:u}=t,p=f.map((t=>t.name)).join(", ");let m=i;i&&(m=i.toUpperCase());let d=o;return o&&o.toUpperCase(),`\n        <div class="modal-markup">\n            \n            <img src="https://image.tmdb.org/t/p/w300${n}" alt="${i||o}" />\n            \n            <div class="modal-сontent">\n                <h3>${m||d}</h3>\n                <h5>Vote/Votes ${a}/${r}</h5>\n                <h5>Popularity ${s}</h5>\n                <h5>Original Title ${l||c}</h5>\n                <h5>Genre ${p}</h5>\n                <h5>ABOUT</h5>\n                <p>${u}</p>\n            </div>\n\n        </div>\n\n        \x3c!--! Кнопки-Markup <ADD TO WATCHED> и <ADD TO QUEUE></ADD> --\x3e\n        <div class="modal-library">\n            <button \n                type="button" \n                class="modal-watched"\n                data-action="modal-add-watched"\n                >\n                ADD TO WATCHED\n            </button>\n            <button \n                type="button" \n                class="modal-queue"\n                data-action="modal-add-queue"\n                >\n                ADD TO QUEUE\n            </button>\n        </div>\n    `}
+function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:a,vote_count:r,popularity:s,original_title:l,original_name:c,genres:f,overview:u}=t,p=f.map((t=>t.name)).join(", ");let m=i;i&&(m=i.toUpperCase());let d=o;return o&&o.toUpperCase(),`\n        <div class="modal-markup">\n            \n            <img src="https://image.tmdb.org/t/p/w300${n}" alt="${i||o}" />\n            \n            <div class="modal-сontent">\n                <h3>${m||d}</h3>\n                <h5>Vote/Votes ${a}/${r}</h5>\n                <h5>Popularity ${s}</h5>\n                <h5>Original Title ${l||c}</h5>\n                <h5>Genre ${p}</h5>\n                <h5>ABOUT</h5>\n                <p>${u}</p>\n            </div>\n\n        </div>\n\n        \x3c!--! Кнопки-Markup <ADD TO WATCHED> и <ADD TO QUEUE> --\x3e\n        <div class="modal-library">\n            <button \n                type="button" \n                class="modal-watched"\n                data-action="modal-add-watched"\n                >\n                ADD TO WATCHED\n            </button>\n            <button \n                type="button" \n                class="modal-queue"\n                data-action="modal-add-queue"\n                >\n                ADD TO QUEUE\n            </button>\n        </div>\n    `}
 //! +++++++++++++++++++++++++++++ Markup WATCHED и QUEUE ++++++++++++++++++++++++++++++++++++++++++++++
 (n)),u.watchedModal=document.querySelector('button[data-action="modal-add-watched"]'),u.queueModal=document.querySelector('button[data-action="modal-add-queue"]'),console.log("addIventListenerModalBtn_refs.watchedModal:",u.watchedModal),//!
 console.log("addIventListenerModalBtn_refs.queueModal:",u.queueModal),//!
 u.watchedModal.addEventListener("click",N),u.queueModal.addEventListener("click",E),
+//! Вызываем БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> 
 //!+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
 function(){console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:",u.watchedModal),//!
 console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:",u.queueModal),//!
@@ -152,7 +156,9 @@ var n}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 )),
 //! +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
-u.closeModalBtn.addEventListener("click",R),u.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&R()})),console.log("Слушатели_refs.watchedModal:",u.watchedModal),//!
+u.closeModalBtn.addEventListener("click",R),u.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&R()})),
+//! +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
+console.log("Слушатели_refs.watchedModal:",u.watchedModal),//!
 console.log("Слушатели_refs.queueModal:",u.queueModal),//!
 //! Импортируем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ 
 //! ++++ Создаем слушателей на кнопках WATCHED и QUEUE для страницы MY LIBRARY +++++++
@@ -174,12 +180,9 @@ m.disable(),
 A();const e=null!==(t=JSON.parse(localStorage.getItem("queue")))&&void 0!==t?t:[];console.log("results:",e),//!
 //! Рисование интерфейса 
 T(e)})),
-//! ПОКАЗЫВАЕМ форму со строкой инпута:
+//! ++++++++++++++++++ ПОКАЗЫВАЕМ/ПРЯЧЕМ элементы разметки ++++++++++++++++++++
 u.searchFormAlert.hidden=!1,//! ПОКАЗЫВАЕМ
-//! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
-u.resultNotSuccessful.hidden=!0,
-//! ПРЯЧЕМ блок кнопок WATCHED и QUEUE в header:
-u.watchedQueueHeader.hidden=!0;
+u.resultNotSuccessful.hidden=!0,u.watchedQueueHeader.hidden=!0;
 //! Создаем глобальную переменную (films) для хранения значение всей (results)
 let d=[],h=1,g=null,x="";
 //! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
@@ -261,9 +264,9 @@ m.disable(),
 A();const e=null!==(t=JSON.parse(localStorage.getItem("watched")))&&void 0!==t?t:[];console.log("results:",e),//!
 //! Рисование интерфейса 
 T(e)}
-//!  Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
+//! ++++++++++++++ Ф-ция, к-рая очищает контейнер при новом вводе данных в input form: ++++++++++++++
 function A(){u.moviesCards.innerHTML=""}
-//!  Ф-ция, к-рая очищает контейнер МОДАЛКИ:
+//! ++++++++++++++ Ф-ция, к-рая очищает контейнер МОДАЛКИ: ++++++++++++++
 function L(){u.InfoMovie.innerHTML=""}function R(){window.removeEventListener("keydown",B),document.body.classList.remove("show-modal"),
 //! Очищаем контейнер МОДАЛКИ:
 L()}function B(t){"Escape"===t.code&&R()}
@@ -279,5 +282,6 @@ let c=n;return n&&(c=n.toUpperCase()),`\n                <li key=${t}>\n        
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 u.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
-function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:a,release_date:r,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(a||r||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let p=i;if(i){i.toUpperCase()}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <h2>${u||p}</h2>\n                        <h3>${l} &nbsp|&nbsp ${c}&nbsp &nbsp${f}</h3>\n                    </div>\n                </li>\n                `})).join("")}(t))}k();
-//# sourceMappingURL=index.db26e8e0.js.map
+function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:a,release_date:r,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(a||r||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let p=i;if(i){i.toUpperCase();//!!! тут ошибка сделана СПЕЦИАЛЬНО!!!
+}return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <h2>${u||p}</h2>\n                        <h3>${l} &nbsp|&nbsp ${c}&nbsp &nbsp${f}</h3>\n                    </div>\n                </li>\n                `})).join("")}(t))}k();
+//# sourceMappingURL=index.32c90f7c.js.map
