@@ -887,43 +887,41 @@ function createInfoMovieMarkup(infoFilm) {
         // console.log("capitalsName:", capitalsName); //!
     };
 
-    // return ` 
-    const MarkupInfoFilm = `
-                <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="${title || name}" />
+    return `
+        <div class="modal-markup">
+            
+            <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="${title || name}" />
+            
+            <div class="modal-сontent">
+                <h3>${capitalsTitle || capitalsName}</h3>
+                <h5>Vote/Votes ${vote_average}/${vote_count}</h5>
+                <h5>Popularity ${popularity}</h5>
+                <h5>Original Title ${original_title || original_name}</h5>
+                <h5>Genre ${genresAllOneFilm}</h5>
+                <h5>ABOUT</h5>
+                <p>${overview}</p>
+            </div>
 
-                <div class="modal-сontent">
-                    <h3>${capitalsTitle || capitalsName}</h3>
-                    <h5>Vote/Votes ${vote_average}/${vote_count}</h5>
-                    <h5>Popularity ${popularity}</h5>
-                    <h5>Original Title ${original_title || original_name}</h5>
-                    <h5>Genre ${genresAllOneFilm}</h5>
-                    <h5>ABOUT</h5>
-                    <p>${overview}</p>
-                </div>
-                <!--! Кнопки-Markup <ADD TO WATCHED> и <ADD TO QUEUE></ADD> -->
-                <!--! <div class="modal-library">
-                    <button 
-                        type="button" 
-                        class="modal-watched"
-                        data-action="modal-add-watched"
-                        >
-                        ADD TO WATCHED
-                    </button>
+        </div>
 
-                    <button 
-                        type="button" 
-                        class="modal-queue"
-                        data-action="modal-add-queue"
-                        >
-                        ADD TO QUEUE
-                    </button> -->
-                </div>
-            `;
-
-    //!+++++++++++++ вызов БЛОКА ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
-    // operationLogicWatchedQueue();
-
-    return MarkupInfoFilm;
+        <!--! Кнопки-Markup <ADD TO WATCHED> и <ADD TO QUEUE></ADD> -->
+        <div class="modal-library">
+            <button 
+                type="button" 
+                class="modal-watched"
+                data-action="modal-add-watched"
+                >
+                ADD TO WATCHED
+            </button>
+            <button 
+                type="button" 
+                class="modal-queue"
+                data-action="modal-add-queue"
+                >
+                ADD TO QUEUE
+            </button>
+        </div>
+    `;
 };
 
 
