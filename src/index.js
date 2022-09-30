@@ -63,8 +63,10 @@ refs.movieDetails.addEventListener('click', onMovieDetails);
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
 //todo +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
-refs.watchedModal.addEventListener('click', onWatchedModal);
-refs.queueModal.addEventListener('click', onQueueModal);
+// refs.watchedModal.addEventListener('click', onWatchedModal); //!!! +-+-+-+-
+// refs.queueModal.addEventListener('click', onQueueModal); //!!! +-+-+-+-
+console.log("Слушатели_refs.watchedModal:", refs.watchedModal); //!
+console.log("Слушатели_refs.queueModal:", refs.queueModal); //!
 //! Импортируем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ 
 // import addIventListenerModalBtn from './js/addIventListenerModalBtn.js'; //! пока не надо, поключена ЛОКАЛЬНО
 
@@ -109,8 +111,7 @@ let currentPage = "";
 let localStorageWatched = JSON.parse(localStorage.getItem("watched")) ?? [];
 let localStorageQueue = JSON.parse(localStorage.getItem("queue")) ?? [];
 
-// Переменная для определения типа станиц WATCHED и QUEUE
-// let libraryPage = "";
+
 
 
 //* +++++++++++++++++++++++++++++++++++++++ Блок Функций  +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -253,10 +254,7 @@ async function onFormMoviesSearch(evt) {
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 async function onMovieDetails(event) {
     console.log("Вешаю слушателя на открытие МОДАЛКИ (onMovieDetails)"); //!
-    //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
-    // addIventListenerModalBtn(); //
-    // refs.watchedModal.addEventListener('click', onWatchedModal);
-    // refs.queueModal.addEventListener('click', onQueueModal);
+
 
     //?+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
     // //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
@@ -362,7 +360,11 @@ async function onMovieDetails(event) {
     //! Рисование интерфейса 
     appendInfoMovieMarkup(infoFilm);
 
-    //?+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
+    //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
+    addIventListenerModalBtn();
+
+
+    //?+++++++++++++ Вызываем БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
     // //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
     // //! в зависимости от того, на какой странице находится пользователь
     // refs.watchedModal.textContent = "ADD TO WATCHED";
@@ -398,7 +400,7 @@ function onWatchedModal() {
     console.log("infoFilm:", infoFilm); //!
     console.log("infoFilm.id:", infoFilm.id); //!
 
-    console.log("refs.watchedModal ==>:", refs.watchedModal); //!
+    console.log("Ф-ция_4_refs.watchedModal ==>:", refs.watchedModal); //!
 
     const textWatchedModal = refs.watchedModal.textContent;
     console.log("textWatchedModal ==> начало:", textWatchedModal); //!
@@ -691,7 +693,7 @@ function checkMovieForEmpty(results) {
 };
 
 
-//? +++++++++++++++++++++++ Функции для МОДАЛКИ +++++++++++++++++++++++++++
+//! +++++++++++++++++++++++ Функции для МОДАЛКИ +++++++++++++++++++++++++++
 //? ----- для тестирования открытия модалки по кнопке
 // function onOpenModal() {
 //     window.addEventListener('keydown', onEscKeyPress);
@@ -723,21 +725,27 @@ function onEscKeyPress(event) {
         onCloseModal();
     }
 }
-//?_____________________________________________________________________
+//!_____________________________________________________________________
 
 
 
 
 //! +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
 function addIventListenerModalBtn() {
-    const refs = {
-        //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
-        watchedModal: document.querySelector('button[data-action="modal-add-watched"]'), //todo ПОКА НЕ НАДО уже есть из импорта
-        //! Получаем ссылку на кнопоку ADD TO QUEUE в МОДАЛКЕ:
-        queueModal: document.querySelector('button[data-action="modal-add-queue"]'), //todo ПОКА НЕ НАДО уже есть из импорта
-    };
+    // const refs = {
+    //     //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
+    //     watchedModal: document.querySelector('button[data-action="modal-add-watched"]'), //todo ПОКА НЕ НАДО уже есть из импорта
+    //     //! Получаем ссылку на кнопоку ADD TO QUEUE в МОДАЛКЕ:
+    //     queueModal: document.querySelector('button[data-action="modal-add-queue"]'), //todo ПОКА НЕ НАДО уже есть из импорта
+    // };
 
-    console.log("<ADD TO WATCHED> и <ADD TO QUEUE> refs :", refs); //!
+
+    refs.watchedModal = document.querySelector('button[data-action="modal-add-watched"]'); //todo ПОКА НЕ НАДО уже есть из импорта
+    refs.queueModal = document.querySelector('button[data-action="modal-add-queue"]');
+
+    // console.log("<ADD TO WATCHED> и <ADD TO QUEUE> refs :", refs); //!
+    console.log("addIventListenerModalBtn_refs.watchedModal:", refs.watchedModal); //!
+    console.log("addIventListenerModalBtn_refs.queueModal:", refs.queueModal); //!
 
     refs.watchedModal.addEventListener('click', onWatchedModal);
     refs.queueModal.addEventListener('click', onQueueModal);
@@ -755,6 +763,8 @@ function addIventListenerModalBtn() {
 
 //!+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
 function operationLogicWatchedQueue() {
+    console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:", refs.watchedModal); //!
+    console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:", refs.queueModal); //!
     //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
     //! в зависимости от того, на какой странице находится пользователь
     refs.watchedModal.textContent = "ADD TO WATCHED";
@@ -848,9 +858,6 @@ function appendInfoMovieMarkup(infoFilm) {
     refs.InfoMovie.insertAdjacentHTML('afterbegin', createInfoMovieMarkup(infoFilm));
     //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
     // addIventListenerModalBtn(); //! НЕ СЮДА!!!
-    // refs.watchedModal.addEventListener('click', onWatchedModal);
-    // refs.queueModal.addEventListener('click', onQueueModal);
-
 
 };
 
