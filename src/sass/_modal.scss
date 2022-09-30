@@ -40,12 +40,29 @@ body.show-modal .modal {
     transition: transform 200ms ease-in-out;
 }
 
-/* ! кнопка X (close-modal) */
+
+// ! кнопка X (close-modal) 
 .modal-close {
     margin-left: 736px;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 50%;
+    background-color: #910000;
 }
 
-/* ! кнопки ADD TO WATCHED и ADD TO QUEUE (modal-library) */
+
+// ! весь контейнер модалки 
+.modal-markup {
+    display: flex;
+    // flex-direction: column
+}
+
+.modal-сontent {
+    margin-left: 20px;
+}
+
+
+// ! контейнер кнопок <ADD TO WATCHED> и <ADD TO QUEUE> (modal-library) 
 .modal-library {
     display: flex;
     justify-content: flex-end;
@@ -53,29 +70,43 @@ body.show-modal .modal {
     /* margin-right: auto; */
 }
 
-/* ! кнопка ADD TO WATCHED  */
+// ! кнопка <ADD TO WATCHED>
 .modal-watched {
-    margin-right: 20px;
+    padding: 5px 15px ;
+    margin-right: 40px;
+    border-radius: 8px;
     /* display: flex; */
     /* margin-left: auto; */
     /* margin-right: auto; */
 }
 
-/* ! весь контейнер модалки */
-.modal-markup {
-    display: flex;
+
+// ! кнопка <ADD TO QUEUE>
+.modal-queue {
+    padding: 5px 15px;
+    border-radius: 8px;
 }
 
-.modal-сontent {
-    margin-left: 20px;
-}
+
+
+
 
 .colorGreen {
     color: white;
-    background-color: green;
+    background-color: #006100;
+
+    &:hover,
+    &:focus {
+        background-color: #00a300;
+    }
 }
 
 .colorRed {
     color: white;
-    background-color: red;
+    background-color: #810000;
+
+    &:hover,
+    &:focus {
+        background-color: #da0000;
+    }
 }
