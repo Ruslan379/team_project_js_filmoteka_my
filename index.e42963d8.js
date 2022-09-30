@@ -48,27 +48,27 @@ watchedHeader:document.querySelector('[data-action="library-watched"]'),
 //! Получаем ссылку на кнопоку QUEUE в header:
 queueHeader:document.querySelector('[data-action="library-queue"]')},R=new E,S=new C({selector:'[data-action="load-more1"]',hidden:!0});
 //!  Создаем слушателя событий на поле ввода данных - input form:
-A.searchForm.addEventListener("submit",(function(t){return j.apply(this,arguments)})),
+A.searchForm.addEventListener("submit",(function(t){return U.apply(this,arguments)})),
 //!  Создаем слушателя событий на кнопке LOAD MORE:
-S.refs.button.addEventListener("click",(function(){return q.apply(this,arguments)})),
+S.refs.button.addEventListener("click",(function(){return H.apply(this,arguments)})),
 //! Создаем слушателя событий на кнопке HOME:
-A.homeBtn.addEventListener("click",D),
+A.homeBtn.addEventListener("click",_),
 //! Создаем слушателя событий на кнопке Filmoteka:
-A.filmotekaBtn.addEventListener("click",D),
+A.filmotekaBtn.addEventListener("click",_),
 //! Создаем слушателя событий на кнопке MY LIBRARY:
-A.myLibraryBtn.addEventListener("click",X),
+A.myLibraryBtn.addEventListener("click",q),
 //! Создаем слушателя событий на <section class="section-hero"> ==> на poster_path:
-A.movieDetails.addEventListener("click",(function(t){return U.apply(this,arguments)})),
+A.movieDetails.addEventListener("click",(function(t){return F.apply(this,arguments)})),
 //! +++++++++++++++++++ Создаем слушателей для МОДАЛКИ ++++++++++++++++++++++++
-A.closeModalBtn.addEventListener("click",Y),A.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&Y()})),console.log("Слушатели_refs.watchedModal:",A.watchedModal),//!
+A.closeModalBtn.addEventListener("click",K),A.backdrop.addEventListener("click",(function(t){t.currentTarget===t.target&&K()})),console.log("Слушатели_refs.watchedModal:",A.watchedModal),//!
 console.log("Слушатели_refs.queueModal:",A.queueModal),//!
 //! Импортируем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ 
 //! ++++ Создаем слушателей на кнопках WATCHED и QUEUE для страницы MY LIBRARY +++++++
-A.watchedHeader.addEventListener("click",X),A.queueHeader.addEventListener("click",(function(){var t;
+A.watchedHeader.addEventListener("click",q),A.queueHeader.addEventListener("click",(function(){var t;
 //! Перезаписываем в локальную переменную (results) значение всего (localStorage)
 console.log("Вешаю слушателя на кнопку MY LIBRARY==>QUEUE"),//!
 //! Назначаем тип станицы QUEUE для логики работы кнопок МОДАЛКИ
-z="queue",
+I="queue",
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 A.resultNotSuccessful.hidden=!0,
 //! ПРЯЧЕМ форму со строкой инпута:
@@ -79,9 +79,9 @@ A.watchedQueueHeader.hidden=!1,
 S.hide(),//! Временно => ПРЯЧЕМ
 S.disable(),
 //! Очищаем контейнер:
-G();var e=null!==(t=JSON.parse(localStorage.getItem("queue")))&&void 0!==t?t:[];console.log("results:",e),//!
+J();var e=null!==(t=JSON.parse(localStorage.getItem("queue")))&&void 0!==t?t:[];console.log("results:",e),//!
 //! Рисование интерфейса 
-nt(e)})),
+it(e)})),
 //! ПОКАЗЫВАЕМ форму со строкой инпута:
 A.searchFormAlert.hidden=!1,//! ПОКАЗЫВАЕМ
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
@@ -89,13 +89,13 @@ A.resultNotSuccessful.hidden=!0,
 //! ПРЯЧЕМ блок кнопок WATCHED и QUEUE в header:
 A.watchedQueueHeader.hidden=!0;
 //! Создаем глобальную переменную (films) для хранения значение всей (results)
-var M,T,B=[],O=null,z="",I=null!==(M=JSON.parse(localStorage.getItem("watched")))&&void 0!==M?M:[],W=null!==(T=JSON.parse(localStorage.getItem("queue")))&&void 0!==T?T:[];
+var M,T,B=[],O=1,z=null,I="",W=null!==(M=JSON.parse(localStorage.getItem("watched")))&&void 0!==M?M:[],D=null!==(T=JSON.parse(localStorage.getItem("queue")))&&void 0!==T?T:[];
 //! Создаем глобальную переменную (idFilms) для хранения idF одного фильма
-function D(){return _.apply(this,arguments)}function _(){return(_=
+function _(){return j.apply(this,arguments)}function j(){return(j=
 //! +++ Загрузка популярных фильмов на главную (первую) страницу  +++
 t(a)(t(m).mark((function e(){var n;return t(m).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:
 //! Задаем значение переменной (currentPage = "home-Filmoteka") для определения типа запроса в кнопке LOAD MORE
-return z="home-Filmoteka",
+return I="home-Filmoteka",
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 A.resultNotSuccessful.hidden=!0,
 //! ПОКАЗЫВАЕМ форму со строкой инпута:
@@ -108,13 +108,13 @@ R.resetPage(),
 //! Кнопка LOAD MORE => показываем и отключаем
 S.show(),S.disable(),
 //! Очищаем контейнер:
-G(),t.next=10,R.getTrendingAllDay();case 10:n=t.sent,
+J(),t.next=10,R.getTrendingAllDay();case 10:n=t.sent,
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
 B=n,
 //! Рисование интерфейса 
-tt(n),
+et(n),
 //! Кнопка LOAD MORE => включаем
-S.enable();case 14:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function j(){return(j=
+S.enable();case 14:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function U(){return(U=
 //! ++++++++++ Поиск кинофильма по ключевому слову из input form +++++++++++
 t(a)(t(m).mark((function e(n){var i;return t(m).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if(n.preventDefault(),
 //! это то, что приходит в input и 
@@ -123,7 +123,7 @@ R.query=n.currentTarget.elements.searchQuery.value.trim(),//! + убираем �
 console.log("searchQuery: ",R.query),//!
 n.currentTarget.elements.searchQuery.value="",""!==R.query){t.next=6;break}return t.abrupt("return",alert("Поле ввода не долно быть пустым!"));case 6:
 //! Задаем значение переменной (currentPage = "Movie search") для определения типа запроса в кнопке LOAD MORE
-return z="Movie search",
+return I="Movie search",
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 A.resultNotSuccessful.hidden=!0,
 //! Делаем сброс значения page = 1 после submit form 
@@ -132,72 +132,72 @@ R.resetPage(),
 //! Кнопка LOAD MORE => показываем и отключаем
 S.show(),S.disable(),
 //! Очищаем контейнер при новом вводе данных в input form:
-G(),t.next=14,R.getSearchMovies();case 14:i=t.sent,
+J(),t.next=14,R.getSearchMovies();case 14:i=t.sent,
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
 B=i,
 //! ПРОВЕРКА hits на пустой массив
-V(i),
+Y(i),
 //! Рисование интерфейса
-tt(i),
+et(i),
 //! Кнопка LOAD MORE => включаем
-S.enable();case 19:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function U(){return(U=
+S.enable();case 19:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function F(){return(F=
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-t(a)(t(m).mark((function e(n){var i,o,r;return t(m).wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(console.log("Вешаю слушателя на открытие МОДАЛКИ (onMovieDetails)"),//!
-i=1,!n.target.closest("li")){e.next=6;break}o=n.target.closest("li"),i=Number(o.getAttribute("key")),//!!! вот ОН, РОДНОЙ!!!
-console.log("idFilms:",i),e.next=7;break;case 6:return e.abrupt("return");case 7:return e.prev=7,e.next=10,R.getMovieDetails(i);case 10:r=e.sent,
+t(a)(t(m).mark((function e(n){var i,o;return t(m).wrap((function(e){for(;;)switch(e.prev=e.next){case 0://!
+if(console.log("Вешаю слушателя на открытие МОДАЛКИ (onMovieDetails)"),!n.target.closest("li")){e.next=5;break}i=n.target.closest("li"),O=Number(i.getAttribute("key")),//!!! вот ОН, РОДНОЙ!!!
+console.log("idFilms:",O),e.next=6;break;case 5:return e.abrupt("return");case 6:return e.prev=6,e.next=9,R.getMovieDetails(O);case 9:o=e.sent,
 //! Очищаем контейнер МОДАЛКИ:
-J(),
+V(),
 //! Перезаписываем в глобальную переменную (films) значение всей (results)
-O=r,e.next=21;break;case 15:e.prev=15,e.t0=e.catch(7),
+z=o,e.next=20;break;case 14:e.prev=14,e.t0=e.catch(6),
 //! Очищаем контейнер МОДАЛКИ:
-J(),
+V(),
 //! Очищаем контейнер переменную (films):
-O=null,console.log(e.t0),//!
-t(x).Notify.failure("Ошибка запроса: ".concat(e.t0.message),{timeout:3500});case 21:
+z=null,console.log(e.t0),//!
+t(x).Notify.failure("Ошибка запроса: ".concat(e.t0.message),{timeout:3500});case 20:
 //! ==> Открываем модалку
-window.addEventListener("keydown",K),document.body.classList.add("show-modal"),
+window.addEventListener("keydown",Z),document.body.classList.add("show-modal"),
 //! Рисование интерфейса 
-et(O),
+nt(z),
 //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
-Z(),$();case 26:case"end":return e.stop()}}),e,null,[[7,15]])})))).apply(this,arguments)}
+$(),tt();case 25:case"end":return e.stop()}}),e,null,[[6,14]])})))).apply(this,arguments)}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-function F(){console.log("Вешаю слушателя на кнопку ADD TO WATCHED в МОДАЛКЕ"),//!
-console.log("infoFilm:",O),//!
-console.log("infoFilm.id:",O.id),//!
+function P(){console.log("Вешаю слушателя на кнопку ADD TO WATCHED в МОДАЛКЕ"),//!
+console.log("infoFilm:",z),//!
+console.log("infoFilm.id:",z.id),//!
 console.log("Ф-ция_4_refs.watchedModal ==>:",A.watchedModal);//!
 var e=A.watchedModal.textContent;//!
 if(console.log("textWatchedModal ==> начало:",e),"ADD TO WATCHED"===e){
 //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
-if(I.find((function(t){return t.id===O.id})))return t(x).Notify.warning("Фильм ".concat(O.title||O.name," уже есть в WATCHED"),{timeout:3500}),A.watchedModal.textContent="DELETE FROM WATCHED",A.watchedModal.classList.contains("colorGreen")&&A.watchedModal.classList.remove("colorGreen"),void(A.watchedModal.classList.contains("colorRed")||A.watchedModal.classList.add("colorRed"));
+if(W.find((function(t){return t.id===z.id})))return t(x).Notify.warning("Фильм ".concat(z.title||z.name," уже есть в WATCHED"),{timeout:3500}),A.watchedModal.textContent="DELETE FROM WATCHED",A.watchedModal.classList.contains("colorGreen")&&A.watchedModal.classList.remove("colorGreen"),void(A.watchedModal.classList.contains("colorRed")||A.watchedModal.classList.add("colorRed"));
 //! Запись фильма в localStorage
-I=t(l)(I).concat([O]),console.log("localStorageWatched:",I),//!
-localStorage.setItem("watched",JSON.stringify(I)),t(x).Notify.success("Фильм ".concat(O.title||O.name," добавлен в WATCHED"),{timeout:3500}),
+W=t(l)(W).concat([z]),console.log("localStorageWatched:",W),//!
+localStorage.setItem("watched",JSON.stringify(W)),t(x).Notify.success("Фильм ".concat(z.title||z.name," добавлен в WATCHED"),{timeout:3500}),
 //! Смена названия (textContent) кнопки на "DELETE FROM WATCHED"
-A.watchedModal.textContent="DELETE FROM WATCHED",A.watchedModal.classList.contains("colorGreen")&&A.watchedModal.classList.remove("colorGreen"),A.watchedModal.classList.contains("colorRed")||A.watchedModal.classList.add("colorRed"),console.log("textWatchedModal ==> конец:",e)}else"DELETE FROM WATCHED"===e&&(I=I.filter((function(t){return t.id!==O.id})),localStorage.setItem("watched",JSON.stringify(I)),console.log("Фильм удален из WATCHED"),//!
-t(x).Notify.info("Фильм ".concat(O.title||O.name," удален из WATCHED"),{timeout:3500}),A.watchedModal.textContent="ADD TO WATCHED",A.watchedModal.classList.contains("colorRed")&&A.watchedModal.classList.remove("colorRed"),A.watchedModal.classList.contains("colorGreen")||A.watchedModal.classList.add("colorGreen"),"watched"===z&&(console.log("currentPage",z),//!
-Y(),
+A.watchedModal.textContent="DELETE FROM WATCHED",A.watchedModal.classList.contains("colorGreen")&&A.watchedModal.classList.remove("colorGreen"),A.watchedModal.classList.contains("colorRed")||A.watchedModal.classList.add("colorRed"),console.log("textWatchedModal ==> конец:",e)}else"DELETE FROM WATCHED"===e&&(W=W.filter((function(t){return t.id!==z.id})),localStorage.setItem("watched",JSON.stringify(W)),console.log("Фильм удален из WATCHED"),//!
+t(x).Notify.info("Фильм ".concat(z.title||z.name," удален из WATCHED"),{timeout:3500}),A.watchedModal.textContent="ADD TO WATCHED",A.watchedModal.classList.contains("colorRed")&&A.watchedModal.classList.remove("colorRed"),A.watchedModal.classList.contains("colorGreen")||A.watchedModal.classList.add("colorGreen"),"watched"===I&&(console.log("currentPage",I),//!
+K(),
 //! Очищаем контейнер:
-G(),nt(I)))}
+J(),it(W)))}
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
-function P(){console.log("Вешаю слушателя на кнопку ADD TO QUEUE в МОДАЛКЕ"),//!
-console.log("infoFilm:",O),//!
-console.log("infoFilm.id:",O.id);//!
+function X(){console.log("Вешаю слушателя на кнопку ADD TO QUEUE в МОДАЛКЕ"),//!
+console.log("infoFilm:",z),//!
+console.log("infoFilm.id:",z.id);//!
 var e=A.queueModal.textContent;//!
 if(console.log("textQueuedModal ==> начало:",e),"ADD TO QUEUE"===e){
 //! Блокировка повторной записи фильма в localStorage (ВРЕМЕННО)
-if(W.find((function(t){return t.id===O.id})))return t(x).Notify.warning("Фильм ".concat(O.title||O.name," уже есть в QUEUE"),{timeout:3500}),A.queueModal.textContent="DELETE FROM QUEUE",A.queueModal.classList.contains("colorGreen")&&A.queueModal.classList.remove("colorGreen"),void(A.queueModal.classList.contains("colorRed")||A.queueModal.classList.add("colorRed"));
+if(D.find((function(t){return t.id===z.id})))return t(x).Notify.warning("Фильм ".concat(z.title||z.name," уже есть в QUEUE"),{timeout:3500}),A.queueModal.textContent="DELETE FROM QUEUE",A.queueModal.classList.contains("colorGreen")&&A.queueModal.classList.remove("colorGreen"),void(A.queueModal.classList.contains("colorRed")||A.queueModal.classList.add("colorRed"));
 //! Запись фильма в localStorage
-W=t(l)(W).concat([O]),console.log("localStorageQueue:",W),//!
-localStorage.setItem("queue",JSON.stringify(W)),t(x).Notify.success("Фильм ".concat(O.title||O.name," добавлен в QUEUE"),{timeout:3500}),
+D=t(l)(D).concat([z]),console.log("localStorageQueue:",D),//!
+localStorage.setItem("queue",JSON.stringify(D)),t(x).Notify.success("Фильм ".concat(z.title||z.name," добавлен в QUEUE"),{timeout:3500}),
 //! Смена названия (textContent) кнопки на "DELETE FROM QUEUE"
-A.queueModal.textContent="DELETE FROM QUEUE",A.queueModal.classList.contains("colorGreen")&&A.queueModal.classList.remove("colorGreen"),A.queueModal.classList.contains("colorRed")||A.queueModal.classList.add("colorRed"),console.log("textQueuedModal ==> конец:",e)}else"DELETE FROM QUEUE"===e&&(W=W.filter((function(t){return t.id!==O.id})),localStorage.setItem("queue",JSON.stringify(W)),console.log("Фильм удален из QUEUE"),t(x).Notify.info("Фильм ".concat(O.title||O.name," удален из QUEUE"),{timeout:3500}),A.queueModal.textContent="ADD TO QUEUE",A.queueModal.classList.contains("colorRed")&&A.queueModal.classList.remove("colorRed"),A.queueModal.classList.contains("colorGreen")||A.queueModal.classList.add("colorGreen"),"queue"===z&&(console.log("currentPage",z),//!
-Y(),
+A.queueModal.textContent="DELETE FROM QUEUE",A.queueModal.classList.contains("colorGreen")&&A.queueModal.classList.remove("colorGreen"),A.queueModal.classList.contains("colorRed")||A.queueModal.classList.add("colorRed"),console.log("textQueuedModal ==> конец:",e)}else"DELETE FROM QUEUE"===e&&(D=D.filter((function(t){return t.id!==z.id})),localStorage.setItem("queue",JSON.stringify(D)),console.log("Фильм удален из QUEUE"),t(x).Notify.info("Фильм ".concat(z.title||z.name," удален из QUEUE"),{timeout:3500}),A.queueModal.textContent="ADD TO QUEUE",A.queueModal.classList.contains("colorRed")&&A.queueModal.classList.remove("colorRed"),A.queueModal.classList.contains("colorGreen")||A.queueModal.classList.add("colorGreen"),"queue"===I&&(console.log("currentPage",I),//!
+K(),
 //! Очищаем контейнер:
-G(),nt(W)))}function X(){var t;
+J(),it(D)))}function q(){var t;
 //! Перезаписываем в локальную переменную (results) значение всего (localStorage)
 console.log("Вешаю слушателя на кнопку MY LIBRARY==>WATCHED"),//!
 //! Назначаем тип станицы WATCHED для логики работы кнопок МОДАЛКИ
-z="watched",
+I="watched",
 //! ПРЯЧЕМ строку предупреждения об отсутствии фильмов:
 A.resultNotSuccessful.hidden=!0,
 //! ПРЯЧЕМ форму со строкой инпута:
@@ -208,53 +208,53 @@ A.watchedQueueHeader.hidden=!1,
 S.hide(),//! Временно => ПРЯЧЕМ
 S.disable(),
 //! Очищаем контейнер:
-G();var e=null!==(t=JSON.parse(localStorage.getItem("watched")))&&void 0!==t?t:[];console.log("results:",e),//!
+J();var e=null!==(t=JSON.parse(localStorage.getItem("watched")))&&void 0!==t?t:[];console.log("results:",e),//!
 //! Рисование интерфейса 
-nt(e)}function q(){return(q=
+it(e)}function H(){return(H=
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 //!  Ф-ция, к-рая прослушивает события на кнопке LOAD MORE:
 t(a)(t(m).mark((function e(){return t(m).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:
 //! Кнопка LOAD MORE => ВЫключаем
-return S.disable(),t.next=3,H();case 3:
+return S.disable(),t.next=3,Q();case 3:
 //! Очищаем контейнер:
-G(),
+J(),
 //!  Проверка results на ОКОНЧАНИЕ КОЛЛЕКЦИИИ
 //! Рисование интерфейса
-tt(B),
+et(B),
 //! Кнопка LOAD MORE => включаем
-S.enable();case 6:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function H(){return Q.apply(this,arguments)}function Q(){return(Q=t(a)(t(m).mark((function e(){var n,i;return t(m).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if("home-Filmoteka"!==z){t.next=7;break}return t.next=3,R.getTrendingAllDay();case 3:n=t.sent,B=n,t.next=15;break;case 7:if("Movie search"!==z){t.next=14;break}return t.next=10,R.getSearchMovies();case 10:i=t.sent,B=i,t.next=15;break;case 14:return t.abrupt("return");case 15:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
+S.enable();case 6:case"end":return t.stop()}}),e)})))).apply(this,arguments)}function Q(){return G.apply(this,arguments)}function G(){return(G=t(a)(t(m).mark((function e(){var n,i;return t(m).wrap((function(t){for(;;)switch(t.prev=t.next){case 0:if("home-Filmoteka"!==I){t.next=7;break}return t.next=3,R.getTrendingAllDay();case 3:n=t.sent,B=n,t.next=15;break;case 7:if("Movie search"!==I){t.next=14;break}return t.next=10,R.getSearchMovies();case 10:i=t.sent,B=i,t.next=15;break;case 14:return t.abrupt("return");case 15:case"end":return t.stop()}}),e)})))).apply(this,arguments)}
 //!  Ф-ция, к-рая получает id жанра и возвращает тип жанра
 //!  Ф-ция, к-рая очищает контейнер при новом вводе данных в input form:
-function G(){A.moviesCards.innerHTML=""}
+function J(){A.moviesCards.innerHTML=""}
 //!  Ф-ция, к-рая очищает контейнер МОДАЛКИ:
-function J(){A.InfoMovie.innerHTML=""}
+function V(){A.InfoMovie.innerHTML=""}
 //!  Ф-ция, к-рая  прверяет results на пустой массив:
-function V(t){t.length||(
+function Y(t){t.length||(
 //! ПОКАЗЫВАЕМ строку предупреждения об отсутствии фильмов:
 A.resultNotSuccessful.hidden=!1,S.hide())}
 //! +++++++++++++++++++++++ Функции для МОДАЛКИ +++++++++++++++++++++++++++
-function Y(){window.removeEventListener("keydown",K),document.body.classList.remove("show-modal"),
+function K(){window.removeEventListener("keydown",Z),document.body.classList.remove("show-modal"),
 //! Очищаем контейнер МОДАЛКИ:
-J()}function K(t){"Escape"===t.code&&Y()}
+V()}function Z(t){"Escape"===t.code&&K()}
 //!_____________________________________________________________________
 //! +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
-function Z(){A.watchedModal=document.querySelector('button[data-action="modal-add-watched"]'),A.queueModal=document.querySelector('button[data-action="modal-add-queue"]'),console.log("addIventListenerModalBtn_refs.watchedModal:",A.watchedModal),//!
+function $(){A.watchedModal=document.querySelector('button[data-action="modal-add-watched"]'),A.queueModal=document.querySelector('button[data-action="modal-add-queue"]'),console.log("addIventListenerModalBtn_refs.watchedModal:",A.watchedModal),//!
 console.log("addIventListenerModalBtn_refs.queueModal:",A.queueModal),//!
-A.watchedModal.addEventListener("click",F),A.queueModal.addEventListener("click",P)}
+A.watchedModal.addEventListener("click",P),A.queueModal.addEventListener("click",X)}
 //!+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
-function $(){console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:",A.watchedModal),//!
+function tt(){console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:",A.watchedModal),//!
 console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:",A.queueModal),//!
 //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
 //! в зависимости от того, на какой странице находится пользователь
-A.watchedModal.textContent="ADD TO WATCHED",A.watchedModal.classList.contains("colorRed")&&A.watchedModal.classList.remove("colorRed"),A.watchedModal.classList.contains("colorGreen")||A.watchedModal.classList.add("colorGreen"),"watched"===z&&(A.watchedModal.textContent="DELETE FROM WATCHED",A.watchedModal.classList.contains("colorGreen")&&A.watchedModal.classList.remove("colorGreen"),A.watchedModal.classList.contains("colorRed")||A.watchedModal.classList.add("colorRed")),A.queueModal.textContent="ADD TO QUEUE",A.queueModal.classList.contains("colorRed")&&A.queueModal.classList.remove("colorRed"),A.queueModal.classList.contains("colorGreen")||A.queueModal.classList.add("colorGreen"),A.queueModal.classList.add("colorGreen"),"queue"===z&&(A.queueModal.textContent="DELETE FROM QUEUE",A.queueModal.classList.contains("colorGreen")&&A.queueModal.classList.remove("colorGreen"),A.queueModal.classList.contains("colorRed")||A.queueModal.classList.add("colorRed"))}
+A.watchedModal.textContent="ADD TO WATCHED",A.watchedModal.classList.contains("colorRed")&&A.watchedModal.classList.remove("colorRed"),A.watchedModal.classList.contains("colorGreen")||A.watchedModal.classList.add("colorGreen"),"watched"===I&&(A.watchedModal.textContent="DELETE FROM WATCHED",A.watchedModal.classList.contains("colorGreen")&&A.watchedModal.classList.remove("colorGreen"),A.watchedModal.classList.contains("colorRed")||A.watchedModal.classList.add("colorRed")),A.queueModal.textContent="ADD TO QUEUE",A.queueModal.classList.contains("colorRed")&&A.queueModal.classList.remove("colorRed"),A.queueModal.classList.contains("colorGreen")||A.queueModal.classList.add("colorGreen"),A.queueModal.classList.add("colorGreen"),"queue"===I&&(A.queueModal.textContent="DELETE FROM QUEUE",A.queueModal.classList.contains("colorGreen")&&A.queueModal.classList.remove("colorGreen"),A.queueModal.classList.contains("colorRed")||A.queueModal.classList.add("colorRed"))}
 //! +++++++++++++++++++++++++++++ Markup Movies ++++++++++++++++++++++++++++++++++++++++++++++
-function tt(t){
+function et(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 A.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
 function(t){return t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genre_ids,a=t.first_air_date,s=t.release_date,l=r.map((function(t){return function(t){return L.filter((function(e){return e.id===t}))[0].name}(t)})).join(", "),c=(a||s||"???? - ?? - ??").substr(0,4),f=i;return i&&(f=i.toUpperCase()),"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                    <h2>').concat(f||o,"</h2>\n                        <h3>").concat(l," &nbsp|&nbsp ").concat(c,"</h3>\n                    </div>\n                </li>\n                ")})).join("")}
 //! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
-(t))}function et(t){
+(t))}function nt(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 A.InfoMovie.insertAdjacentHTML("afterbegin",
 //! --------------------------------------------------------------------------------------------
@@ -264,11 +264,11 @@ return'\n                <img src="https://image.tmdb.org/t/p/w300'.concat(e,'" 
 //! +++++++++++++++++++++++++++++ Markup WATCHED и QUEUE ++++++++++++++++++++++++++++++++++++++++++++++
 (t));
 //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
-}function nt(t){
+}function it(t){
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
 A.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
 function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.poster_path,i=t.title,o=t.name,r=t.genres,a=t.first_air_date,s=t.release_date,l=t.vote_average,c=r.map((function(t){return t.name})).join(", "),f=(a||s||"???? - ?? - ??").substr(0,4),u=l.toFixed(1),p=i;i&&(p=i.toUpperCase());var d=o;if(o)o.toUpperCase();return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <h2>').concat(p||d,"</h2>\n                        <h3>").concat(c," &nbsp|&nbsp ").concat(f,"&nbsp &nbsp").concat(u,"</h3>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
-D()}();
-//# sourceMappingURL=index.66caa07e.js.map
+_()}();
+//# sourceMappingURL=index.e42963d8.js.map
