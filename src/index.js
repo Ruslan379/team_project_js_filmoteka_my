@@ -14,8 +14,8 @@ import LoadMoreBtn from './js/load-more-btn.js';
 //! Импорт массива объектов всех жанров из файла genres.js (ВРЕМЕННО. Надо сделать два запроса)
 import { genres } from './js/genres.js';
 
-
-
+//?  Импорт spinner (Loader ==> isLoadin)
+import spinner from './js/preLoader';
 
 
 //* +++++++++++++++++++++++++++++++++++ Импорты файлов ++++++++++++++++++++++++++++++++++++++++++++
@@ -155,6 +155,9 @@ async function onHome() {
     //! Очищаем контейнер:
     clearMovieContainer();
 
+    //! ПОКАЗЫВАЕМ Spinner
+    spinner.startSpinner();
+
     //! Делаем fetch-запрос с помощью метода .getTrendingAllDay из класса ThemoviedbApiService
     const results = await themoviedbApiService.getTrendingAllDay();
 
@@ -191,6 +194,9 @@ async function onHome() {
 
     //! Рисование интерфейса 
     appendMoviesMarkup(results);
+
+    //! Прячем Spinner
+    spinner.removeSpinner();
 
     //! Кнопка LOAD MORE => включаем
     loadMoreBtn.enable();
@@ -231,6 +237,9 @@ async function onFormMoviesSearch(evt) {
     //! Очищаем контейнер при новом вводе данных в input form:
     clearMovieContainer();
 
+    //! ПОКАЗЫВАЕМ Spinner
+    spinner.startSpinner();
+
     //! Делаем ОБЩИЙ fetch-запрос с помощью метода .fetchHits из класса ThemoviedbApiService
     const results = await themoviedbApiService.getSearchMovies();
     // console.log("results:", results); //!
@@ -243,6 +252,9 @@ async function onFormMoviesSearch(evt) {
 
     //! Рисование интерфейса
     appendMoviesMarkup(results);
+
+    //! Прячем Spinner
+    spinner.removeSpinner();
 
     //! Кнопка LOAD MORE => включаем
     loadMoreBtn.enable();
@@ -303,6 +315,8 @@ async function onMovieDetails(event) {
     } else return;
     //!!!!!!!! УРА, ПОЛУЧИЛОСЬ взять id фильма по клику !!!!!!!!!!!!!!!
 
+    //! ПОКАЗЫВАЕМ Spinner
+    spinner.startSpinner();
 
     //! ==> Делаем запрос-3 полной информации о фильме для МОДАЛКИ.
     try {
@@ -314,6 +328,8 @@ async function onMovieDetails(event) {
     } catch (error) {
         //! Очищаем контейнер МОДАЛКИ:
         clearModalContainer();
+        //! Прячем Spinner
+        spinner.removeSpinner();
         //! Очищаем контейнер переменную (films):
         infoFilm = null;
         console.log(error); //!
@@ -341,6 +357,9 @@ async function onMovieDetails(event) {
 
     //! Рисование интерфейса 
     appendInfoMovieMarkup(infoFilm);
+
+    //! Прячем Spinner
+    spinner.removeSpinner();
 
     //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
     addIventListenerModalBtn();
