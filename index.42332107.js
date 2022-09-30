@@ -168,10 +168,10 @@ j=null,console.log(e.t0),//!
 t(x).Notify.failure("Ошибка запроса: ".concat(e.t0.message),{timeout:3500});case 22:
 //! ==> Открываем модалку
 window.addEventListener("keydown",nt),document.body.classList.add("show-modal"),
-//! Рисование интерфейса 
-at(j),
 //! Прячем Spinner
 T.removeSpinner(),
+//! Рисование интерфейса 
+at(j),
 //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
 it(),
 //! Вызываем БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> 
@@ -298,4 +298,4 @@ function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.p
 return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <h2>').concat(m||d,"</h2>\n                        <h3>").concat(c," &nbsp|&nbsp ").concat(f,"&nbsp &nbsp").concat(u,"</h3>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 P()}();
-//# sourceMappingURL=index.f0a9aaa0.js.map
+//# sourceMappingURL=index.42332107.js.map

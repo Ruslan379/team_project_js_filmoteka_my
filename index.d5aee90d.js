@@ -142,6 +142,8 @@ w=null,console.log(t),//!
 e(l).Notify.failure(`Ошибка запроса: ${t.message}`,{timeout:3500})}
 //! ==> Открываем модалку
 window.addEventListener("keydown",z),document.body.classList.add("show-modal"),
+//! Прячем Spinner
+p.removeSpinner(),
 //! Рисование интерфейса 
 n=w,
 //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
@@ -149,9 +151,7 @@ g.InfoMovie.insertAdjacentHTML("afterbegin",
 //! --------------------------------------------------------------------------------------------
 function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:a,vote_count:r,popularity:s,original_title:l,original_name:c,genres:f,overview:u}=t,m=f.map((t=>t.name)).join(", ");let d=i;i&&(d=i.toUpperCase());let p=o;return o&&o.toUpperCase(),`\n        <div class="modal-markup">\n            \n            <img src="https://image.tmdb.org/t/p/w300${n}" alt="${i||o}" />\n            \n            <div class="modal-сontent">\n                <h3>${d||p}</h3>\n                <h5>Vote/Votes ${a}/${r}</h5>\n                <h5>Popularity ${s}</h5>\n                <h5>Original Title ${l||c}</h5>\n                <h5>Genre ${m}</h5>\n                <h5>ABOUT</h5>\n                <p>${u}</p>\n            </div>\n\n        </div>\n\n        \x3c!--! Кнопки-Markup <ADD TO WATCHED> и <ADD TO QUEUE> --\x3e\n        <div class="modal-library">\n            <button \n                type="button" \n                class="modal-watched"\n                data-action="modal-add-watched"\n                >\n                ADD TO WATCHED\n            </button>\n            <button \n                type="button" \n                class="modal-queue"\n                data-action="modal-add-queue"\n                >\n                ADD TO QUEUE\n            </button>\n        </div>\n    `}
 //! +++++++++++++++++++++++++++++ Markup WATCHED и QUEUE ++++++++++++++++++++++++++++++++++++++++++++++
-(n)),
-//! Прячем Spinner
-p.removeSpinner(),g.watchedModal=document.querySelector('button[data-action="modal-add-watched"]'),g.queueModal=document.querySelector('button[data-action="modal-add-queue"]'),console.log("addIventListenerModalBtn_refs.watchedModal:",g.watchedModal),//!
+(n)),g.watchedModal=document.querySelector('button[data-action="modal-add-watched"]'),g.queueModal=document.querySelector('button[data-action="modal-add-queue"]'),console.log("addIventListenerModalBtn_refs.watchedModal:",g.watchedModal),//!
 console.log("addIventListenerModalBtn_refs.queueModal:",g.queueModal),//!
 g.watchedModal.addEventListener("click",S),g.queueModal.addEventListener("click",A),
 //! Вызываем БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> 
@@ -310,4 +310,5 @@ g.moviesCards.insertAdjacentHTML("beforeend",
 //! --------------------------------------------------------------------------------------------
 function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:a,release_date:r,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(a||r||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let m=i;if(i){i.toUpperCase();//!!! тут ошибка сделана СПЕЦИАЛЬНО!!!
 }return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <h2>${u||m}</h2>\n                        <h3>${l} &nbsp|&nbsp ${c}&nbsp &nbsp${f}</h3>\n                    </div>\n                </li>\n                `})).join("")}(t))}L();
-//# sourceMappingURL=index.e8b35cd5.js.map
+//!! --KHARLAMOVA TETIANA----------------МОДАЛЬНЕ ВІКНО З КОМАНДОЮ----------------------------------
+//# sourceMappingURL=index.d5aee90d.js.map
