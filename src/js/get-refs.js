@@ -14,17 +14,15 @@ export default function getRefs() {
 
     //! Получаем ссылку на кнопку HOME:
     // homeBtn: document.querySelector('.button-home'), //todo OLD
-    homeBtn: document.querySelector('button[data-action="button-home"]'),
+    homeBtn: document.querySelector('button[data-action="button-home"]'), //! -+-+-+
 
     //! Получаем ссылку на кнопку Filmoteka:
     // filmotekaBtn: document.querySelector('.button-filmoteka'), //todo OLD
-    filmotekaBtn: document.querySelector('button[data-action="button-filmoteka"]'),
-    // filmotekaBtn: document.querySelector('div[data-action="filmoteka"]'), //!+-+-+-
-    // filmotekaBtn: document.querySelectorAll('div[data-action="filmoteka"]'), //!+-+-+-
+    filmotekaBtn: document.querySelector('button[data-action="button-filmoteka"]'), //! -+-+-+
 
     //! Получаем ссылку на кнопку MY LIBRARY:
     // myLibraryBtn: document.querySelector('.button-mylibrary'), //todo OLD
-    myLibraryBtn: document.querySelector('button[data-action="button-mylibrary"]'),
+    myLibraryBtn: document.querySelector('button[data-action="button-mylibrary"]'), //! -+-+-+
 
     //! Получаем ссылку на <section class="section-hero"> ==> на poster_path:
     // movieDetails: document.querySelector('.section-hero'), //todo OLD
@@ -53,11 +51,10 @@ export default function getRefs() {
     // watchedModal: document.querySelector('button[data-action="modal-add-watched"]'), //! ПОКА НЕ НАДО уже есть из импорта
     watchedModal: null,
 
-
     //! Получаем ссылку на кнопоку ADD TO QUEUE в МОДАЛКЕ:
     // queueModal: document.querySelector('.modal-queue'), //todo OLD
     // queueModal: document.querySelector('button[data-action="modal-add-queue"]'), //! ПОКА НЕ НАДО уже есть из импорта
-    queueModal: null, //
+    queueModal: null,
 
     //! Получаем ссылку на кнопоку WATCHED в header:
     // watchedHeader: document.querySelector('.nav-library-watched'), //todo OLD
