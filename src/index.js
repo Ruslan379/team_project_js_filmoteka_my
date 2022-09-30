@@ -22,6 +22,7 @@ import { genres } from './js/genres.js';
 
 //! Создаем объект всех ссылок refs.*
 const refs = getRefs();
+// console.log("refs:", refs); //!
 
 //! Создаем экземпляр класса ThemoviedbApiService
 const themoviedbApiService = new ThemoviedbApiService();
@@ -61,9 +62,11 @@ refs.movieDetails.addEventListener('click', onMovieDetails);
 // refs.openModalBtn.addEventListener('click', onOpenModal); //? ----- для тестирования
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.backdrop.addEventListener('click', onBackdropClick);
-//! +++++++++++++++ Создаем слушателей для кнопок МОДАЛКИ ++++++++++++++++++++
+//todo +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
 refs.watchedModal.addEventListener('click', onWatchedModal);
 refs.queueModal.addEventListener('click', onQueueModal);
+//! Импортируем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ 
+// import addIventListenerModalBtn from './js/addIventListenerModalBtn.js'; //! пока не надо, поключена ЛОКАЛЬНО
 
 //! ++++ Создаем слушателей на кнопках WATCHED и QUEUE для страницы MY LIBRARY +++++++
 refs.watchedHeader.addEventListener('click', onMyLibraryWatched);
@@ -249,28 +252,34 @@ async function onFormMoviesSearch(evt) {
 //* -------------------------- Ф-ция-запрос_3, к-рая запрашивает полную информацию об одном фильме: ----------------------
 //! +++ Запрос полной информации о фильме для МОДАЛКИ +++
 async function onMovieDetails(event) {
-    console.log("Вешаю слушателя на onMovieDetails"); //!
+    console.log("Вешаю слушателя на открытие МОДАЛКИ (onMovieDetails)"); //!
+    //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
+    // addIventListenerModalBtn(); //
+    // refs.watchedModal.addEventListener('click', onWatchedModal);
+    // refs.queueModal.addEventListener('click', onQueueModal);
 
-    //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
-    //! в зависимости от того, на какой странице находится пользователь
-    refs.watchedModal.textContent = "ADD TO WATCHED";
-    if (refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.remove("colorRed");
-    if (!refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.add("colorGreen");
-    if (currentPage === "watched") {
-        refs.watchedModal.textContent = "DELETE FROM WATCHED";
-        if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
-        if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
+    //?+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
+    // //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
+    // //! в зависимости от того, на какой странице находится пользователь
+    // refs.watchedModal.textContent = "ADD TO WATCHED";
+    // if (refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.remove("colorRed");
+    // if (!refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.add("colorGreen");
+    // if (currentPage === "watched") {
+    //     refs.watchedModal.textContent = "DELETE FROM WATCHED";
+    //     if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
+    //     if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
 
-    };
-    refs.queueModal.textContent = "ADD TO QUEUE";
-    if (refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.remove("colorRed");
-    if (!refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.add("colorGreen");
-    refs.queueModal.classList.add("colorGreen");
-    if (currentPage === "queue") {
-        refs.queueModal.textContent = "DELETE FROM QUEUE";
-        if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
-        if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
-    };
+    // };
+    // refs.queueModal.textContent = "ADD TO QUEUE";
+    // if (refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.remove("colorRed");
+    // if (!refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.add("colorGreen");
+    // refs.queueModal.classList.add("colorGreen");
+    // if (currentPage === "queue") {
+    //     refs.queueModal.textContent = "DELETE FROM QUEUE";
+    //     if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
+    //     if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
+    // };
+    //? _________________________________________________________________________________________________
 
     //? НЕ ТАК...
     // const liKey = document.getElementsByTagName("li"); //? полуаю массив всех li
@@ -352,6 +361,30 @@ async function onMovieDetails(event) {
 
     //! Рисование интерфейса 
     appendInfoMovieMarkup(infoFilm);
+
+    //?+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
+    // //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
+    // //! в зависимости от того, на какой странице находится пользователь
+    // refs.watchedModal.textContent = "ADD TO WATCHED";
+    // if (refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.remove("colorRed");
+    // if (!refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.add("colorGreen");
+    // if (currentPage === "watched") {
+    //     refs.watchedModal.textContent = "DELETE FROM WATCHED";
+    //     if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
+    //     if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
+
+    // };
+    // refs.queueModal.textContent = "ADD TO QUEUE";
+    // if (refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.remove("colorRed");
+    // if (!refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.add("colorGreen");
+    // refs.queueModal.classList.add("colorGreen");
+    // if (currentPage === "queue") {
+    //     refs.queueModal.textContent = "DELETE FROM QUEUE";
+    //     if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
+    //     if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
+    // };
+    operationLogicWatchedQueue();
+    //? _________________________________________________________________________________________________
 };
 
 
@@ -364,6 +397,8 @@ function onWatchedModal() {
 
     console.log("infoFilm:", infoFilm); //!
     console.log("infoFilm.id:", infoFilm.id); //!
+
+    console.log("refs.watchedModal ==>:", refs.watchedModal); //!
 
     const textWatchedModal = refs.watchedModal.textContent;
     console.log("textWatchedModal ==> начало:", textWatchedModal); //!
@@ -693,7 +728,54 @@ function onEscKeyPress(event) {
 
 
 
+//! +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
+function addIventListenerModalBtn() {
+    const refs = {
+        //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
+        watchedModal: document.querySelector('button[data-action="modal-add-watched"]'), //todo ПОКА НЕ НАДО уже есть из импорта
+        //! Получаем ссылку на кнопоку ADD TO QUEUE в МОДАЛКЕ:
+        queueModal: document.querySelector('button[data-action="modal-add-queue"]'), //todo ПОКА НЕ НАДО уже есть из импорта
+    };
 
+    console.log("<ADD TO WATCHED> и <ADD TO QUEUE> refs :", refs); //!
+
+    refs.watchedModal.addEventListener('click', onWatchedModal);
+    refs.queueModal.addEventListener('click', onQueueModal);
+
+    //! -----------------------------------------------------------------------------
+    // refs.watchedModal.addEventListener('click', () => {
+    //     console.log("Вешаю ГОТОВОГО слушателя на кнопку ADD TO WATCHED в МОДАЛКЕ"); //!
+    // });
+
+    // refs.queueModal.addEventListener('click', () => {
+    //     console.log("Вешаю ГОТОВОГО слушателя на кнопку ADD TO QUEUE в МОДАЛКЕ"); //!
+    // });
+};
+
+
+//!+++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
+function operationLogicWatchedQueue() {
+    //! Устанвливаем начальные значения textContent для кнопок WATCHED и QUEUE в модалке
+    //! в зависимости от того, на какой странице находится пользователь
+    refs.watchedModal.textContent = "ADD TO WATCHED";
+    if (refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.remove("colorRed");
+    if (!refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.add("colorGreen");
+    if (currentPage === "watched") {
+        refs.watchedModal.textContent = "DELETE FROM WATCHED";
+        if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
+        if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
+
+    };
+    refs.queueModal.textContent = "ADD TO QUEUE";
+    if (refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.remove("colorRed");
+    if (!refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.add("colorGreen");
+    refs.queueModal.classList.add("colorGreen");
+    if (currentPage === "queue") {
+        refs.queueModal.textContent = "DELETE FROM QUEUE";
+        if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
+        if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
+    };
+}
 
 //* ---------------------------- Функции-разметки ----------------------------------------------
 //! +++++++++++++++++++++++++++++ Markup Movies ++++++++++++++++++++++++++++++++++++++++++++++
@@ -764,6 +846,12 @@ function createMoviesCardsMarkup(results) {
 function appendInfoMovieMarkup(infoFilm) {
     //!   Добавляем новую разметку в div-контейнер с помощью insertAdjacentHTML:
     refs.InfoMovie.insertAdjacentHTML('afterbegin', createInfoMovieMarkup(infoFilm));
+    //! Добавляем ГОТОВЫХ слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ
+    // addIventListenerModalBtn(); //! НЕ СЮДА!!!
+    // refs.watchedModal.addEventListener('click', onWatchedModal);
+    // refs.queueModal.addEventListener('click', onQueueModal);
+
+
 };
 
 //! --------------------------------------------------------------------------------------------
@@ -801,7 +889,8 @@ function createInfoMovieMarkup(infoFilm) {
         // console.log("capitalsName:", capitalsName); //!
     };
 
-    return `
+    // return ` 
+    const MarkupInfoFilm = `
                 <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="${title || name}" />
 
                 <div class="modal-сontent">
@@ -813,7 +902,30 @@ function createInfoMovieMarkup(infoFilm) {
                     <h5>ABOUT</h5>
                     <p>${overview}</p>
                 </div>
-                `;
+                <!--! Кнопки-Markup <ADD TO WATCHED> и <ADD TO QUEUE></ADD> -->
+                <!--! <div class="modal-library">
+                    <button 
+                        type="button" 
+                        class="modal-watched"
+                        data-action="modal-add-watched"
+                        >
+                        ADD TO WATCHED
+                    </button>
+
+                    <button 
+                        type="button" 
+                        class="modal-queue"
+                        data-action="modal-add-queue"
+                        >
+                        ADD TO QUEUE
+                    </button> -->
+                </div>
+            `;
+
+    //!+++++++++++++ вызов БЛОКА ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> ++++++++++++++++++
+    // operationLogicWatchedQueue();
+
+    return MarkupInfoFilm;
 };
 
 

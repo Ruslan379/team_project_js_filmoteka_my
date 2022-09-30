@@ -51,7 +51,7 @@ export default function getRefs() {
 
     //! Получаем ссылку на кнопоку ADD TO WATCHED в МОДАЛКЕ:
     // watchedModal: document.querySelector('.modal-watched'), //todo OLD
-    watchedModal: document.querySelector('button[data-action="modal-add-watched"]'),
+    watchedModal: document.querySelector('button[data-action="modal-add-watched"]'), //todo ПОКА НЕ НАДО уже есть из импорта
 
     //! Получаем ссылку на кнопоку DELETE FROM WATCHED в МОДАЛКЕ:
     // watchedDeleteModal: document.querySelector('button[data-action="modal-delete-watched"]'), //todo ==> уже не надо
@@ -59,10 +59,10 @@ export default function getRefs() {
 
     //! Получаем ссылку на кнопоку ADD TO QUEUE в МОДАЛКЕ:
     // queueModal: document.querySelector('.modal-queue'), //todo OLD
-    queueModal: document.querySelector('button[data-action="modal-add-queue"]'),
+    queueModal: document.querySelector('button[data-action="modal-add-queue"]'), //todo ПОКА НЕ НАДО уже есть из импорта
 
     //! Получаем ссылку на кнопоку DELETE FROM QUEUE в МОДАЛКЕ:
-
+    //todo ==> уже не надо
 
     //! Получаем ссылку на кнопоку WATCHED в header:
     // watchedHeader: document.querySelector('.nav-library-watched'), //todo OLD
