@@ -131,6 +131,7 @@ onHome();
 
 //* -------------------------- Ф-ция-запрос_1, к-рая прослушивает события на кнопке HOME: ----------------------
 //! +++ Загрузка популярных фильмов на главную (первую) страницу  +++
+// async(function onHome() { //! +-+-+-
 async function onHome() {
     //! Задаем значение переменной (currentPage = "home-Filmoteka") для определения типа запроса в кнопке LOAD MORE
     currentPage = "home-Filmoteka";
@@ -201,6 +202,7 @@ async function onHome() {
     //! Кнопка LOAD MORE => включаем
     loadMoreBtn.enable();
 };
+// }) (); //! +-+-+-
 
 
 
