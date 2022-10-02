@@ -155,7 +155,8 @@ function(t){const{id:e,poster_path:n,title:i,name:o,vote_average:a,vote_count:r,
 console.log("addIventListenerModalBtn_refs.queueModal:",g.queueModal),//!
 g.watchedModal.addEventListener("click",S),g.queueModal.addEventListener("click",A),
 //! Вызываем БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> 
-function(){console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:",g.watchedModal),//!
+function(){console.log("БЛОК ЛОГИКИ_currentPage ==>:",v),//!
+console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:",g.watchedModal),//!
 console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:",g.queueModal),//!
 //! Устанвливаем начальные значения textContent для кнопки WATCHED в модалке
 g.watchedModal.textContent="ADD TO WATCHED",g.watchedModal.classList.contains("colorRed")&&g.watchedModal.classList.remove("colorRed");g.watchedModal.classList.contains("colorGreen")||g.watchedModal.classList.add("colorGreen");
@@ -317,4 +318,4 @@ g.moviesCards.insertAdjacentHTML("beforeend",
 function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:a,release_date:r,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(a||r||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let m=i;if(i){i.toUpperCase();//!!! тут ошибка сделана СПЕЦИАЛЬНО!!!
 }return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <h2>${u||m}</h2>\n                        <h3>${l} &nbsp|&nbsp ${c}&nbsp &nbsp${f}</h3>\n                    </div>\n                </li>\n                `})).join("")}(t))}L();
 //!! --KHARLAMOVA TETIANA----------------МОДАЛЬНЕ ВІКНО З КОМАНДОЮ----------------------------------
-//# sourceMappingURL=index.ec2f6a27.js.map
+//# sourceMappingURL=index.c7cdd5b9.js.map

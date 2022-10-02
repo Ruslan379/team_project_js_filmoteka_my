@@ -258,7 +258,8 @@ $()}function nt(t){"Escape"===t.code&&et()}
 //! +++++++++ Создаем слушателей на кнопках <ADD TO WATCHED> и <ADD TO QUEUE> для МОДАЛКИ ++++++++++++++
 function it(){R.watchedModal=document.querySelector('button[data-action="modal-add-watched"]'),R.queueModal=document.querySelector('button[data-action="modal-add-queue"]'),console.log("addIventListenerModalBtn_refs.watchedModal:",R.watchedModal),//!
 console.log("addIventListenerModalBtn_refs.queueModal:",R.queueModal),//!
-R.watchedModal.addEventListener("click",Q),R.queueModal.addEventListener("click",G)}function ot(){console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:",R.watchedModal),//!
+R.watchedModal.addEventListener("click",Q),R.queueModal.addEventListener("click",G)}function ot(){console.log("БЛОК ЛОГИКИ_currentPage ==>:",U),//!
+console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:",R.watchedModal),//!
 console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:",R.queueModal),//!
 //! Устанвливаем начальные значения textContent для кнопки WATCHED в модалке
 R.watchedModal.textContent="ADD TO WATCHED",R.watchedModal.classList.contains("colorRed")&&R.watchedModal.classList.remove("colorRed"),R.watchedModal.classList.contains("colorGreen")||R.watchedModal.classList.add("colorGreen"),
@@ -304,4 +305,4 @@ function(t){return console.log("results:",t),t.map((function(t){var e=t.id,n=t.p
 return"\n                <li key=".concat(e,'>\n                    <img src="https://image.tmdb.org/t/p/w780').concat(n,'" alt="').concat(i||o,'" />\n\n                    <div>\n                        <h2>').concat(m||d,"</h2>\n                        <h3>").concat(c," &nbsp|&nbsp ").concat(f,"&nbsp &nbsp").concat(u,"</h3>\n                    </div>\n                </li>\n                ")})).join("")}(t))}
 //!!!!!! Загрузка популярных фильмов на главную (первую) страницу (без нажатия на кнопки HOME или Filmoteka)
 P()}();
-//# sourceMappingURL=index.c97420ad.js.map
+//# sourceMappingURL=index.66dee1cc.js.map
