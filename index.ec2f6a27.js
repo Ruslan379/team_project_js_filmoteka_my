@@ -159,19 +159,21 @@ function(){console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:",g.watchedM
 console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:",g.queueModal),//!
 //! Устанвливаем начальные значения textContent для кнопки WATCHED в модалке
 g.watchedModal.textContent="ADD TO WATCHED",g.watchedModal.classList.contains("colorRed")&&g.watchedModal.classList.remove("colorRed");g.watchedModal.classList.contains("colorGreen")||g.watchedModal.classList.add("colorGreen");
+//! Устанвливаем начальные значения textContent для кнопки QUEUE в модалке
+g.queueModal.textContent="ADD TO QUEUE",g.queueModal.classList.contains("colorRed")&&g.queueModal.classList.remove("colorRed");g.queueModal.classList.contains("colorGreen")||g.queueModal.classList.add("colorGreen");
 //! ИЛИ: в зависимости от того, на какой странице находится пользователь:
-//! Логика работы кнопок на странице <WATCHED> если фильм уже есть в localStorage
-"home-Filmoteka"!==v&&"Movie search"!==v||N.find((t=>t.id===w.id))&&(e(l).Notify.warning(`Фильм ${w.title||w.name} уже есть в WATCHED`,{timeout:3500}),g.watchedModal.textContent="DELETE FROM WATCHED",g.watchedModal.classList.contains("colorGreen")&&g.watchedModal.classList.remove("colorGreen"),g.watchedModal.classList.contains("colorRed")||g.watchedModal.classList.add("colorRed"));
-//! Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если пользователь на странице MY LIBRARY==>WATCHED
+//! 1.Логика работы кнопок на странице <HOME или Filmoteka> и <Movie search> если фильм уже есть в localStorage
+"home-Filmoteka"!==v&&"Movie search"!==v||(
+//! Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если фильм уже есть в localStorage
+N.find((t=>t.id===w.id))&&(e(l).Notify.warning(`Фильм ${w.title||w.name} уже есть в WATCHED`,{timeout:3500}),g.watchedModal.textContent="DELETE FROM WATCHED",g.watchedModal.classList.contains("colorGreen")&&g.watchedModal.classList.remove("colorGreen"),g.watchedModal.classList.contains("colorRed")||g.watchedModal.classList.add("colorRed")),
+//! Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если фильм уже есть в localStorage
+C.find((t=>t.id===w.id))&&(e(l).Notify.warning(`Фильм ${w.title||w.name} уже есть в QUEUE`,{timeout:3500}),g.queueModal.textContent="DELETE FROM QUEUE",g.queueModal.classList.contains("colorGreen")&&g.queueModal.classList.remove("colorGreen"),g.queueModal.classList.contains("colorRed")||g.queueModal.classList.add("colorRed")));
+//! 2.Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если пользователь на странице MY LIBRARY==>WATCHED
 "watched"===v&&(g.watchedModal.textContent="DELETE FROM WATCHED",g.watchedModal.classList.contains("colorGreen")&&g.watchedModal.classList.remove("colorGreen"),g.watchedModal.classList.contains("colorRed")||g.watchedModal.classList.add("colorRed"),
 //! Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если пользователь на странице MY LIBRARY==>WATCHED и фильм уже есть в localStorage-QUEUE
 C.find((t=>t.id===w.id))&&(e(l).Notify.warning(`Фильм ${w.title||w.name} уже есть в QUEUE`,{timeout:3500}),g.queueModal.textContent="DELETE FROM QUEUE",g.queueModal.classList.contains("colorGreen")&&g.queueModal.classList.remove("colorGreen"),g.queueModal.classList.contains("colorRed")||g.queueModal.classList.add("colorRed")));
-//! Устанвливаем начальные значения textContent для кнопки QUEUE в модалке
-g.queueModal.textContent="ADD TO QUEUE",g.queueModal.classList.contains("colorRed")&&g.queueModal.classList.remove("colorRed");g.queueModal.classList.contains("colorGreen")||g.queueModal.classList.add("colorGreen");
-//! Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" на странице <QUEUE> если фильм уже есть в localStorage
-"home-Filmoteka"!==v&&"Movie search"!==v||C.find((t=>t.id===w.id))&&(e(l).Notify.warning(`Фильм ${w.title||w.name} уже есть в QUEUE`,{timeout:3500}),g.queueModal.textContent="DELETE FROM QUEUE",g.queueModal.classList.contains("colorGreen")&&g.queueModal.classList.remove("colorGreen"),g.queueModal.classList.contains("colorRed")||g.queueModal.classList.add("colorRed"));
-//! Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если пользователь на странице MY LIBRARY==>QUEUE
-g.queueModal.classList.add("colorGreen"),"queue"===v&&(g.queueModal.textContent="DELETE FROM QUEUE",g.queueModal.classList.contains("colorGreen")&&g.queueModal.classList.remove("colorGreen"),g.queueModal.classList.contains("colorRed")||g.queueModal.classList.add("colorRed"),
+//! 3.Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если пользователь на странице MY LIBRARY==>QUEUE
+"queue"===v&&(g.queueModal.textContent="DELETE FROM QUEUE",g.queueModal.classList.contains("colorGreen")&&g.queueModal.classList.remove("colorGreen"),g.queueModal.classList.contains("colorRed")||g.queueModal.classList.add("colorRed"),
 //! Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если пользователь на странице MY LIBRARY==>QUEUE и фильм уже есть в localStorage-WATCHED
 N.find((t=>t.id===w.id))&&(e(l).Notify.warning(`Фильм ${w.title||w.name} уже есть в WATCHED`,{timeout:3500}),g.watchedModal.textContent="DELETE FROM WATCHED",g.watchedModal.classList.contains("colorGreen")&&g.watchedModal.classList.remove("colorGreen"),g.watchedModal.classList.contains("colorRed")||g.watchedModal.classList.add("colorRed")))}
 //! __________________________________________________________________________________________________________________
@@ -315,4 +317,4 @@ g.moviesCards.insertAdjacentHTML("beforeend",
 function(t){return console.log("results:",t),t.map((({id:t,poster_path:e,title:n,name:i,genres:o,first_air_date:a,release_date:r,vote_average:s})=>{const l=o.map((t=>t.name)).join(", "),c=(a||r||"???? - ?? - ??").substr(0,4),f=s.toFixed(1);let u=n;n&&(u=n.toUpperCase());let m=i;if(i){i.toUpperCase();//!!! тут ошибка сделана СПЕЦИАЛЬНО!!!
 }return`\n                <li key=${t}>\n                    <img src="https://image.tmdb.org/t/p/w780${e}" alt="${n||i}" />\n\n                    <div>\n                        <h2>${u||m}</h2>\n                        <h3>${l} &nbsp|&nbsp ${c}&nbsp &nbsp${f}</h3>\n                    </div>\n                </li>\n                `})).join("")}(t))}L();
 //!! --KHARLAMOVA TETIANA----------------МОДАЛЬНЕ ВІКНО З КОМАНДОЮ----------------------------------
-//# sourceMappingURL=index.b1040dd9.js.map
+//# sourceMappingURL=index.ec2f6a27.js.map
