@@ -734,6 +734,7 @@ function addIventListenerModalBtn() {
 
 // ! +++++++++++++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> +++++++++++++++++++++++
 function operationLogicWatchedQueue() {
+    console.log("БЛОК ЛОГИКИ_currentPage ==>:", currentPage); //!
     console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:", refs.watchedModal); //!
     console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:", refs.queueModal); //!
 
