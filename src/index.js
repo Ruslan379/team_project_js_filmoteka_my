@@ -934,10 +934,10 @@ function createInfoMovieMarkup(infoFilm) {
             
             <div class="modal-сontent">
                 <h3>${capitalsTitle || capitalsName}</h3>
-                <h5>Vote/Votes ${vote_average}/${vote_count}</h5>
-                <h5>Popularity ${popularity}</h5>
-                <h5>Original Title ${original_title || original_name}</h5>
-                <h5>Genre: ${genres.length !== 0 ? genresAllOneFilm : 'No genres...'}</h5>
+                <h5>Vote/Votes: &nbsp${vote_average}/${vote_count}</h5>
+                <h5>Popularity: &nbsp${popularity}</h5>
+                <h5>Original Title: &nbsp${original_title || original_name}</h5>
+                <h5>Genre: &nbsp${genres.length !== 0 ? genresAllOneFilm : 'No genres...'}</h5>
                 <h5>ABOUT</h5>
                 <p>${overview}</p>
             </div>
