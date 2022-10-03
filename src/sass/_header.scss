@@ -63,8 +63,24 @@
 .nav-library-watched {
     padding: 10px 30px;
     margin-right: 300px;
+    border-radius: 10px;
+
+    &.active,
+    &:hover,
+    &:focus {
+        color: white;
+        background-color: #f16500;
+    }
 }
 
 .nav-library-queue {
     padding: 10px 30px;
+    border-radius: 10px;
+
+    &.active,
+    &:hover,
+    &:focus {
+        color: white;
+        background-color: #f16500;
+    }
 }

@@ -499,6 +499,11 @@ function onQueueModal() {
 function onMyLibraryWatched() {
     console.log("Вешаю слушателя на кнопку MY LIBRARY==>WATCHED"); //!
 
+    //! Добавляем класс active на кнопку WATCHED (если его нет)
+    if (!refs.watchedHeader.classList.contains("active")) refs.watchedHeader.classList.add("active");
+    //! Удаляем класс active на кнопке QUEUE (если он есть)
+    if (refs.queueHeader.classList.contains("active")) refs.queueHeader.classList.remove("active");
+
     //! Назначаем тип станицы WATCHED для логики работы кнопок МОДАЛКИ
     currentPage = "watched";
 
@@ -536,6 +541,11 @@ function onMyLibraryWatched() {
 //* -------------------------- Ф-ция_7, для работы с кнопкой QUEUE в MY LIBRARY : ----------------------
 function onQueue() {
     console.log("Вешаю слушателя на кнопку MY LIBRARY==>QUEUE"); //!
+
+    //! Добавляем класс active на кнопку QUEUE (если его нет)
+    if (!refs.queueHeader.classList.contains("active")) refs.queueHeader.classList.add("active");
+    //! Удаляем класс active на кнопке WATCHED (если он есть)
+    if (refs.watchedHeader.classList.contains("active")) refs.watchedHeader.classList.remove("active");
 
     //! Назначаем тип станицы QUEUE для логики работы кнопок МОДАЛКИ
     currentPage = "queue";
