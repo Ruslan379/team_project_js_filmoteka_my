@@ -20,6 +20,10 @@ import LoadMoreBtn from './js/load-more-btn.js';
 //! Импорт массива объектов всех жанров из файла genres.js (ВРЕМЕННО. Надо сделать два запроса)
 import { genres } from './js/genres.js';
 
+//! Импорт картинки-заглушки
+import defaultImage from './img/no-img.jpg';
+// console.log("defaultImage:", defaultImage); //!
+
 //? імпорт функції для додавання кнопок модалки карточки фільмів (Рома)
 // import addIventListenerModalBtn from './js/addIventListenerModalBtn';
 
@@ -830,6 +834,15 @@ function createMoviesCardsMarkup(results) {
     return results
         .map(({ id, poster_path, title, name, genre_ids, first_air_date, release_date }) => {
 
+            //! Создаем переменную для хранения строки с ссылкой на ПОСТЕР фильма
+            console.log("poster_path:", poster_path); //!
+            let posterImage = "https://image.tmdb.org/t/p/w780" + poster_path
+            console.log("posterImage:", posterImage); //!
+            console.log(typeof (posterImage)); //!  Проверяем, что это - СТРОКА
+
+            //! Проверяем poster_path на null
+            if (!poster_path) posterImage = defaultImage;
+
             //? Получаем массив жанров для каждого фильма и строку всех жанров:
             const genresAllOneFilmArray = genre_ids.map(id => convertingIdToGenre(id)); //! массив жанров для каждого фильма
             // console.log("genresOneFilm:", genresAllOneFilmArray); //!
@@ -866,7 +879,7 @@ function createMoviesCardsMarkup(results) {
 
             return `
                 <li key=${id}>
-                    <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="${title || name}" />
+                    <img src="${posterImage}" alt="${title || name}" />
 
                     <div>
                     <h2>${capitalsTitle || name}</h2>
@@ -878,7 +891,7 @@ function createMoviesCardsMarkup(results) {
         .join('');
 };
 
-
+{/* <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="${title || name}" /> */ }
 
 //! +++++++++++++++++++++++++++++ Markup infoFilm ++++++++++++++++++++++++++++++++++++++++++++++
 //*  Ф-ция-then, к-рая отрисовывает интерфейс ОДНОГО фильма в МОДАЛКЕ:
