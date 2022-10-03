@@ -20,8 +20,12 @@ import LoadMoreBtn from './js/load-more-btn.js';
 //! Импорт массива объектов всех жанров из файла genres.js (ВРЕМЕННО. Надо сделать два запроса)
 import { genres } from './js/genres.js';
 
-//! Импорт картинки-заглушки
+//! Импорт картинки-заглушки для HOME
 import defaultImage from './img/no-img.jpg';
+// console.log("defaultImage:", defaultImage); //!
+
+//! Импорт картинки-заглушки для МОДАЛКИ
+import defaultImageMemodal from './img/no-img_modal.jpg';
 // console.log("defaultImage:", defaultImage); //!
 
 //? імпорт функції для додавання кнопок модалки карточки фільмів (Рома)
@@ -744,75 +748,6 @@ function addIventListenerModalBtn() {
 
 // ! +++++++++++++++++++++++ БЛОК ЛОГИКИ работы кнопок <ADD TO WATCHED> и <ADD TO QUEUE> +++++++++++++++++++++++
 // ?  Теперь импортируем из файла './js/operationLogicWatchedQueue.js';
-//----------------------------------------------------------------------------------------------------
-// function operationLogicWatchedQueue() {
-//     console.log("БЛОК ЛОГИКИ_currentPage ==>:", currentPage); //!
-//     console.log("БЛОК ЛОГИКИ_refs.watchedModal ==>:", refs.watchedModal); //!
-//     console.log("БЛОК ЛОГИКИ_refs.queueModal ==>:", refs.queueModal); //!
-
-//     //? ------------------------------------------- кнопки WATCHED и QUEUE -------------------------------------------
-//     //! Устанвливаем начальные значения textContent для кнопки WATCHED в модалке
-//     refs.watchedModal.textContent = "ADD TO WATCHED";
-//     if (refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.remove("colorRed");
-//     if (!refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.add("colorGreen");
-
-//     //! Устанвливаем начальные значения textContent для кнопки QUEUE в модалке
-//     refs.queueModal.textContent = "ADD TO QUEUE";
-//     if (refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.remove("colorRed");
-//     if (!refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.add("colorGreen");
-
-//     //! ИЛИ: в зависимости от того, на какой странице находится пользователь:
-
-//     //! 1.Логика работы кнопок на странице <HOME или Filmoteka> и <Movie search> если фильм уже есть в localStorage
-//     if (currentPage === "home-Filmoteka" || currentPage === "Movie search") {
-//         // console.log("currentPage = home-Filmoteka && Movie search"); //!
-//         //! Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если фильм уже есть в localStorage
-//         if (localStorageWatched.find(option => option.id === infoFilm.id)) {
-//             Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в WATCHED`, { timeout: 3500, },);
-//             refs.watchedModal.textContent = "DELETE FROM WATCHED";
-//             if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
-//             if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
-//         };
-//         //! Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если фильм уже есть в localStorage
-//         if (localStorageQueue.find(option => option.id === infoFilm.id)) {
-//             Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в QUEUE`, { timeout: 3500, },);
-//             refs.queueModal.textContent = "DELETE FROM QUEUE";
-//             if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
-//             if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
-//         };
-//     };
-
-//     //? ------------------------------------------- кнопка WATCHED -------------------------------------------
-//     //! 2.Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если пользователь на странице MY LIBRARY==>WATCHED
-//     if (currentPage === "watched") {
-//         refs.watchedModal.textContent = "DELETE FROM WATCHED";
-//         if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
-//         if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
-//         //! Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если пользователь на странице MY LIBRARY==>WATCHED и фильм уже есть в localStorage-QUEUE
-//         if (localStorageQueue.find(option => option.id === infoFilm.id)) {
-//             Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в QUEUE`, { timeout: 3500, },);
-//             refs.queueModal.textContent = "DELETE FROM QUEUE";
-//             if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
-//             if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
-//         };
-//     };
-
-//     //? ------------------------------------------- кнопка QUEUE -------------------------------------------
-//     //! 3.Замена "ADD TO QUEUE" на "DELETE FROM QUEUE" если пользователь на странице MY LIBRARY==>QUEUE
-//     // refs.queueModal.classList.add("colorGreen");
-//     if (currentPage === "queue") {
-//         refs.queueModal.textContent = "DELETE FROM QUEUE";
-//         if (refs.queueModal.classList.contains("colorGreen")) refs.queueModal.classList.remove("colorGreen");
-//         if (!refs.queueModal.classList.contains("colorRed")) refs.queueModal.classList.add("colorRed");
-//         //! Замена "ADD TO WATCHED" на "DELETE FROM WATCHED" если пользователь на странице MY LIBRARY==>QUEUE и фильм уже есть в localStorage-WATCHED
-//         if (localStorageWatched.find(option => option.id === infoFilm.id)) {
-//             Notiflix.Notify.warning(`Фильм ${infoFilm.title || infoFilm.name} уже есть в WATCHED`, { timeout: 3500, },);
-//             refs.watchedModal.textContent = "DELETE FROM WATCHED";
-//             if (refs.watchedModal.classList.contains("colorGreen")) refs.watchedModal.classList.remove("colorGreen");
-//             if (!refs.watchedModal.classList.contains("colorRed")) refs.watchedModal.classList.add("colorRed");
-//         };
-//     };
-// };
 //! __________________________________________________________________________________________________________________
 
 
@@ -834,13 +769,13 @@ function createMoviesCardsMarkup(results) {
     return results
         .map(({ id, poster_path, title, name, genre_ids, first_air_date, release_date }) => {
 
-            //! Создаем переменную для хранения строки с ссылкой на ПОСТЕР фильма
-            console.log("poster_path:", poster_path); //!
+            //? Создаем переменную для хранения строки с ссылкой на ПОСТЕР фильма
+            // console.log("poster_path:", poster_path); //!
             let posterImage = "https://image.tmdb.org/t/p/w780" + poster_path
-            console.log("posterImage:", posterImage); //!
-            console.log(typeof (posterImage)); //!  Проверяем, что это - СТРОКА
+            // console.log("posterImage:", posterImage); //!
+            // console.log(typeof (posterImage)); //!  Проверяем, что это - СТРОКА
 
-            //! Проверяем poster_path на null
+            //? Проверяем poster_path на null
             if (!poster_path) posterImage = defaultImage;
 
             //? Получаем массив жанров для каждого фильма и строку всех жанров:
@@ -920,6 +855,15 @@ function createInfoMovieMarkup(infoFilm) {
         overview
     } = infoFilm
 
+    //? Создаем переменную для хранения строки с ссылкой на ПОСТЕР фильма
+    // console.log("poster_path:", poster_path); //!
+    let posterImage = "https://image.tmdb.org/t/p/w300" + poster_path
+    // console.log("posterImage:", posterImage); //!
+    // console.log(typeof (posterImage)); //!  Проверяем, что это - СТРОКА
+
+    //? Проверяем poster_path на null
+    if (!poster_path) posterImage = defaultImageMemodal;
+
     //? Получаем строку со всеми жанрами
     const genresAllOneFilm = genres.map(item => item.name).join(", ");
 
@@ -941,7 +885,7 @@ function createInfoMovieMarkup(infoFilm) {
     return `
         <div class="modal-markup">
             
-            <img src="https://image.tmdb.org/t/p/w300${poster_path}" alt="${title || name}" />
+            <img src="${posterImage}" alt="${title || name}" />
             
             <div class="modal-сontent">
                 <h3>${capitalsTitle || capitalsName}</h3>
@@ -999,6 +943,15 @@ function createWatchedQueueCardsMarkup(results) {
             vote_average
         }) => {
 
+            //? Создаем переменную для хранения строки с ссылкой на ПОСТЕР фильма
+            // console.log("poster_path:", poster_path); //!
+            let posterImage = "https://image.tmdb.org/t/p/w780" + poster_path
+            // console.log("posterImage:", posterImage); //!
+            // console.log(typeof (posterImage)); //!  Проверяем, что это - СТРОКА
+
+            //? Проверяем poster_path на null
+            if (!poster_path) posterImage = defaultImage;
+
             //? Получаем строку со всеми жанрами
             const genresAllOneFilm = genres.map(item => item.name).join(", ");
             // console.log("genresAllOneFilm:", genresAllOneFilm); //!
@@ -1031,7 +984,7 @@ function createWatchedQueueCardsMarkup(results) {
 
             return `
                 <li key=${id}>
-                    <img src="https://image.tmdb.org/t/p/w780${poster_path}" alt="${title || name}" />
+                    <img src="${posterImage}" alt="${title || name}" />
 
                     <div>
                         <h2>${capitalsTitle || capitalsName}</h2>
