@@ -25,7 +25,7 @@ import defaultImage from './img/no-img.jpg';
 // console.log("defaultImage:", defaultImage); //!
 
 //! Импорт картинки-заглушки для МОДАЛКИ
-import defaultImageMemodal from './img/no-img_modal.jpg';
+import defaultImageModal from './img/no-img_modal.jpg';
 // console.log("defaultImage:", defaultImage); //!
 
 //? імпорт функції для додавання кнопок модалки карточки фільмів (Рома)
@@ -828,7 +828,7 @@ function createMoviesCardsMarkup(results) {
 
                     <div>
                     <h2>${capitalsTitle || name}</h2>
-                        <h3>${genresAllOneFilm} &nbsp|&nbsp ${yearDate}</h3>
+                        <h3>${genresAllOneFilmArray.length !== 0 ? genresAllOneFilm : 'No genres...'}  &nbsp|&nbsp ${yearDate}</h3>
                     </div>
                 </li>
                 `;
@@ -872,12 +872,12 @@ function createInfoMovieMarkup(infoFilm) {
     // console.log(typeof (posterImage)); //!  Проверяем, что это - СТРОКА
 
     //? Проверяем poster_path на null
-    if (!poster_path) posterImage = defaultImageMemodal;
+    if (!poster_path) posterImage = defaultImageModal;
 
     //? Получаем строку со всеми жанрами
     const genresAllOneFilm = genres.map(item => item.name).join(", ");
 
-    //? Делаем заглавныее буквы в названии фильма (пока НЕ РАБОТАЕТ capitalsName)
+    //? Делаем заглавные буквы в названии фильма 
     let capitalsTitle = title;
     if (title) {
         capitalsTitle = title.toUpperCase();
@@ -902,7 +902,7 @@ function createInfoMovieMarkup(infoFilm) {
                 <h5>Vote/Votes ${vote_average}/${vote_count}</h5>
                 <h5>Popularity ${popularity}</h5>
                 <h5>Original Title ${original_title || original_name}</h5>
-                <h5>Genre ${genresAllOneFilm}</h5>
+                <h5>Genre: ${genres.length !== 0 ? genresAllOneFilm : 'No genres...'}</h5>
                 <h5>ABOUT</h5>
                 <p>${overview}</p>
             </div>
@@ -972,11 +972,11 @@ function createWatchedQueueCardsMarkup(results) {
             const yearDate = date.substr(0, 4); //! значение года из строки даты:
             // console.log("yearDate:", yearDate); //!
 
-            //?Убираем лишние знаки после запятой 
+            //? Убираем лишние знаки после запятой 
             const voteAverage = vote_average.toFixed(1);
             // console.log("voteAverage:", voteAverage); //!
 
-            //? Делаем заглавныее буквы в названии фильма (пока НЕ РАБОТАЕТ capitalsName)
+            //? Делаем заглавные буквы в названии фильма 
             let capitalsTitle = title;
             if (title) {
                 capitalsTitle = title.toUpperCase();
@@ -998,7 +998,7 @@ function createWatchedQueueCardsMarkup(results) {
 
                     <div>
                         <h2>${capitalsTitle || capitalsName}</h2>
-                        <h3>${genresAllOneFilm} &nbsp|&nbsp ${yearDate}&nbsp &nbsp${voteAverage}</h3>
+                        <h3>${genres.length !== 0 ? genresAllOneFilm : 'No genres...'} &nbsp|&nbsp ${yearDate}&nbsp &nbsp${voteAverage}</h3>
                     </div>
                 </li>
                 `;
