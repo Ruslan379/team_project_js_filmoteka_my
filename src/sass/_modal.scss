@@ -91,22 +91,32 @@ body.show-modal .modal {
 
 
 
+//! Руслан
 .colorGreen {
     color: white;
-    background-color: #006100;
+    // background-color: #006100;
+    // background-color: #63796a;
+    // background-color: #502e15;
+    background-color: #74421f;
 
     &:hover,
     &:focus {
-        background-color: #00a300;
+        // background-color: #00a300;
+        // background-color: #8aac95;
+        background-color: #945b32;
     }
 }
 
 .colorRed {
     color: white;
-    background-color: #810000;
+    // background-color: #810000;
+    // background-color: #FF6B01;
+    background-color: #f16500;
 
     &:hover,
     &:focus {
-        background-color: #da0000;
+        // background-color: #da0000;
+        // background-color: #ff964b;
+        background-color: #f17923;
     }
 }
