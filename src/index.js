@@ -835,7 +835,7 @@ function createMoviesCardsMarkup(results) {
             const yearDate = date.substr(0, 4); //! значение года из строки даты:
             // console.log("yearDate:", yearDate); //!
 
-            //? Делаем заглавныее буквы в названии фильма (пока НЕ РАБОТАЕТ capitalsName)
+            //? Делаем заглавныее буквы в названии фильма 
             let capitalsTitle = title;
             if (title) {
                 capitalsTitle = title.toUpperCase();
