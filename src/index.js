@@ -927,12 +927,17 @@ function createInfoMovieMarkup(infoFilm) {
         // console.log("capitalsName:", capitalsName); //!
     };
 
+    //? Показываем текущую страницу только в MY LIBRARY
+    const currentPageMyLibrary = "Your current Library is " + currentPage.toUpperCase()
+    // console.log("currentPageMyLibrary:", currentPageMyLibrary); //!
+
     return `
         <div class="modal-markup">
             
             <img src="${posterImage}" alt="${title || name}" />
             
             <div class="modal-сontent">
+                <h4 class="modal-memo-Library">${(currentPage === "watched" || currentPage === "queue") ? currentPageMyLibrary : ''}</h4>
                 <h3>${capitalsTitle || capitalsName}</h3>
                 <h5>Vote/Votes: &nbsp${vote_average}/${vote_count}</h5>
                 <h5>Popularity: &nbsp${popularity}</h5>
