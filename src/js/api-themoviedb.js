@@ -5,7 +5,8 @@ import axios from 'axios';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = '41b230c5977baa736e324532e16fdadb';
 
-const END_POINTS_1 = "trending/all/week" //!  /trending/all/day ==> список самых популярных фильмов на сегодня для создания коллекции на главной странице.
+const END_POINTS_1 = "trending/all/day" //!  /trending/movie/week ==> список ВСЕХ самых популярных фильмов на сегодня ЗА ДЕНЬ для создания коллекции на главной странице.
+// const END_POINTS_1 = "trending/movie/week" //!  /trending/movie/week ==> список <movie> самых популярных фильмов на сегодня ЗА НЕДЕЛЮ для создания коллекции на главной странице.
 
 const END_POINTS_2 = "search/movie" //!  /search/search-movies ==> поиск кинофильма по ключевому слову на странице фильмов.
 // const query = "avatar" //? для тестирования
